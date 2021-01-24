@@ -10,11 +10,11 @@ router.get('/log-in',studentController.loginfailed);
 router.get('/register',studentController.register);
 router.post('/register',studentController.createStudent);
 router.get('/verification',studentController.verification);
-router.get('/profile',passport.checkAuthentication,studentController.profile);
+router.get('/sprofile',passport.checkAuthentication,studentController.profile);
 
 // //use passport as a middle to authenticate
-router.post('/login',passport.authenticate(
-                                        'local',
+router.post('/slogin',passport.authenticate(
+                                        'student',
                                         {failureRedirect:'/students/log-in'}),
                                         studentController.createSession);
 router.get('/logout',studentController.destroySession);                                        

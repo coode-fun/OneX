@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Add Admin</h1>
+    <form action="/users/addAdmin" method="POST">
+        <input type="text" name="email" placeholder="email" required>
+        <input type="password" name="password" placeholder="password" required>
+        <input type="password" name="re_password" placeholder="confirm password" required>
+        <input type="text" name="verified" placeholder="Y/N" required>
+        <input type="submit" value="Add Admin">
+    </form>
+</body>
+</html>

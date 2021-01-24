@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
-        <title>Log in</title>
+        <title>Admin login</title>
         <!-- Required meta tags-->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,7 +14,7 @@
      <link rel="stylesheet" href="../../css/font-awesome/font-awesome.min.css">
      <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
      
-        <link rel="stylesheet" href="../../css/css/signin.css">
+        <link rel="stylesheet" href="../../css/css/admin-login.css">
     </head>
     <body>
         <div class="container">
@@ -27,9 +26,8 @@
                                 <div class="d-flex flex-column align-items-center text-center">
                                     
                                     <div class="mt-3">
-                                      <h5 style="color: red;"><%=message%></h5>
-                                      <h4>Sign in</h4>
-                                      <form action="/students/slogin" method="POST">
+                                      <h4>Login</h4>
+                                      <form action="/admins/login" method="POST">
                                         <div class="form-group">
                                           
                                           <input type="email" name="email" id="email" class="form-control" placeholder="email@example.com" required/>
@@ -38,15 +36,14 @@
                                          
                                           <input type="password" name="password" id="password" class="form-control" placeholder="enter your passsword" required/>
                                         </div>
-                                        <!-- <input type="submit" value="Log in"> -->
-                                        <button id="login" class="btn btn-block login-btn" type="submit">Log in</button>
+                                        <button  id="login" class="btn btn-block login-btn" type="submit">Log in</button>
                                       </form>
                                       <a href="../registration-authentication/resetpass.html" style="text-decoration: none;">Forgot password?</a>
                                       <br>
                                       <br>
                                       <br>
-                                      <p>Don't have an account? <a href="/students/register" class="text-reset"><b><u><i>Register here</i></u></b></a></p>
-                                      <br>
+                                      <p>Add profile details <a href="../Details/admin_details.html" class="text-reset"><b><u><i>Here</i></u></b></a></p>
+                                      
                                       <p>Please mail your concerns to gbye8334@gmail.com</p>    
                                     </div>
                                 </div>

@@ -1,0 +1,67 @@
+body{
+	margin-top:50px;
+	color: #1a202c;
+	text-align: left;
+  background-color: #e2e8f0;   
+  background-image: url(../../image/front_back.jpg);
+   
+  }
+  .main-body {
+  padding: 15px;
+  
+	
+  }
+  .card {
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+  }
+  
+  .card {
+	position: relative;
+	background-color: #fff;
+	border: 0 solid rgba(0,0,0,.125);
+	border-radius: .25rem;
+   
+  }
+  
+  .card-body {
+	
+	padding: 1rem;
+  }
+  
+  .btn-block {
+	padding: 10px 10px;
+		background-color: green;
+		border-radius: 0;
+		font-size: 20px;
+		font-weight: bold;
+		color: #fff;
+		margin-bottom: 14px; 
+  }
+  button a{
+	color: white;
+  }
+  button a:hover{
+	color: white;
+	text-decoration: none;
+  }
+  .gutters-sm {
+	margin-right: -8px;
+	margin-left: -8px;
+  }
+  
+  
+  .mb-3, .my-3 {
+	margin-bottom: 1rem!important;
+  }
+  
+  .bg-gray-300 {
+	background-color: #e2e8f0;
+  }
+  .h-100 {
+	height: 100%!important;
+  }
+  .shadow-none {
+	box-shadow: none!important;
+  }
+  
+  

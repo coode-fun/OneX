@@ -3,20 +3,19 @@ const mailer=require('../mailers/verificationMail');
 
 module.exports.login=(req,res)=>{
         //renderlogin page
-        // if(req.isAuthenticated()){
-        //     return res.redirect('/books/booklist');
-        // }
+        if(req.isAuthenticated()){
+            return res.redirect('/students/sprofile');
+        }
         return res.render('students/login',{message:""});
-        
 }
+
 //when login failed due to wrong email or passport
 module.exports.loginfailed=(req,res)=>{
     //renderlogin page
     if(req.isAuthenticated()){
-        return res.redirect('/students/profile');
+        return res.redirect('/students/sprofile');
     }
     return res.render('students/login',{message:"email and password don't match!"});
-    
 }
 
 module.exports.loggedin=(req,res)=>{
@@ -26,18 +25,21 @@ module.exports.register=(req,res)=>{
     //render registeration page
     
     if(req.isAuthenticated()){
-        return res.redirect('/students/profile');
+        return res.redirect('/students/sprofile');
     }
     return res.render('students/register',{message:""});
 }
+
 module.exports.profile=(req,res)=>{
     return res.render('students/profile.ejs');
 }
+
 module.exports.verification=(req,res)=>{
     //render the successfully registerd page
     return res.render('students/verificationMessage');
 }
-// //verification of user by email
+
+//verification of user by email
 module.exports.verify=function(req,res){
     var email=req.params.email;
     console.log(email,"-------------------->");
@@ -56,9 +58,8 @@ module.exports.verify=function(req,res){
 }
 
 module.exports.createStudent=function(req,res){
-
     // return res.send(req.body);
-    //add user to database
+    // add user to database
     if(req.body.password!=req.body.re_password){
         return res.render('students/register',{message:"password don't match!"});
     }
@@ -72,7 +73,8 @@ module.exports.createStudent=function(req,res){
                     email:req.body.email,
                     enrollment:req.body.enrollment,
                     department:req.body.department,
-                    password:req.body.password
+                    password:req.body.password,
+                    identity:'s'+req.body.email
                 }
                 Students.create(object,(err,result)=>{
                     if(err)
@@ -82,11 +84,11 @@ module.exports.createStudent=function(req,res){
                     mailer.newVerification(result);
                     console.log(result);
                     return res.redirect('/students/verification');
-                })
-            }
+            })
+        }
             else
             return res.render('students/register',{message:"email is already taken!"});    
-        });
+    });
 }
 
 module.exports.createSession=(req,res)=>{
@@ -96,11 +98,12 @@ module.exports.createSession=(req,res)=>{
     }
     //create session using passport
     console.log("success-------->",req.user);
-    return res.redirect('/students/profile');
+    return res.redirect('/students/sprofile');
 }
 
 module.exports.destroySession=(req,res)=>{
     //
     req.logout();
     return res.redirect('/');
+
 }

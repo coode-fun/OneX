@@ -1,39 +1,42 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
-const studentSchema=new Schema({
+const adminSchema=new Schema({
     name:{
         type:String,
-        required:true
+        default:""
     },
     email:{
         type:String,
         unique:true,
         required:true
     },
-    enrollment:{
+    phone:{
         type:String,
-        required:true
+        default:""
     },
     department:{
         type:String,
-        required:true
+        default:""
+    },
+    address:{
+        type:String,
+    },
+    verified:{
+        type:Boolean,
+        default:true
     },
     password:{
         type:String,
         required:true
     },
-    verified:{
-        type:Boolean,
-        default:false
-    },
     identity:{
         type:String,
         unique:true,
-        required:true
+        
     }
 });
 
-const Students=mongoose.model("students",studentSchema);
+const Admins=mongoose.model("admins",adminSchema);
 
-module.exports=Students;
+module.exports=Admins;
