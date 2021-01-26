@@ -6,10 +6,18 @@ const studentSchema=new Schema({
         type:String,
         required:true
     },
+    orgCode:{
+        type:String,
+        default:"Self"
+    },
     email:{
         type:String,
         unique:true,
         required:true
+    },
+    course:{
+        type:String,
+        default:""
     },
     enrollment:{
         type:String,

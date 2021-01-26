@@ -94,7 +94,7 @@ module.exports.deleteSubject=(req,res)=>{
     //delete subject by id
     let s_code=req.params;
     console.log(s_code);
-    Subject.deleteOne({email:req.user.email,s_code},(err)=>{
+    Subject.deleteOne({email:req.user.email,s_code:s_code.s_code},(err)=>{
         if(err){
             return res.render('home/error',{message:"Error in deletion"});
         }else{
@@ -102,3 +102,5 @@ module.exports.deleteSubject=(req,res)=>{
         }
     });
 }
+
+//add questions

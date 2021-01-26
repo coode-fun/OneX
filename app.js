@@ -10,6 +10,7 @@ var app=express();
 var url="mongodb+srv://OneX_2021:OneX_2021@onex.ulmfc.mongodb.net/onex?retryWrites=true&w=majority";
 
 mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true  },(err)=>{
+
     if(err){
             console.log("Connection failed!!");
         }
@@ -47,6 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 
+
 app.get('/',(req,res)=>{
     console.log(req.isAuthenticated(),"inside home");
     if(req.isAuthenticated()){
@@ -66,6 +68,7 @@ app.use('/students',require('./routes/students'));
 app.use('/users',require('./routes/users'));
 app.use('/admins',require('./routes/admins'));
 app.use('/tests',require('./routes/tests'));
+app.use('/questions',require('./routes/questions'));
 
 var port=process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 5000;
 

@@ -17,6 +17,7 @@ router.post('/login',passport.authenticate(
                                         'admin',
                                         {failureRedirect:'/admins/login'}),
                                         adminController.createSession);
+                                        
 router.get('/logout',adminController.destroySession);                                        
 // router.get('/verify/:email',studentController.verify);
 

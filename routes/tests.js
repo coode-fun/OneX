@@ -14,6 +14,9 @@ router.get('/createTest/:s_code',testController.addTest);
 router.post('/createTest/:s_code',testController.createTest);
 router.get('/deleteTest/:s_code/:t_code',testController.deleteTest);
 
+//add question page render
+// router.get('/addQuestions',testController.addQuestions);
+// router.post('/addQuestions',testController.createQuestions);
 // router.get('/deleteQuestion/:s_code',testController.deleteQuestion);
 
 // router.get('/deleteTest/:t_code',testController.deleteSubject);

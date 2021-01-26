@@ -50,4 +50,4 @@ const questionSchema=new Schema({
 
 const Questions=mongoose.model("questions",questionSchema);
 
-module.exports=Question;
+module.exports=Questions;
