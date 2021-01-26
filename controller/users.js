@@ -78,6 +78,7 @@ module.exports.createAdmin=function(req,res){
                 var object={
                     email:req.body.email,
                     password:req.body.password,
+                    orgCode:req.body.orgCode,
                     verified:true,
                     identity:'a'+req.body.email
                 }

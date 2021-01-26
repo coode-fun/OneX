@@ -20,4 +20,7 @@ router.post('/login',passport.authenticate(
 router.get('/logout',adminController.destroySession);                                        
 // router.get('/verify/:email',studentController.verify);
 
+router.get('/updateProfile',adminController.updateProfile);
+router.post('/updateAdmin',adminController.updateAdmin);
+router.get('/createdTest',adminController.createdTest);
 module.exports=router;

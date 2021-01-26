@@ -67,7 +67,6 @@ passport.serializeUser((user,done)=>{
     done(null,user.identity);
 })
 
-
     //deserializing the user from the key in the cookies
 passport.deserializeUser((id,done)=>{
 
@@ -112,7 +111,7 @@ passport.setAuthenticatedUser=function(req,res,next){
     console.log(req.isAuthenticated());
     if(req.isAuthenticated()){
         //res.user contains the current signed in user from the session cookies andd we are just sending to the locals for the views
-        console.log(req.user);
+        // console.log(req.user);
         res.locals.user=req.user;
     }
     next();

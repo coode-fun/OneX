@@ -9,9 +9,15 @@
     <h1>Add Admin</h1>
     <form action="/users/addAdmin" method="POST">
         <input type="text" name="email" placeholder="email" required>
+        <br>
         <input type="password" name="password" placeholder="password" required>
+        <br>
         <input type="password" name="re_password" placeholder="confirm password" required>
+        <br>
+        <input type="text" name="orgCode" placeholder="Organisation Code" required>
+        <br>
         <input type="text" name="verified" placeholder="Y/N" required>
+        <br>
         <input type="submit" value="Add Admin">
     </form>
 </body>

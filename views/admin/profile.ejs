@@ -24,10 +24,10 @@
                   <nav aria-label="breadcrumb" class="main-breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item active" aria-current="page">Profile</li>
-                        <li class="breadcrumb-item"><a href="../Details/admin_details.html">Update Profile</a></li>
-                        <li class="breadcrumb-item"><a href="../admin/add_subject.html">Create Test</a></li>
+                        <li class="breadcrumb-item"><a href="/admins/updateProfile">Update Profile</a></li>
+                        <li class="breadcrumb-item"><a href="/tests/addSubject">Create Test</a></li>
                         <li class="breadcrumb-item"><a href="../admin/notification.html">Notification</a></li>
-                        <li class="breadcrumb-item"><a href="../admin/test_created.html">Tests Created</a></li>
+                        <li class="breadcrumb-item"><a href="/admins/createdTest">Tests Created</a></li>
                         <li class="breadcrumb-item"><a href="/admins/logout">Logout</a></li>
                     </ol>
                   </nav>
@@ -40,7 +40,7 @@
                         <div class="card-body">
                           <div class="d-flex flex-column align-items-center text-center">
                             
-                            <img src="../image/profile.jpg" alt="Admin" class="rounded-circle" width="150" id="image">
+                            <img src="../../images/profile.jpg" alt="Admin" class="rounded-circle" width="150" id="image">
                             <i class="fa fa-camera upload-button"></i>
                             <input class="file-upload" type="file" accept="image/*"/>
                            
@@ -69,9 +69,9 @@
                               });
                             </script>
                             <div class="mt-3">
-                              <h4>Surajit Kumar Roy</h4>
-                              <p class="text-secondary mb-1">Associate Professor</p>
-                              <p class="text-muted font-size-sm">IIEST Shibpur</p>
+                              <h4><%=user.name%></h4>
+                              <p class="text-secondary mb-1"><%=user.designation%></p>
+                              <p class="text-muted font-size-sm"><%=user.collage_name%></p>
                               <!-- <button class="btn btn-primary">Follow</button>
                               <button class="btn btn-outline-primary">Message</button> -->
                             </div>
@@ -87,28 +87,28 @@
                         <div class="card-body">
                           <div class="row">
                             <div class="col-sm-3">
-                              <h6 class="mb-0">First Name</h6>
+                              <h6 class="mb-0"> Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                              Surajit Kumar
+                              <%=user.name%>
                             </div>
                           </div>
                           <hr>
-                          <div class="row">
+                          <!-- <div class="row">
                             <div class="col-sm-3">
                               <h6 class="mb-0">Last Name</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
                               Roy
                             </div>
-                          </div>
+                          </div> -->
                           <hr>
                           <div class="row">
                             <div class="col-sm-3">
                               <h6 class="mb-0">Degree</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                M.tech, P.hd
+                              <%=user.qualification%>
                             </div>
                           </div>
                           <hr>
@@ -117,7 +117,7 @@
                               <h6 class="mb-0">Designation</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Associate Professor
+                              <%=user.designation%>
                             </div>
                           </div>
                           <hr>
@@ -126,7 +126,7 @@
                               <h6 class="mb-0">Institution</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                IIEST, Shibpur
+                              <%=user.collage_name%>
                             </div>
                           </div>
                           <hr>
@@ -135,7 +135,7 @@
                               <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                              suraroy@gmail.com
+                              <%=user.email%>
                             </div>
                           </div>
                           <hr>
@@ -144,18 +144,18 @@
                               <h6 class="mb-0">Mobile</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                              +91 xxxxxxxxxx
+                              <%=user.phone%>
                             </div>
                           </div>
-                          <!-- <hr>
+                          <hr>
                           <div class="row">
                             <div class="col-sm-3">
                               <h6 class="mb-0">Address</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                Shibpur, Howrah, West Bengal
+                              <%=user.address%>
                             </div>
-                          </div> -->
+                          </div>
                         </div>  
                       </div>
                       <div class="row gutters-sm">

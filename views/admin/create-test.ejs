@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Test Schedule</title>
+    <link rel="stylesheet" href="../../css/css/create-test.css">
+    <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome/font-awesome.min.css">
+     <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
+     
+</head>
+<body>
+    
+    <div class="container">
+        <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="Navbar">
+                    <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/admins/profile"><span class="fa fa-user fa-lg"></span> Profile</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/tests/addSubject"><span class="fa fa-book fa-lg"></span> Create_Test</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-history fa-lg"></span> Create_Schedule</a></li>
+                    </ul>
+                    <span class="navbar-text">
+                        <a href="/admins/logout">
+                            <span class="fa fa-sign-in"></span> Logout
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </nav>
+        <div class="row row-content">
+            <div class="col-12 col-sm-6">
+            <div class="text">Create Test Schedule</div><br>
+            </div>
+            <div class="col-12 col-md-9">
+                <form action="/tests/createTest/<%=s_code%>" method="POST">
+                    <div class="form-group row">
+                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Department :</h6></label>
+                        <div class="col-md-10"  id="department">
+                           <select class="form-control" name="department" required>
+                                <option>Department</option>
+                                <option>Civil</option>
+                                <option>Computer Science</option>
+                                <option>Electronics and Telecommunication</option>
+                                <option>Information Technology</option>
+                                <option>Mechanical</option>
+                                <option>Mining</option>
+                                <option>Metallurgy</option>
+                                <option>General</option>
+                                <option>Open</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Year :</h6></label>
+                        <div class="col-md-10" id="year">
+                           <select class="form-control" name="year" required>
+                                <option>1st year</option>
+                                <option>2nd Year</option>
+                                <option>3rd Year</option>
+                                <option>4th Year</option>
+                                <option>other</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <!-- <div class="form-group row">
+                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Date :</h6></label>
+                        <div class="col-md-10">
+                            <input type="text" name="year" id="year" placeholder="Date" required/>
+                        </div>
+                    </div>  -->
+                    <div class="form-group row">
+                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Date :</h6></label>
+                        <div class="col-md-10">
+                            <input type="date" name="date" id="date" placeholder="Date" required/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="subject_code" class="col-md-2" class="col-form-label"><h6>Start Time :</h6></label>
+                        <div class="col-md-10">
+                            <input type="time" name="start" id="start_time" placeholder="Start_time" required/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="subject_code" class="col-md-2" class="col-form-label"><h6>End Time :</h6></label>
+                        <div class="col-md-10">
+                            <input type="time" name="end" id="end_time" placeholder="End_time" required/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="subject_code" class="col-md-2" class="col-form-label"><h6>Test ID :</h6></label>
+                        <div class="col-md-10">
+                            <input type="text" name="t_code"  id="t_code" placeholder="Test_code" required/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <div class="offset-md-2 col-md-10">
+                            <button type="submit" class="btn btn-primary">
+                                Save Schedule
+                            </button> 
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+        <div class="bdr">
+        <section>
+        
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Test Code</th>
+                        <th>Department</th>
+                        <th>Date</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <!-- <th>Test Duration</th> -->
+                       
+                        <th>Delete</th>
+                        <th>Edit</th>
+                        <th>Add Questions</th>
+                        <th>Students Enrolled</th>
+                    </tr>
+                </thead>
+            
+                <tbody>
+                    <%if(data.length===0){%>
+                        <tr>
+                            <td colspan="9">No Test Created</td>
+                        </tr>
+                    <%}else{for(let i=0;i<data.length;i++){%>
+                        <tr>
+                            <td><%=data[i].t_code%></td>
+                            <td><%=data[i].department%></td>
+                            <td><%=data[i].date%></td>
+                            <td><%=data[i].start%></td>
+                            <td><%=data[i].end%></td>
+                            
+                        <td><button class="btn btn-danger btn-block"><a href="/tests/deleteTest/<%=s_code%>/<%=data[i].t_code%>">Delete</a></button></td>
+                        <td><button class="btn btn-secondary btn-block">Edit</button></td>
+                        <td>
+                            
+                            <button class="btn btn-primary btn-block"><a href="/tests/addQuestions/<%=s_code%>/<%=data[i].t_code%>">Add</a></button>
+                        </td>
+                        <td><button class="btn btn-success btn-block"><a href="#">check</a></button></td>     </tr>
+                    <%}}%>
+                    <!-- <tr>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>1:30</td>
+                        <td>2;00</td> 
+                        <td>2 </td>
+                      
+                        <td><button class="btn btn-danger btn-block">Delete</button></td>
+                        <td><button class="btn btn-secondary btn-block">Edit</button></td>
+                        <td>
+                            
+                            <button class="btn btn-primary btn-block"><a href="/tests/addQuestions">Add</a></button>
+                        </td>
+                        <td><button class="btn btn-success btn-block"><a href="#">check</a></button></td>
+                    </tr> -->
+                </tbody>
+            
+            </table>  
+        
+        </section>  
+        </div>  
+        </div>
+    </div>
+    
+</body>
+</html>

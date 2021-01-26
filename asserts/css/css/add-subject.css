@@ -1,0 +1,48 @@
+
+body{
+    margin: 0;
+  
+}
+.navbar-dark {
+    background-color: rgb(19, 27, 77); 
+}
+.row-content{
+    margin: 0px auto;
+    padding-top: 70px;
+}
+.text{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left; 
+    text-shadow: 1px 1px 2px black;
+   
+}                    
+
+table{
+    width: 95%;
+    table-layout: fixed;
+    margin: 20px auto;
+    
+}
+
+table th{
+    align-items: center;
+    text-align: center;
+}
+table  td{
+    
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    border-collapse: collapse;
+    align-items: center;
+}
+
+td a{
+    color: white;
+}
+
+td a:hover{
+    color: yellow;
+}
+

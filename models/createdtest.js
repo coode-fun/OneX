@@ -1,17 +1,16 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
-const studentSchema=new Schema({
-    name:{
-        type:String,
-        required:true
-    },
+const createdtestSchema=new Schema({
     email:{
         type:String,
-        unique:true,
         required:true
     },
-    enrollment:{
+    s_code:{
+        type:String,
+        required:true
+    },
+    t_code:{
         type:String,
         required:true
     },
@@ -23,21 +22,24 @@ const studentSchema=new Schema({
         type:String,
         required:true
     },
-    password:{
+    start:{
         type:String,
         required:true
     },
-    verified:{
-        type:Boolean,
-        default:false
-    },
-    identity:{
+    end:{
         type:String,
-        unique:true,
         required:true
+    },
+    date:{
+        type:String,
+        required:true
+    },
+    length:{
+        type:String,
+        default:""
     }
 });
 
-const Students=mongoose.model("students",studentSchema);
+const CreatedTest=mongoose.model("createdtest",createdtestSchema);
 
-module.exports=Students;
+module.exports=CreatedTest;
