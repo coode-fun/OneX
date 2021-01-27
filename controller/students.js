@@ -1,6 +1,15 @@
 const Students=require('../models/students');
 const mailer=require('../mailers/verificationMail');
 
+module.exports.notification=(req,res)=>{
+    //render
+    return res.render('home/notification');
+}
+
+module.exports.details=(req,res)=>{
+    //render
+    return res.render('students/details');
+}
 module.exports.login=(req,res)=>{
         //renderlogin page
         if(req.isAuthenticated()){
@@ -70,6 +79,7 @@ module.exports.createStudent=function(req,res){
             {
                 var object={
                     name:req.body.name,
+                    orgCode:req.body.orgCode,
                     email:req.body.email,
                     enrollment:req.body.enrollment,
                     department:req.body.department,
