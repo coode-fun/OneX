@@ -1,51 +1,53 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
-const studentSchema=new Schema({
-    name:{
+const questionSchema=new Schema({
+    email:{
         type:String,
         required:true
     },
     orgCode:{
         type:String,
-        default:"Self"
+        requires:true,
     },
-    email:{
+    s_code:{
         type:String,
-        unique:true,
         required:true
     },
-    course:{
+    t_code:{
+        type:String,
+        required:true
+    },
+    question:{
+        type:String,
+        required:true
+    },
+    option1:{
+        type:String,
+        required:true
+    },
+    option2:{
+        type:String,
+        required:true
+    },
+    option3:{
+        type:String,
+        required:true
+    },
+    option4:{
+        type:String,
+        required:true
+    },
+    answer:{
+        type:String,
+        required:true
+    },
+    explation:{
         type:String,
         default:""
-    },
-    enrollment:{
-        type:String,
-        required:true
-    },
-    department:{
-        type:String,
-        required:true
-    },
-    year:{
-        type:String,
-        required:true
-    },
-    password:{
-        type:String,
-        required:true
-    },
-    verified:{
-        type:Boolean,
-        default:false
-    },
-    identity:{
-        type:String,
-        unique:true,
-        required:true
     }
 });
 
-const Students=mongoose.model("students",studentSchema);
+const Questions=mongoose.model("questions",questionSchema);
 
-module.exports=Students;
+module.exports=Questions;

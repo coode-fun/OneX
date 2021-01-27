@@ -34,6 +34,21 @@ const adminSchema=new Schema({
         type:String,
         unique:true,
         
+    },
+    collage_name:{
+        type:String
+    },
+    orgCode:{
+        type:String,
+        required:true
+    },
+    designation:{
+        type:String,
+        default:""
+    },
+    qualification:{
+        type:String,
+        default:""
     }
 });
 

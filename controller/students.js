@@ -74,8 +74,10 @@ module.exports.createStudent=function(req,res){
                     enrollment:req.body.enrollment,
                     department:req.body.department,
                     password:req.body.password,
-                    identity:'s'+req.body.email
+                    identity:'s'+req.body.email,
+                    year:req.body.year
                 }
+                
                 Students.create(object,(err,result)=>{
                     if(err)
                     {

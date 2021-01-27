@@ -1,4 +1,5 @@
 const Admin=require('../models/admins');
+const CreatedTest=require('../models/createdtest');
 // const mailer=require('../mailers/verificationMail');
 
 module.exports.login=(req,res)=>{
@@ -57,39 +58,27 @@ module.exports.profile=(req,res)=>{
 //         })
 // }
 
-// module.exports.createStudent=function(req,res){
-//     // return res.send(req.body);
-//     // add user to database
-//     if(req.body.password!=req.body.re_password){
-//         return res.render('students/register',{message:"password don't match!"});
-//     }
-//         console.log(req.body.email);
-//         Students.find({email:req.body.email},(err,result)=>{
-//             console.log(result,"<-----------<");
-//             if(result.length==0)
-//             {
-//                 var object={
-//                     name:req.body.name,
-//                     email:req.body.email,
-//                     enrollment:req.body.enrollment,
-//                     department:req.body.department,
-//                     password:req.body.password,
-//                     identity:'s'+req.body.email
-//                 }
-//                 Students.create(object,(err,result)=>{
-//                     if(err)
-//                     {
-//                         return res.send(err);
-//                     }
-//                     mailer.newVerification(result);
-//                     console.log(result);
-//                     return res.redirect('/students/verification');
-//             })
-//         }
-//             else
-//             return res.render('students/register',{message:"email is already taken!"});    
-//     });
-// }
+module.exports.updateAdmin=function(req,res){
+    // return res.send(req.body);
+    // add user to database
+        console.log(req.body.email);
+
+      var object={
+                    name:req.body.name,
+                    phone:req.body.mobile,
+                    department:req.body.department,
+                    address:req.body.address,
+                    collage_name:req.body.collagename,
+                    designation:req.body.designation,
+                    qualification:req.body.qualification
+                }
+                Admin.updateOne({email:req.body.email},{$set: object},
+                    (err)=>{ if(err){
+                            console.log("Error while updation!!");
+                          }
+                })
+        return res.redirect('/admins/profile');
+}
 
 module.exports.createSession=(req,res)=>{
     if(!req.user.verified){
@@ -101,8 +90,25 @@ module.exports.createSession=(req,res)=>{
     return res.redirect('/admins/profile');
 }
 
+module.exports.updateProfile=(req,res)=>{
+    return res.render('admin/update-profile.ejs');
+}
+
 module.exports.destroySession=(req,res)=>{
     //
     req.logout();
     return res.redirect('/');
+}
+
+module.exports.createdTest=(req,res)=>{
+
+    CreatedTest.find({email:req.user.email},(err,result)=>{
+        if(err){
+            return res.render('home/error',{message:"something went wrong"})
+        }else{
+            console.log(result);
+            return res.render('admin/created-test',{data:result});
+        }
+    })
+
 }
