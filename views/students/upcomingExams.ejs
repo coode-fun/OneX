@@ -11,7 +11,6 @@
     <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
      
 </head>
-
 <body>
     <div class="container">
 
@@ -23,15 +22,15 @@
                 <div class="collapse navbar-collapse" id="Navbar">
                     <ul class="navbar-nav mr-auto">
                             <!-- <img src="../image/logo3.png"> -->
-                            <li class="nav-item"><a class="nav-link" href="../registration-authentication/signin.html"><span class="fa fa-sign-in fa-lg"> Login</span></a></li>
-                            <li class="nav-item"><a class="nav-link" href="../user/profile_user.html"><span class="fa fa-user fa-lg"> Profile</span></a></li>
-                            <li class="nav-item"><a class="nav-link" href="../Team/team.html"><span class="fa fa-users fa-lg"> Meet the team</span></a></li>
+                            <!-- <li class="nav-item"><a class="nav-link" href="../registration-authentication/signin.html"><span class="fa fa-sign-in fa-lg"> Login</span></a></li> -->
+                            <li class="nav-item"><a class="nav-link" href="/students/sprofile"><span class="fa fa-user fa-lg"> Profile</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="#"><span class="fa fa-users fa-lg"> Meet the team</span></a></li>
                             
-                            <li class="nav-item active"><a class="nav-link" href="../front/notification.html"><span class="fa fa-bell fa-lg"> Notification</span></a></li>
+                            <!-- <li class="nav-item active"><a class="nav-link" href="../front/notification.html"><span class="fa fa-bell fa-lg"> Notification</span></a></li> -->
                             
                     </ul>
                     <span class="navbar-text">
-                        <a href="../home/admin-user.html">
+                        <a href="/students/logout">
                             <span class="fa fa-sign-in"> Logout</span>
                         </a>
                     </span>
@@ -46,7 +45,7 @@
                        
                             <div class="carousel-item active">
                                 <img class="d-block img-fluid"
-                                    src="../../image/carousel.jpg" alt="carousel">
+                                    src="../../images/carousel.jpg" alt="carousel">
                                 <div class="carousel-caption d-none d-md-block">
                                    
                                         <div class="text">Welcome to Online Examination System : a platform to participate in exams and also to host exams.</div>
@@ -55,21 +54,21 @@
                             </div>
                         <div class="carousel-item">
                             <img class="d-block img-fluid"
-                                src="../../image/computer-test.jpg" alt="background">
+                                src="../../images/computer-test.jpg" alt="background">
                             <div class="carousel-caption d-none d-md-block">
 
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img class="d-block img-fluid"
-                                src="../../image/carousel1 (2).jpg" alt="admin-user">
+                                src="../../images/carousel1 (2).jpg" alt="admin-user">
                             <div class="carousel-caption d-none d-md-block">
                                 
                             </div>
                         </div>
                         <div class="carousel-item">
                             <img class="d-block img-fluid"
-                                src="../../image/carousel7.jpg" alt="user_details2">
+                                src="../../images/carousel7.jpg" alt="user_details2">
                             <div class="carousel-caption dnone d-md-block">
                                 
                             </div>
@@ -112,7 +111,30 @@
                         </thead>
                     
                         <tbody>
-                            <tr>
+                            <%if(data.length===0){%>
+                                <tr>
+                                    <td colspan="5">No data</td>
+                                </tr>
+                            <%}else{for(let i=0;i<data.length;i++){%>
+                                <tr>
+                                    <td>Subject</td>
+                                    <td><%=data[i].department%></td>
+                                    <td>Writer</td>
+                                    <td><%=data[i].date%></td>
+                                    <td><%=data[i].start%></td>
+                                    <td><%=data[i].end%></td>
+                                    <td>2 hours</td>
+                                    <%if(enroll[i]===false){%>
+                                    <td><button class="btn btn-success btn-block" ><a href="/students/testEnroll/<%=data[i].s_code%>$<%=data[i].t_code%>">Register</a></button></td>
+                                    <%}else{%>
+                                        <td>Registered</td>
+                                    <%}%>
+                                    <!-- <td><button class="btn btn-danger btn-block"><a href="/tests/deleteSubject/<%=data[i].s_code%>">Delete</a></button></td>
+                                    <td><button class="btn btn-secondary btn-block"><a href="#">Edit</a></button></td> -->
+                                </tr>
+                            <%}}%>
+                            
+                            <!-- <tr>
                                 <td>OOP</td>
                                     <td>Open</td>
                                     <td>TS</td>
@@ -121,7 +143,7 @@
                                     <td>14:30</td>
                                     <td>1</td>
                                     <td><button type="button" class="btn btn-danger btn-block"><a href="#">Register</a></button></td>
-                                </tr>
+                                </tr> -->
                         </tbody>
                     
                     </table>  

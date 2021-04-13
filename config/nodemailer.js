@@ -10,7 +10,7 @@ let transpoter=nodemailer.createTransport({
     secure:false,
   auth: {
     user: 'onex.sas.2021@gmail.com',
-    pass: 'Onex_098'
+    pass: 'Onex@123'
   }
 })
 

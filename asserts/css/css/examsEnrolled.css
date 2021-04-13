@@ -1,0 +1,78 @@
+
+body{
+    margin: 0;
+  
+}
+.navbar-dark {
+    background-color: rgb(19, 27, 77); 
+}
+.row-content{
+    margin: 0px auto;
+    padding-top: 70px;
+    text-align: center;
+}
+
+.text{
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 1px 1px 2px black;
+    
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+table{
+    table-layout: fixed;
+    height: 100%;
+    /*margin: 20px auto;*/
+    
+}
+
+table th{
+    align-items: center;
+    text-align: center;
+}
+table  td{
+    align-items: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.bdr{
+    display: flex;
+    border: solid 2px black;
+    border-radius: 0.5rem;
+}
+
+button a{
+    color: white;
+}
+
+button a:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.btn.hide{
+    display: none;
+}
+
+
+
+
+
+
+

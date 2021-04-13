@@ -2,6 +2,10 @@ const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
 const createdtestSchema=new Schema({
+    orgCode:{
+        type:String,
+        required:true
+    },
     email:{
         type:String,
         required:true
@@ -33,6 +37,10 @@ const createdtestSchema=new Schema({
     date:{
         type:String,
         required:true
+    },
+    enrolled:{
+        type:Boolean,
+        default:false
     },
     length:{
         type:String,

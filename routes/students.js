@@ -12,13 +12,14 @@ router.post('/register',studentController.createStudent);
 router.get('/verification',studentController.verification);
 router.get('/sprofile',passport.checkAuthentication,studentController.profile);
 router.get('/details',studentController.details);
-router.get('/notification',studentController.notification);
-// //use passport as a middle to authenticate
+router.get('/upcomingExams',studentController.upcomingExams);
+router.get('/examsEnrolled',studentController.examsEnrolled);
+// use passport as a middle to authenticate
 router.post('/slogin',passport.authenticate(
                                         'student',
                                         {failureRedirect:'/students/log-in'}),
                                         studentController.createSession);
 router.get('/logout',studentController.destroySession);                                        
 router.get('/verify/:email',studentController.verify);
-
+router.get('/testEnroll/:code',studentController.testEnroll);
 module.exports=router;

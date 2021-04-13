@@ -22,7 +22,7 @@ module.exports.createSubject=function(req,res){
         }
         console.log(result);
         if(!result){
-            Subject.create({email:req.user.email,s_name:req.body.s_name,s_code:req.body.s_code},(err,result)=>{
+            Subject.create({orgCode:req.user.orgCode,email:req.user.email,s_name:req.body.s_name,s_code:req.body.s_code},(err,result)=>{
                 if(err){
                     
                    return res.status(400).render('home/error',{message:"Error in adding subject"});
@@ -52,6 +52,7 @@ module.exports.createTest=(req,res)=>{
     //add test in database
     // console.log(req.params.s_code,req.params.t_code);
     var obj={
+        orgCode:req.user.orgCode,
         email:req.user.email,
         s_code:req.params.s_code,
         t_code:req.body.t_code,

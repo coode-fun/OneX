@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exams Enrolled</title>
+    <link rel="stylesheet" href="../../css/css/examsEnrolled.css">
+    <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome/font-awesome.min.css">
+    <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
+  
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="Navbar">
+                    <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a class="nav-link" href="/students/sprofile"><span class="fa fa-user fa-lg"> Profile</span></a></li>
+                            <li class="nav-item"><a class="nav-link" href="/students/upcomingExams"><span class="fa fa-bell fa-lg"> Notification</span></a></li>
+                            <!-- <li class="nav-item active"><a class="nav-link" href="#"><span class='fa fa-child fa-lg'> Students</span></a></li> -->
+                    </ul>
+                    <span class="navbar-text">
+                        <a href="/students/logout">
+                            <span class="fa fa-sign-in"> Logout</span>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </nav>
+            <div class="row row-content">
+                <div class="col-12">
+                    <div class="text">Exams Enrolled</div><br>
+                    <div class="card">
+                    <div class="bdr">
+                    <section>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Subject Code</th>
+                                    <th>Writer</th>
+                                    <th>Date</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th></th>
+                                    
+                                </tr>
+                            </thead>
+                                <!-- <tr>
+                                    <td>OOP</td>
+                                    <td>IT-504</td>
+                                    <td>TS</td>
+                                    <td id="startdate">26.12.2020</td>
+                                    <td id="starttime">13:30</td>
+                                    <td id="endtime">14:30</td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-block hide" id="start"><a href="../OS/instruction.html">Start</a></button>
+                                        <button type="button" class="btn btn-success btn-block hide" id="result"><a href="../front/result.html">Result</a></button>
+                                    </td>
+                                    
+                                </tr> -->
+                            <tbody>
+                                <%if(data.length===0){%>
+                                    <tr>
+                                        <td colspan="5">No data</td>
+                                    </tr>
+                                <%}else{for(let i=0;i<data.length;i++){%>
+                                    <tr>
+                                        <td><%=data[i].s_name%></td>
+                                        <td><%=data[i].s_code%></td>
+                                        <td><%=data[i].a_name%></td>
+                                        <td><%=data[i].date%></td>
+                                        <td><%=data[i].start%></td>
+                                        <td><%=data[i].end%></td>
+        
+
+                                        <!-- <td><button class="btn btn-danger btn-block"><a href="/tests/deleteSubject/<%=data[i].s_code%>">Delete</a></button></td>
+                                        <td><button class="btn btn-secondary btn-block"><a href="#">Edit</a></button></td> -->
+                                    </tr>
+                                <%}}%>
+    
+                            </tbody>
+                        
+                        </table>  
+                    
+                    </section> 
+                    </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <!-- <script src="../front/enrolled_students.js"></script> -->
+</body>
+</html>

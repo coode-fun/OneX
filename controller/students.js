@@ -1,9 +1,115 @@
 const Students=require('../models/students');
+const Admins=require('../models/admins');
+const subject=require('../models/subject');
+const CreatedTest=require('../models/createdtest');
+const testSchema=require('../Schema/tests');
 const mailer=require('../mailers/verificationMail');
+const mongoose=require('mongoose');
+const { obj } = require('../Schema/tests');
 
-module.exports.notification=(req,res)=>{
+module.exports.examsEnrolled=(req,response)=>{
+
+    var collection=req.user.email;
+    var display_data=[];
+    
+
+    var collection=mongoose.model(collection,testSchema);
+
+    collection.find({},(err,result)=>{
+        if(err){
+            console.log("Error in exams Enrolled!");
+        }else{
+            if(result.length>0){
+                result.forEach((obj)=>{
+            
+                    CreatedTest.find({orgCode:req.user.orgCode,s_code:obj.s_code,t_code:obj.t_code},(err,res)=>{
+                        
+                        subject.find({orgCode:req.user.orgCode,s_code:obj.s_code},(err,ress)=>{
+                           
+                            Admins.find({email:ress[0].email},(err,result2)=>{
+                                
+                                var display={};
+                                display.s_name=ress[0].s_name;
+                                display.a_name=result2[0].name;        
+                                display.s_code=obj.s_code;
+                                display.t_code=obj.t_code;
+                                display.date=res[0].date;
+                                display.start=res[0].start;
+                                display.end=res[0].end;
+
+                                // console.log(display);
+                                display_data.push(display);
+                                // console.log(display_data);
+                            })
+                        });
+                    })
+                })
+            }
+            
+            setTimeout(()=>{
+                // console.log(display_data);
+                return response.render("students/examsEnrolled",{data:display_data});
+                },1000);
+        }
+    })
+}
+
+module.exports.testEnroll=(req,res)=>{
+
+    var collection=req.user.email;
+    // console.log(collection);
+    var collection=mongoose.model(collection,testSchema);
+    const params=req.params.code.split('$');
+    
+    // const arr=[{
+    //     ques1:"Question1",
+    //     opt1:"Option1",
+    //     exp1:"Explation1"
+    // },
+    // {
+    //     ques2:"Question2",
+    //     opt2:"Option2",
+    //     exp2:"Explation2"
+    // }
+    // ];
+
+    const book=new collection({
+        s_code:params[0],
+        t_code:params[1],
+        enrolled:true
+    });
+    book.save();
+    return res.redirect('/students/sprofile');
+}
+
+module.exports.upcomingExams=async (req,res)=>{
     //render
-    return res.render('home/notification');
+    await CreatedTest.find({orgCode:req.user.orgCode,$or: [{ department:req.user.department }, {department:'Open'},{department:'General'}]},async (err,result)=>{
+       if(err){console.log(err);}
+        var enrolled=[];
+        
+        //checking weather candidate is enrolled or not 
+        
+        await result.forEach(async (obj)=>{
+           
+            var collection=req.user.email;
+            
+            var collection=mongoose.model(collection,testSchema);
+               collection.find({s_code:obj.s_code,t_code:obj.t_code},(err,result)=>{
+                
+                console.log("res.length ",result.length);
+                if(result.length===0){
+                    enrolled.push(false);
+                }else{
+                    enrolled.push(true);
+                }
+            })
+        })
+        setTimeout(()=>{
+        console.log("enrolled: ",enrolled);
+        return res.render('students/upcomingExams',{data:result,enroll:enrolled});
+        },1000);
+    })
 }
 
 module.exports.details=(req,res)=>{
@@ -60,6 +166,8 @@ module.exports.verify=function(req,res){
                 return res.send("error in email varification")
             }
             else{                
+                //create email model for test
+                //
                 console.log("Successfully verified!!");
                 return res.redirect('/students/login');
             }

@@ -61,7 +61,7 @@ module.exports.profile=(req,res)=>{
 module.exports.updateAdmin=function(req,res){
     // return res.send(req.body);
     // add user to database
-        console.log(req.body.email);
+        console.log(req.user.email);
 
       var object={
                     name:req.body.name,
@@ -72,7 +72,7 @@ module.exports.updateAdmin=function(req,res){
                     designation:req.body.designation,
                     qualification:req.body.qualification
                 }
-                Admin.updateOne({email:req.body.email},{$set: object},
+                Admin.updateOne({email:req.user.email},{$set: object},
                     (err)=>{ if(err){
                             console.log("Error while updation!!");
                           }
