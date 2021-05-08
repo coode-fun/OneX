@@ -6,5 +6,6 @@ const questionController=require('../controller/questions')
 //add question page render
 router.get('/addQuestions/:code',questionController.addQuestions);
 router.post('/addQuestions/:s_code/:t_code',questionController.createQuestions);
+router.get('/deleteQuestions/:code',questionController.deleteQuestions);
 
 module.exports=router;

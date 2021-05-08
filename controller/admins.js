@@ -31,6 +31,7 @@ module.exports.login=(req,res)=>{
 //     return res.render('students/register',{message:""});
 // }
 
+//rebdering admin profile page
 module.exports.profile=(req,res)=>{
     return res.render('admin/profile.ejs');
 }
@@ -58,6 +59,7 @@ module.exports.profile=(req,res)=>{
 //         })
 // }
 
+//updating admin profile
 module.exports.updateAdmin=function(req,res){
     // return res.send(req.body);
     // add user to database

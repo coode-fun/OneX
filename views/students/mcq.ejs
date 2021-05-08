@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quiz</title>
+        <meta name = "viewport" content="width=device-width,  initial-scale=1">
+        <link rel="stylesheet" href="../OS/mcq.css">
+        
+        
+        <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+     <!-- build:css css/main.css -->
+     <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
+     <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
+     
+    <!-- endbuild -->
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="Navbar">
+                        <ul class="navbar-nav mr-auto">
+                                <li class="nav-item"><a class="nav-link" href="../user/profile_user.html"><span class="fa fa-user fa-lg"> Profile</span></a></li>
+                                
+                        </ul>
+                        <span class="navbar-text">
+                            <a href="../home/admin-user.html">
+                                <span class="fa fa-sign-in"></span> Logout
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </nav>
+            <div class="row row-content">
+                <div class="home-box custom-box">
+                    <h1>Instructions: </h1>
+                    <h3 >1. Total number of questinos:<span class="total-question"></span></h3>
+                    <h3>2. In the first section there will be all multiple choice questinos with four options</h3>
+                    <h3>3. If you get >= 40.00 % then only you will be able to go to the next section.</h3>
+                    <h3>4. Make sure to allow the camera.</h3>
+                    <button type="button" class="btn btn-lg" onclick="startQuiz()">Start Quiz</button>    
+                </div>
+            
+                <div class="quiz-box custom-box hide">
+                    <div id="demo" style="align-self: center;">8:10:45</div> <br>
+                        <script> 
+                            var deadline = new Date("Jan 23, 2021 22:37:25").getTime(); 
+                            var x = setInterval(function() { 
+                            var now = new Date().getTime(); 
+                            var t = deadline - now; 
+                            var days = Math.floor(t / (1000 * 60 * 60 * 24)); 
+                            var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
+                            var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
+                            var seconds = Math.floor((t % (1000 * 60)) / 1000); 
+                            document.getElementById("demo").innerHTML = days + "d "  
+                            + hours + "h " + minutes + "m " + seconds + "s "; 
+                                if (t < 0) { 
+                                    clearInterval(x); 
+                                    document.getElementById("demo").innerHTML = "EXPIRED"; 
+                                } 
+                            }, 1000); 
+                        </script>     
+                    <div id="square">
+                        <video autoplay="true" id="videoElement">
+                        
+                        </video>
+                    </div>
+                    <script>
+                        var video = document.querySelector("#videoElement");
+
+                        if (navigator.mediaDevices.getUserMedia) {
+                        navigator.mediaDevices.getUserMedia({ video: true })
+                            .then(function (stream) {
+                            video.srcObject = stream;
+                            })
+                            .catch(function (err0r) {
+                            console.log("Something went wrong!");
+                            });
+                        }
+                    </script>  
+                    <br>
+                    <div class="question-number">
+                        
+                    </div>
+                    <div class="question-text">
+                        
+                    </div>
+                    <div class="option-container">
+                        
+                    </div>
+                    
+                    <div class="next-question-button">
+                        <div class="col-12">
+                        
+                        <button class="btn btn-lg hide" id="prev">Previous</button>
+                        
+                        <button class="btn btn-lg hide" id="next">Next</button>
+                        <button class="btn btn-lg hide" id="submit">Submit</button>
+                        
+                        </div>
+                    </div>
+                    <div class="answers-indicator">
+                        
+                    </div>
+                </div>
+           
+                <div class="result-box custom-box hide">
+                    <h1>Quiz Result</h1>
+                    <table>
+                        <tr>
+                            <td>Total Questions</td>
+                            <td><span class="total-question"></span></td>
+
+                        </tr>
+                        <tr>
+                            <td>Attempt</td>
+                            <td><span class="total-attempt"></span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Correct
+                            </td>
+                            <td><span class="total-correct"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Wrong</td>
+                            <td><span class="total-wrong"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Percentage</td>
+                            <td><span class="percentage"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Your Total Score</td>
+                            <td><span class="total-score"></span></td>
+                        </tr>
+                    </table>
+                    <button class="btn btn-success btn-lg hide" id="success"><a href="../OS/os.html">Go to next section</a></button>
+                </div>
+            </div>    
+        </div>
+
+        <script src="../OS/osquestion.js"></script>
+        <script src="../OS/mcq.js"></script>
+        
+    </body>
+</html>

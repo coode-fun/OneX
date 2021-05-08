@@ -17,7 +17,7 @@ const studentSchema=new Schema({
     },
     course:{
         type:String,
-        default:""
+        default:"IT"
     },
     enrollment:{
         type:String,
@@ -37,12 +37,17 @@ const studentSchema=new Schema({
     },
     verified:{
         type:Boolean,
-        default:false
+        default:true
     },
     identity:{
         type:String,
         unique:true,
         required:true
+    },
+    testEnrolled:{
+        type:Map,
+        of:Array,
+        default:{"0000$0000$0000":[]}
     }
 });
 

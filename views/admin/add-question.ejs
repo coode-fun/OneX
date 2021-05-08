@@ -120,11 +120,11 @@
                     <td><%=data[i].option4%></td>
                     <td><%=data[i].answer%></td>
                     
-                <td><button class="btn btn-danger btn-block"><a id="anchor1" href="/tests/deleteTest/<%=s_code%>/<%=data[i].t_code%>">Delete</a></button></td>
+                <td><button class="btn btn-danger btn-block"><a id="anchor1" href="/questions/deleteQuestions/<%=s_code%>$<%=t_code%>$<%=i%>">Delete</a></button></td>
                 <td><button class="btn btn-secondary btn-block">Edit</button></td>
                 <td>
                     
-                    <button class="btn btn-primary btn-block"><a id="anchor2" href="/tests/addQuestions/<%=s_code%>/<%=data[i].t_code%>">Add</a></button>
+                    <button class="btn btn-primary btn-block"><a id="anchor2" href="/tests/addQuestions/<%=s_code%>/<%=t_code%>">Add</a></button>
                 </td>
                 <td><button class="btn btn-success btn-block"><a  id="anchor3" href="#">check</a></button></td>     </tr>
             <%}}%>

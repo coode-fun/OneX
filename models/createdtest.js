@@ -45,6 +45,9 @@ const createdtestSchema=new Schema({
     length:{
         type:String,
         default:""
+    },
+    questions:{
+        type:Array
     }
 });
 
