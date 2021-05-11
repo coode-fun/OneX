@@ -19,14 +19,17 @@ let correctAnswer = 0;
 let attempt = 0;
 var myMap = new Map();
 
+quiz=JSON.parse(quiz) ;
+
 let totalQuestion = quiz.length;
+
 // push the questions into availableQuestions Array
 function setAvailableQuestion(){
     
     for(let i=0; i<totalQuestion;i++){
         availableQuestions.push(quiz[i]);
     }
-
+    // console.log(availableQuestions," <-");
 }
 
 nextBtn.classList.remove('hide');
@@ -54,7 +57,7 @@ function getNewQuestion(){
     //get random question
     const questionIndex = availableQuestions[questionCounter-1];
     currentQuestion = questionIndex;
-    questionText.innerHTML = currentQuestion.q;
+    questionText.innerHTML = currentQuestion.question;
     //get the position of 'questionIndex' from the availableQuestion array
     const index1 = availableQuestions.indexOf(questionIndex);
     //remove the 'questionIndex' from the availableQuestion array, so that the question does not come again
@@ -115,7 +118,7 @@ function getPrevQuestion(){
     //get random question
     const questionIndex = availableQuestions[questionCounter-1];
     currentQuestion = questionIndex;
-    questionText.innerHTML = currentQuestion.q;
+    questionText.innerHTML = currentQuestion.question;
     //get the position of 'questionIndex' from the availableQuestion array
     const index1 = availableQuestions.indexOf(questionIndex);
     //remove the 'questionINdex' from the availableQuestion array, so that the question does not come again
@@ -187,7 +190,6 @@ function saveResult(element){
     myMap.set(questionCounter-1, id);
     element.classList.add("marked");
     updateAnswerIndicator("marked");
-
 }
 
 function getResult(){
@@ -293,13 +295,15 @@ function submit(){
 
 // STARTING POINT //
 function startQuiz(){
+    // console.log("-------------->")
     //hide home box 
     homeBox.classList.add("hide");
     //show quiz box
     quizBox.classList.remove("hide");
-
+    
     //first we'll set all questions in availableQuestions array
     setAvailableQuestion();
+  
     //second we'll call getNewQuestion() function
     getNewQuestion();
     //to create indicator of answers

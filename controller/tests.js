@@ -62,7 +62,7 @@ module.exports.createTest=(req,res)=>{
         end:req.body.end,
         date:req.body.date
     }
-    console.log(obj);
+    // console.log(obj);
     CreatedTest.findOne({email:req.user.email,s_code:req.params.s_code, t_code:req.body.t_code},(err,result)=>{
         if(err){
             return  res.render('home/error',{message:"something went wrong"});
@@ -105,3 +105,27 @@ module.exports.deleteSubject=(req,res)=>{
 }
 
 //add questions
+
+//render test instructions
+module.exports.startTest=(req,res)=>{
+    console.log(req.params," ");
+    var code=req.params.param;
+    console.log(code);
+    return res.render('students/startTest.ejs',{data:code});
+}
+module.exports.quiz=(req,res)=>{
+    // console.log(req.params);
+    var code=req.params.param.split('$');
+    var quiz;
+    CreatedTest.find({orgCode:req.user.orgCode,s_code:code[0],t_code:code[1]},(err,result)=>{
+        if(err){
+            console.log("Error in finding questions");
+        }else{
+            // console.log(result[0]);
+            quiz=result[0].questions;
+            // console.log(quiz);
+            return res.render('students/mcq.ejs',{data:quiz});
+        }
+    })
+    
+}

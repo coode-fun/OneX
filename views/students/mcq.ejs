@@ -3,8 +3,9 @@
     <head>
         <title>Quiz</title>
         <meta name = "viewport" content="width=device-width,  initial-scale=1">
-        <link rel="stylesheet" href="../OS/mcq.css">
+        <!-- <link rel="stylesheet" href="../OS/mcq.css"> -->
         
+        <link rel="stylesheet" href="../../css/css/mcq.css">
         
         <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,10 +13,10 @@
 
     <!-- Bootstrap CSS -->
      <!-- build:css css/main.css -->
-     <link rel="stylesheet" href="../css/bootstrap.min.css">
-     <link rel="stylesheet" href="../font-awesome/css/font-awesome.min.css">
-     <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
-     
+     <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+     <link rel="stylesheet" href="../../css/font-awesome/font-awesome.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
+   
     <!-- endbuild -->
     </head>
     <body>
@@ -27,17 +28,18 @@
                     </button>
                     <div class="collapse navbar-collapse" id="Navbar">
                         <ul class="navbar-nav mr-auto">
-                                <li class="nav-item"><a class="nav-link" href="../user/profile_user.html"><span class="fa fa-user fa-lg"> Profile</span></a></li>
+                                <li class="nav-item"><a class="nav-link" href="/students/sprofile"><span class="fa fa-user fa-lg"> Profile</span></a></li>
                                 
                         </ul>
                         <span class="navbar-text">
-                            <a href="../home/admin-user.html">
+                            <a href="/students/logout">
                                 <span class="fa fa-sign-in"></span> Logout
                             </a>
                         </span>
                     </div>
                 </div>
             </nav>
+
             <div class="row row-content">
                 <div class="home-box custom-box">
                     <h1>Instructions: </h1>
@@ -45,6 +47,7 @@
                     <h3>2. In the first section there will be all multiple choice questinos with four options</h3>
                     <h3>3. If you get >= 40.00 % then only you will be able to go to the next section.</h3>
                     <h3>4. Make sure to allow the camera.</h3>
+                   
                     <button type="button" class="btn btn-lg" onclick="startQuiz()">Start Quiz</button>    
                 </div>
             
@@ -146,9 +149,13 @@
                 </div>
             </div>    
         </div>
-
-        <script src="../OS/osquestion.js"></script>
-        <script src="../OS/mcq.js"></script>
+        <script>
+            var quiz= '<%- JSON.stringify(data) %>'
+        </script>
+        <script src="../../js/mcq.js">
+            
+        </script>
+        <!-- <script src="../OS/mcq.js"></script> -->
         
     </body>
 </html>

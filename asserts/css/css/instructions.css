@@ -1,0 +1,97 @@
+body{
+    margin: 0;
+    z-index: 1;
+    background: radial-gradient(circle, #b162b9 0%, #5c939e 100%);
+}
+
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding: 0;
+    outline: none;
+}
+.navbar{
+    margin: 0px auto;
+    padding: 15px 30px;
+    background:  rgb(19, 27, 77);
+    color: floralwhite; 
+}
+.row-content {
+    margin: 0px auto;
+    padding: 50px 0px;
+    border-bottom: 1px ridge;
+    
+}
+  
+.custom-box{
+    max-width: 700px;
+    background-color:#ffffff;
+    margin: 20px auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%; 
+    background-image: url(../image/open-source-exam-software.jpg);
+    background-repeat: no-repeat;
+    animation: fadeInRight 1s ease;
+}
+@keyframes fadeInRight{
+    0%{
+        transform: translateX(40px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+.home-box{
+    background-color: whitesmoke;
+}
+
+.home-box p{
+    margin-bottom: 10px;
+    line-height:22px;
+    font-style: italic; 
+    font-weight: bold; 
+    color: white; 
+    font-size: 40px;
+    text-shadow: 2px 2px 4px wheat;
+}
+
+.home-box p span{
+    font-weight: 500;
+}
+.home-box .btn{
+    margin-top: 20px;
+}
+
+.btn{
+    padding: 15px 45px;
+    background-color: rgb(19, 27, 77);
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;   
+    font-family: 'Montserrat', sans-serif;
+    font-size: 100px;
+    font-weight: bold;
+    cursor: pointer;
+    display: inline-block;
+    box-shadow: 1px 1px 2px black;
+    height: 50px;
+    width: 200px;
+}
+.btn.hide{
+    display: none;
+}
+.btn a{
+    color: white;
+}
+.btn a:hover{
+    color: white;
+    text-decoration: none;
+}
+.btn:hover{
+    background-color: #009688;
+    color: white;
+    text-shadow: 3px 3px 4px black;
+}

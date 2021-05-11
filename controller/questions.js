@@ -26,10 +26,10 @@ module.exports.createQuestions=async (req,res)=>{
    }
    var obj={
         question:req.body.question,
-        option1:req.body.option1,
-        option2:req.body.option2,
-        option3:req.body.option3,
-        option4:req.body.option4,
+        options:[req.body.option1,
+                 req.body.option2,
+                 req.body.option3,
+                 req.body.option4],
         answer:req.body.answer,
         explation:req.body.explation
    }

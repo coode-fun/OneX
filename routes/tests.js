@@ -14,6 +14,11 @@ router.get('/createTest/:s_code',testController.addTest);
 router.post('/createTest/:s_code',testController.createTest);
 router.get('/deleteTest/:s_code/:t_code',testController.deleteTest);
 
+//take test
+router.get('/startTest/:param',testController.startTest);
+router.get('/quiz/:param',testController.quiz);
+
+
 //add question page render
 // router.get('/addQuestions',testController.addQuestions);
 // router.post('/addQuestions',testController.createQuestions);

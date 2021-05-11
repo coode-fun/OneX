@@ -114,10 +114,10 @@
             <%}else{for(let i=0;i<data.length;i++){%>
                 <tr>
                     <td><%=data[i].question%></td>
-                    <td><%=data[i].option1%></td>
-                    <td><%=data[i].option2%></td>
-                    <td><%=data[i].option3%></td>
-                    <td><%=data[i].option4%></td>
+                    <td><%=data[i].options[0]%></td>
+                    <td><%=data[i].options[1]%></td>
+                    <td><%=data[i].options[2]%></td>
+                    <td><%=data[i].options[3]%></td>
                     <td><%=data[i].answer%></td>
                     
                 <td><button class="btn btn-danger btn-block"><a id="anchor1" href="/questions/deleteQuestions/<%=s_code%>$<%=t_code%>$<%=i%>">Delete</a></button></td>
