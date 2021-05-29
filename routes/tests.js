@@ -3,6 +3,8 @@ const router=express.Router();
 const passport=require('passport');
 
 const testController=require('../controller/tests');
+//update marks
+router.get('/updateMarks/:code',testController.updateMarks);
 
 //adding subject
 router.get('/addSubject',testController.addSubject);

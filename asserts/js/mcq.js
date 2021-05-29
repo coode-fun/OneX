@@ -19,7 +19,7 @@ let correctAnswer = 0;
 let attempt = 0;
 var myMap = new Map();
 
-quiz=JSON.parse(quiz) ;
+// quiz=JSON.parse(quiz) ;
 
 let totalQuestion = quiz.length;
 
@@ -259,8 +259,12 @@ function quizResult(){
     const percentage = (correctAnswer/quiz.length)*100;
     resultBox.querySelector(".percentage").innerHTML= percentage.toFixed(2) + "%";
     resultBox.querySelector(".total-score").innerHTML= correctAnswer + " / " + quiz.length;
-    
-    console.log(percentage);
+
+    console.log(percentage,"percentage");
+    var url="http://localhost:5000/tests/updateMarks/"+s_code+'$'+t_code+'$'+percentage;
+  fetch(url)
+  .then(data=>{console.log("Success");})
+  .catch(err=>{console.log(err);})
     if(percentage >= 40.00){
         successBtn.classList.remove('hide');
     }

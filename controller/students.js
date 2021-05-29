@@ -19,10 +19,11 @@ module.exports.examsEnrolled=(req,response)=>{
         var code=key.split('$');
         var s_code=code[1];
         var t_code=code[2];
+
         if(s_code!=="0000"){
                 
                 CreatedTest.find({orgCode:req.user.orgCode,s_code:s_code,t_code:t_code},(err,res)=>{
-                            // console.log("S_code :",s_code);
+                // console.log("S_code :",s_code);
                 subject.find({orgCode:req.user.orgCode,s_code:s_code},(err,ress)=>{
                 
                     Admins.find({email:ress[0].email},(err,result2)=>{
@@ -35,6 +36,7 @@ module.exports.examsEnrolled=(req,response)=>{
                         display.date=res[0].date;
                         display.start=res[0].start;
                         display.end=res[0].end;
+                        display.marks=value[0];
 
                         // console.log(display);
                         display_data.push(display);
@@ -43,7 +45,6 @@ module.exports.examsEnrolled=(req,response)=>{
                 });
             })
         }
-        
     })
     
     setTimeout(()=>{
@@ -140,7 +141,7 @@ module.exports.testEnroll=(req,response)=>{
     setTimeout(()=>{
         // console.log(display_data);
         return response.redirect('/students/sprofile');
-        },500);
+        },600);
     
 }
 

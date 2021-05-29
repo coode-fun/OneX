@@ -158,6 +158,11 @@
         </div>
         <script>
             var quiz= '<%- JSON.stringify(data) %>'
+            quiz=JSON.parse(quiz);
+            var s_code= '<%- JSON.stringify(s_code) %>'
+            s_code = JSON.parse(s_code);
+            var t_code= '<%- JSON.stringify(t_code) %>'
+            t_code = JSON.parse(t_code);
         </script>
         <script src="../../js/mcq.js">
             

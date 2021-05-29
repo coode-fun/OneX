@@ -47,7 +47,7 @@ const studentSchema=new Schema({
     testEnrolled:{
         type:Map,
         of:Array,
-        default:{"0000$0000$0000":[]}
+        default:{"0000$0000$0000":['-1']}
     }
 });
 

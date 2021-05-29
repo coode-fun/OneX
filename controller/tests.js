@@ -1,6 +1,29 @@
 
 const Subject=require('../models/subject');
 const CreatedTest=require('../models/createdtest');
+const Enrolled=require('../models/enrolled');
+const Student=require('../models/students');
+
+module.exports.updateMarks=async (request,response)=>{
+    
+    console.log(request.params.code);
+    var codes=request.params.code.split('$');
+    const query = {s_email:request.user.email,s_code:codes[0],t_code:codes[1]};
+    const updateDocument = {
+      $set: { "marks": codes[2] }
+    };
+    console.log(updateDocument);
+    const result = await Enrolled.updateOne(query,updateDocument);
+    //  console.log(result);
+    var key=request.user.orgCode+'$'+codes[0]+'$'+codes[1];
+    console.log(key);
+    var arr=[codes[2]];
+    request.user.testEnrolled.set(key,arr);
+    request.user.save();
+    // var qry={email:request.user.email}
+    // Student.updateOne()
+     return response.sendStatus(200);
+}
 
 module.exports.addSubject=function(req,res){
     //render
@@ -116,6 +139,7 @@ module.exports.startTest=(req,res)=>{
 module.exports.quiz=(req,res)=>{
     // console.log(req.params);
     var code=req.params.param.split('$');
+    console.log(code[0],code[1]);
     var quiz;
     CreatedTest.find({orgCode:req.user.orgCode,s_code:code[0],t_code:code[1]},(err,result)=>{
         if(err){
@@ -124,7 +148,7 @@ module.exports.quiz=(req,res)=>{
             // console.log(result[0]);
             quiz=result[0].questions;
             // console.log(quiz);
-            return res.render('students/mcq.ejs',{data:quiz});
+            return res.render('students/mcq.ejs',{data:quiz,s_code:code[0],t_code:code[1]});
         }
     })
     
