@@ -54,7 +54,7 @@
                 <div class="quiz-box custom-box hide">
                     <div id="demo" style="align-self: center;">8:10:45</div> <br>
                         <script> 
-                            var deadline = new Date("Jan 23, 2021 22:37:25").getTime(); 
+                            var deadline = new Date("May 12, 2021 22:37:25").getTime(); 
                             var x = setInterval(function() { 
                             var now = new Date().getTime(); 
                             var t = deadline - now; 
@@ -69,13 +69,17 @@
                                     document.getElementById("demo").innerHTML = "EXPIRED"; 
                                 } 
                             }, 1000); 
-                        </script>     
-                    <div id="square">
+                        </script>    
+                        <!-- video  -->
+                    <!-- <div id="square">
                         <video autoplay="true" id="videoElement">
                         
                         </video>
-                    </div>
-                    <script>
+                    </div> -->
+                    
+                    <!-- video elemet -->
+
+                    <!-- <script>
                         var video = document.querySelector("#videoElement");
 
                         if (navigator.mediaDevices.getUserMedia) {
@@ -87,7 +91,8 @@
                             console.log("Something went wrong!");
                             });
                         }
-                    </script>  
+                    </script>   -->
+
                     <br>
                     <div class="question-number">
                         
@@ -145,7 +150,9 @@
                             <td><span class="total-score"></span></td>
                         </tr>
                     </table>
-                    <button class="btn btn-success btn-lg hide" id="success"><a href="../OS/os.html">Go to next section</a></button>
+                    <!-- <button class="btn btn-success btn-lg hide" id="success"><a href="../OS/os.html">Go to next section</a></button> -->
+                    <button class="btn btn-success btn-lg hide" id="success">Done!!</button>
+
                 </div>
             </div>    
         </div>

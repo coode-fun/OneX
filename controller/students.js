@@ -2,6 +2,7 @@ const Students=require('../models/students');
 const Admins=require('../models/admins');
 const subject=require('../models/subject');
 const CreatedTest=require('../models/createdtest');
+const Enrolled=require('../models/enrolled');
 const testSchema=require('../Schema/tests');
 const mailer=require('../mailers/verificationMail');
 const mongoose=require('mongoose');
@@ -84,16 +85,39 @@ module.exports.examsEnrolled=(req,response)=>{
     // })
 }
 
-module.exports.testEnroll=(req,res)=>{
+module.exports.testEnroll=(req,response)=>{
 
     // var collection=req.user.email;
     // console.log(collection);
     // var collection=mongoose.model(collection,testSchema);
+    const parameter=req.params.code.split('$');
     const params=req.user.orgCode+'$'+req.params.code;
     
     console.log(params);
-    req.user.testEnrolled.set(params,[]);
+    req.user.testEnrolled.set(params,["-1"]);
     req.user.save();
+
+    var object={
+        orgCode:req.user.orgCode,
+        s_email:req.user.email,
+        s_code:parameter[0],
+        t_code:parameter[1],
+        a_email:"",
+        marks:0
+    };
+        CreatedTest.find({orgCode:req.user.orgCode,s_code:parameter[0],t_code:parameter[1]},(err,result)=>{
+            if(err){
+                console.log("Error in studets.js/testEnroll/110+");
+            }
+            object.a_email=result[0].email;
+            Enrolled.insertMany(object,(err,res)=>{
+                if(err){
+                    console.log("Error in inserting in enrolled table");
+                }else{
+                    console.log(res);
+                }
+            })
+        })
     // const arr=[{
     //     ques1:"Question1",
     //     opt1:"Option1",
@@ -112,7 +136,12 @@ module.exports.testEnroll=(req,res)=>{
     //     enrolled:true
     // });
     // book.save();
-    return res.redirect('/students/sprofile');
+    
+    setTimeout(()=>{
+        // console.log(display_data);
+        return response.redirect('/students/sprofile');
+        },500);
+    
 }
 
 module.exports.upcomingExams=async (req,res)=>{

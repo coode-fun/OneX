@@ -29,7 +29,7 @@ function setAvailableQuestion(){
     for(let i=0; i<totalQuestion;i++){
         availableQuestions.push(quiz[i]);
     }
-    // console.log(availableQuestions," <-");
+    console.log(availableQuestions," <-");
 }
 
 nextBtn.classList.remove('hide');
@@ -84,6 +84,7 @@ function getNewQuestion(){
         const option = document.createElement("div");
         option.innerHTML = currentQuestion.options[optionIndex];
         option.id = optionIndex;
+
         option.style.animationDelay = animationDelay + 's';
         animationDelay = animationDelay+ 0.15;
         option.className = "option";
@@ -153,7 +154,6 @@ function getPrevQuestion(){
     }
     
     //questionCounter++;
-    
 
 }
 
@@ -193,10 +193,13 @@ function saveResult(element){
 }
 
 function getResult(){
+    console.log("------------------>")
     for(let i = 0 ;i < questionCounter; i++){
         if(myMap.has(i)){
             attempt++;
-            if(myMap.get(i) === quiz[i].answer){
+            console.log(quiz[i].answer," This is answer of question ", i," choosen answer ",myMap.get(i));
+            if(myMap.get(i) == quiz[i].answer){
+                
                 correctAnswer++;
             }
         }
@@ -246,6 +249,7 @@ function prev(){
 // }
 
 //get the result of the quiz
+ 
 function quizResult(){
     getResult();
     resultBox.querySelector(".total-question").innerHTML= quiz.length;
@@ -255,6 +259,8 @@ function quizResult(){
     const percentage = (correctAnswer/quiz.length)*100;
     resultBox.querySelector(".percentage").innerHTML= percentage.toFixed(2) + "%";
     resultBox.querySelector(".total-score").innerHTML= correctAnswer + " / " + quiz.length;
+    
+    console.log(percentage);
     if(percentage >= 40.00){
         successBtn.classList.remove('hide');
     }
