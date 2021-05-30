@@ -12,9 +12,8 @@ const subjectSchema=new Schema({
     },
     s_code:{
         type:String,
-        required:true,
-        unique:true
-    },
+        required:true
+    }, 
     s_name:{
         type:String,
         required:true
