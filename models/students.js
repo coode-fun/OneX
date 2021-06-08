@@ -43,11 +43,6 @@ const studentSchema=new Schema({
         type:String,
         unique:true,
         required:true
-    },
-    testEnrolled:{
-        type:Map,
-        of:Array,
-        default:{"0000$0000$0000":['-1']}
     }
 });
 

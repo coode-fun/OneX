@@ -2,6 +2,7 @@ const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
 const enrolledSchema=new Schema({
+    
     orgCode:{
         type:String,
         required:true
@@ -28,6 +29,7 @@ const enrolledSchema=new Schema({
     }
 });
 
+enrolledSchema.index({orgCode:1,s_email:1,s_code:1,t_code:1,a_email:1},{ unique: true});
 const EnrolledStudents=mongoose.model("enrolledStudents",enrolledSchema);
 
 module.exports=EnrolledStudents;

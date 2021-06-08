@@ -20,6 +20,7 @@ const subjectSchema=new Schema({
     }
 });
 
+subjectSchema.index({orgCode : 1,email : 1, s_code :1},{unique: true})
 const Subject=mongoose.model("subjects",subjectSchema);
 
 module.exports=Subject;
