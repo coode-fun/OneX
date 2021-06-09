@@ -76,7 +76,7 @@
                                         <td><%=data[i].date%></td>
                                         <td><%=data[i].start%></td>
                                         <td><%=data[i].end%></td>
-                                        <%if(data[i].marks=='-1'){%>
+                                        <%if(data[i].marks===-1){%>
                                         <td><button type="button" class="btn btn-danger btn-block " id="start"><a href="/tests/startTest/<%=data[i].s_code%>$<%=data[i].t_code%>">Start</a></button></td>
                                         <%}else{%>
                                         <td><%=data[i].marks%>/100</td>

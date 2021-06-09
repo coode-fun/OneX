@@ -69,7 +69,7 @@ module.exports.examsEnrolled=(req,response)=>{
                                 display.date=res[0].date;
                                 display.start=res[0].start;
                                 display.end=res[0].end;
-
+                                display.marks=obj.marks;
                                 // console.log(display);
                                 display_data.push(display);
                                 // console.log(display_data);
@@ -83,7 +83,7 @@ module.exports.examsEnrolled=(req,response)=>{
     })
     
     setTimeout(()=>{
-        // console.log(display_data);
+        console.log(display_data);
         return response.render("students/examsEnrolled",{data:display_data});
         },1000);
 }
@@ -96,34 +96,34 @@ module.exports.testEnroll=(req,response)=>{
 
     //Method2
     //----------------------------------------------------
-    // const parameter=req.params.code.split('$');
+    const parameter=req.params.code.split('$');
     // const params=req.user.orgCode+'$'+req.params.code;
     
     // console.log(params);
     // req.user.testEnrolled.set(params,["-1"]);
     // req.user.save();
 
-    // var object={
-    //     orgCode:req.user.orgCode,
-    //     s_email:req.user.email,
-    //     s_code:parameter[0],
-    //     t_code:parameter[1],
-    //     a_email:"",
-    //     marks:0
-    // };
-    //     CreatedTest.find({orgCode:req.user.orgCode,s_code:parameter[0],t_code:parameter[1]},(err,result)=>{
-    //         if(err){
-    //             console.log("Error in studets.js/testEnroll/110+");
-    //         }
-    //         object.a_email=result[0].email;
-    //         Enrolled.insertMany(object,(err,res)=>{
-    //             if(err){
-    //                 console.log("Error in inserting in enrolled table");
-    //             }else{
-    //                 console.log(res);
-    //             }
-    //         })
-    //     })
+    var object={
+        orgCode:req.user.orgCode,
+        s_email:req.user.email,
+        s_code:parameter[0],
+        t_code:parameter[1],
+        a_email:"",
+        marks:-1
+    };
+        CreatedTest.find({orgCode:req.user.orgCode,s_code:parameter[0],t_code:parameter[1]},(err,result)=>{
+            if(err){
+                console.log("Error in studets.js/testEnroll/110+");
+            }
+            object.a_email=result[0].email;
+            Enrolled.insertMany(object,(err,res)=>{
+                if(err){
+                    console.log("Error in inserting in enrolled table");
+                }else{
+                    // console.log(res);
+                }
+            })
+        })
 
     // const arr=[{
     //     ques1:"Question1",
