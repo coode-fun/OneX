@@ -10,6 +10,10 @@ const studentSchema=new Schema({
         type:String,
         default:"Self"
     },
+    college:{
+        type:String,
+        default:""
+    },
     email:{
         type:String,
         unique:true,
@@ -17,7 +21,7 @@ const studentSchema=new Schema({
     },
     course:{
         type:String,
-        default:"IT"
+        default:"B.tech"
     },
     enrollment:{
         type:String,
@@ -38,6 +42,22 @@ const studentSchema=new Schema({
     verified:{
         type:Boolean,
         default:true
+    },
+    mobile:{
+        type:String,
+        default:"+919876543210"
+    },
+    linkedin:{
+        type:String,
+        default:""
+    },
+    github:{
+        type: String,
+        default:""
+    },
+    facebook:{
+        type: String,
+        default: ""
     },
     identity:{
         type:String,

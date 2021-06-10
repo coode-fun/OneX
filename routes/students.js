@@ -11,7 +11,10 @@ router.get('/register',studentController.register);
 router.post('/register',studentController.createStudent);
 router.get('/verification',studentController.verification);
 router.get('/sprofile',passport.checkAuthentication,studentController.profile);
+
 router.get('/details',studentController.details);
+router.post('/updateProfile',studentController.updateProfile);
+
 router.get('/upcomingExams',studentController.upcomingExams);
 router.get('/examsEnrolled',studentController.examsEnrolled);
 // use passport as a middle to authenticate

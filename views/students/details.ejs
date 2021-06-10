@@ -26,29 +26,31 @@
                                 <div class="d-flex flex-column align-items-center text-center">
                                     
                                     <div class="mt-3">
+                                      <form action="/students/updateProfile" method="POST">
                                       <div class="text">Enter details</div><br>
                                       <div class="form-group">
 					
-                                        <input type="text" name="firstname" id="firstname" class="form-control" placeholder="First Name" required/>
+                                        <input type="text" name="name" id="name" class="form-control" value = "<%=user.name%>" placeholder="Full Name" required/>
                                       </div>
-                                      <div class="form-group">
-					
+
+                                      <!-- <div class="form-group">
                                         <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Last Name" required/>
+                                      </div> -->
+
+                                      <div class="form-group">
+                                              
+                                        <input type="text" name="orgCode" id="orgCode" class="form-control" value = "<%=user.orgCode%>" placeholder="Organisation Code" required/>
                                       </div>
                                       <div class="form-group">
                                               
-                                        <input type="number" name="orgCode" id="enrollment" class="form-control" placeholder="Organisation Code" required/>
-                                      </div>
-                                      <div class="form-group">
-                                              
-                                        <input type="number" name="enrollemnt" id="enrollment" class="form-control" placeholder="Enrollment no" required/>
+                                        <input type="text" name="enrollemnt" id="enrollment" class="form-control" value = "<%=user.enrollment%>" placeholder="Enrollment no" required/>
                                       </div>
 
 
-                                      <div class="form-group">
+                                      <div class="form-group" >
                                              
                                       
-                                        <select class="form-control" id="department">
+                                        <select class="form-control" name="department" id="department" value = "<%=user.department%>" >
                                           <option>Department</option>
                                           <option>Civil</option>
                                           <option>Computer Science</option>
@@ -64,37 +66,43 @@
                                     </div>  
                                     <div class="form-group">
                                               
-                                        <input type="text" name="year" id="year" class="form-control" placeholder="1st year, B.tech" required/>
+                                        <input type="text" name="year" id="year" class="form-control" value = "<%=user.year%>" placeholder="1st year, B.tech" required/>
                                       </div>  
                                       <div class="form-group">
 					
-                                        <input type="text" name="collegename" id="collegename" class="form-control" placeholder="College" required/>
+                                        <input type="text" name="college" id="college" class="form-control" value = "<%=user.college%>" placeholder="College" required/>
                                       </div>
+
+                                      <div class="form-group">
+                                        <input type="text" name="course" id="course" class="form-control" value = "<%=user.course%>" placeholder="Course like B.tech" required/>
+                                      </div>
+
                                             <div class="form-group">
                                              
-                                              <input type="email" name="email" id="email" class="form-control" placeholder="email@example.com" required/>
+                                              <input type="email" name="email" id="email" class="form-control" value = "<%=user.email%>" placeholder="email@example.com" required/>
                                             </div>
                                       <div class="form-group">
                                               
-                                              <input type="tel" name="mobile" id="mobile" class="form-control" placeholder="(+91) xxxxxxxxxx" required/>
+                                              <input type="tel" name="mobile" id="mobile" class="form-control" value = "<%=user.mobile%>" placeholder="(+91) xxxxxxxxxx" required/>
                                         </div>
                                       
                                         <div class="form-group">
 					
-                                            <input type="link" name="linkedin" id="linkedin" class="form-control" placeholder="LinkedIn link" required/>
+                                            <input type="link" name="linkedin" id="linkedin" class="form-control" value = "<%=user.linkedin%>" placeholder="LinkedIn link" />
                                           </div>
                                           <div class="form-group">
 					
-                                            <input type="link" name="github" id="github" class="form-control" placeholder="Github link" required/>
+                                            <input type="link" name="github" id="github" class="form-control" value = "<%=user.github%>" placeholder="Github link" />
                                           </div>
                                           <div class="form-group">
 					
-                                            <input type="link" name="facebook" id="facebook" class="form-control" placeholder="Facebook link" required/>
+                                            <input type="link" name="facebook" id="facebook" class="form-control" value = "<%=user.facebook%>" placeholder="Facebook link" />
                                           </div>
                                       
                                         <br>
-                                        <button class="btn btn-primary btn-lg"><a href="../user/profile_user.html">Submit</a></button>        
-                                    </div>
+                                        <button class="btn btn-primary btn-lg" type="submit">Submit</button>        
+                                        </form>
+                                      </div>
                                 </div>
                             </div>
                         </div>

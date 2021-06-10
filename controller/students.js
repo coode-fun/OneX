@@ -83,9 +83,9 @@ module.exports.examsEnrolled=(req,response)=>{
     })
     
     setTimeout(()=>{
-        console.log(display_data);
+        console.log(display_data,"----->");
         return response.render("students/examsEnrolled",{data:display_data});
-        },1000);
+        },3000);
 }
 
 module.exports.testEnroll=(req,response)=>{
@@ -153,6 +153,7 @@ module.exports.testEnroll=(req,response)=>{
 
 module.exports.upcomingExams=async (req,res)=>{
     //render
+
     await CreatedTest.find({orgCode:req.user.orgCode,$or: [{ department:req.user.department }, {department:'Open'},{department:'General'}]},async (err,result)=>{
        if(err){console.log(err);}
         var enrolled=[];
@@ -206,9 +207,33 @@ module.exports.upcomingExams=async (req,res)=>{
         },1000);
     })
 }
+module.exports.updateProfile=(request, response)=>{
+    console.log(request.body);
 
+    
+    // var object={
+    //     name:req.body.name,
+    //     phone:req.body.mobile,
+    //     department:req.body.department,
+    //     address:req.body.address,
+    //     collage_name:req.body.collagename,
+    //     designation:req.body.designation,
+    //     qualification:req.body.qualification
+    // }
+    Students.updateOne({email:request.user.email},{$set: request.body},(err,result)=>{
+               if(err){
+                console.log("Error while updation!!");
+              }else{
+                //   console.log(result);
+                  return response.redirect('/students/sprofile');
+
+              }
+    })
+
+}
 module.exports.details=(req,res)=>{
     //render
+        
     return res.render('students/details');
 }
 module.exports.login=(req,res)=>{
