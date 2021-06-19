@@ -4,19 +4,10 @@ const Schema=mongoose.Schema;
 const questionSchema=new Schema({
     question:{
         type:String,
-        required:true
+        // required:true
     },
-    option1:{
-        type:String
-    },
-    option2:{
-        type:String
-    },
-    option3:{
-        type:String
-    },
-    option4:{
-        type:String
+    options:{
+        type:Array
     },
     answer:{
         type:String

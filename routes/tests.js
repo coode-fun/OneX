@@ -14,7 +14,7 @@ router.get('/deleteSubject/:s_code',testController.deleteSubject);
 //adding test
 router.get('/createTest/:s_code',testController.addTest);
 router.post('/createTest/:s_code',testController.createTest);
-router.get('/deleteTest/:s_code/:t_code',testController.deleteTest);
+router.get('/deleteTest/:t_code',testController.deleteTest);
 
 //take test
 router.get('/startTest/:param',testController.startTest);

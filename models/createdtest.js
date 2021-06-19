@@ -1,18 +1,33 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
+// const quesSchema=require('../Schema/question');
+
+
+const questionSchema=new Schema({
+    question:{
+        type:String,
+        // required:true
+    },
+    options:{
+        type:Array
+    },
+    answer:{
+        type:String
+    }
+});
 
 const createdtestSchema=new Schema({
     orgCode:{
         type:String,
         required:true
     },
-    email:{
-        type:String,
-        required:true
+    admin:{
+        type: Schema.Types.ObjectId,
+        ref: 'admins' 
     },
-    s_code:{
-        type:String,
-        required:true
+    subject:{
+        type: Schema.Types.ObjectId,
+        ref: 'subjects' 
     },
     t_code:{
         type:String,
@@ -44,13 +59,14 @@ const createdtestSchema=new Schema({
     },
     length:{
         type:String,
-        default:""
-    },
+        default:"2"
+    }
+    ,
     questions:{
-        type:Array
+        type:[questionSchema]
     }
 });
 
-const CreatedTest=mongoose.model("createdtest",createdtestSchema);
+const Createdtest=mongoose.model("createdtests",createdtestSchema);
 
-module.exports=CreatedTest;
+module.exports=Createdtest;

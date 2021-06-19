@@ -98,8 +98,8 @@
                         <tr>
                             <td><%=data[i].s_name%></td>
                             <td><%=data[i].s_code%></td>
-                            <td><button class="btn btn-success btn-block" ><a href="/tests/createTest/<%=data[i].s_code%>">Create test</a></button></td>
-                            <td><button class="btn btn-danger btn-block"><a href="/tests/deleteSubject/<%=data[i].s_code%>">Delete</a></button></td>
+                            <td><button class="btn btn-success btn-block" ><a href="/tests/createTest/<%=data[i]._id%>">Create test</a></button></td>
+                            <td><button class="btn btn-danger btn-block"><a href="/tests/deleteSubject/<%=data[i]._id%>">Delete</a></button></td>
                             <td><button class="btn btn-secondary btn-block"><a href="#">Edit</a></button></td>
                         </tr>
                     <%}}%>

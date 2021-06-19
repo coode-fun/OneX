@@ -41,7 +41,7 @@
                             <thead>
                                 <tr>
                                     <th>Subject</th>
-                                    <th>Subject Code</th>
+                                    <th>Test Code</th>
                                     <th>Writer</th>
                                     <th>Date</th>
                                     <th>Start Time</th>
@@ -66,18 +66,18 @@
                             <tbody>
                                 <%if(data.length===0){%>
                                     <tr>
-                                        <td colspan="5">No data</td>
+                                        <td colspan="6">No data</td>
                                     </tr>
                                 <%}else{for(let i=0;i<data.length;i++){%>
                                     <tr>
-                                        <td><%=data[i].s_name%></td>
-                                        <td><%=data[i].s_code%></td>
-                                        <td><%=data[i].a_name%></td>
-                                        <td><%=data[i].date%></td>
-                                        <td><%=data[i].start%></td>
-                                        <td><%=data[i].end%></td>
+                                        <td><%=data[i].subject.s_name%></td>
+                                        <td><%=data[i].test.t_code%></td>
+                                        <td><%=data[i].admin.name%></td>
+                                        <td><%=data[i].test.date%></td>
+                                        <td><%=data[i].test.start%></td>
+                                        <td><%=data[i].test.end%></td>
                                         <%if(data[i].marks==-1){%>
-                                        <td><button type="button" class="btn btn-danger btn-block " id="start"><a href="/tests/startTest/<%=data[i].s_code%>$<%=data[i].t_code%>">Start</a></button></td>
+                                        <td><button type="button" class="btn btn-danger btn-block " id="start"><a href="/tests/startTest/<%=data[i]._id%>">Start</a></button></td>
                                         <%}else{%>
                                         <td><%=data[i].marks%>/100</td>
                                         <%}%>

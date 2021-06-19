@@ -117,15 +117,15 @@
                                 </tr>
                             <%}else{for(let i=0;i<data.length;i++){%>
                                 <tr>
-                                    <td>Subject</td>
+                                    <td><%=data[i].subject.s_name%></td>
                                     <td><%=data[i].department%></td>
-                                    <td>Writer</td>
+                                    <td><%=data[i].admin.name%></td>
                                     <td><%=data[i].date%></td>
                                     <td><%=data[i].start%></td>
                                     <td><%=data[i].end%></td>
-                                    <td>2 hours</td>
+                                    <td><%=data[i].length%></td>
                                     <%if(enroll[i]===false){%>
-                                    <td><button class="btn btn-success btn-block" ><a href="/students/testEnroll/<%=data[i].s_code%>$<%=data[i].t_code%>">Register</a></button></td>
+                                    <td><button class="btn btn-success btn-block" ><a href="/students/testEnroll/<%=data[i].admin._id%>$<%=data[i].subject._id%>$<%=data[i]._id%>">Register</a></button></td>
                                     <%}else{%>
                                         <td>Registered</td>
                                     <%}%>

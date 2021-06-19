@@ -11,7 +11,7 @@ const { obj } = require('../Schema/tests');
 module.exports.examsEnrolled=(req,response)=>{
 
     // var collection=req.user.email;
-    var display_data=[];
+    // var display_data=[];
     
     // var collection=mongoose.model(collection,testSchema);
     // var mp=req.user.testEnrolled;
@@ -46,46 +46,72 @@ module.exports.examsEnrolled=(req,response)=>{
     //         })
     //     }
     // })
-    
-    Enrolled.find({orgCode:req.user.orgCode,s_email:req.user.email},(err,result)=>{
-        if(err){
-            console.log("Error in exams Enrolled!");
-        }else{
-            console.log(result);
-            if(result.length>0){
-                result.forEach((obj)=>{
-            
-                    CreatedTest.find({orgCode:req.user.orgCode,s_code:obj.s_code,t_code:obj.t_code},(err,res)=>{
-                        
-                        subject.find({orgCode:req.user.orgCode,s_code:obj.s_code},(err,ress)=>{
-                           
-                            Admins.find({email:ress[0].email},(err,result2)=>{
-                                
-                                var display={};
-                                display.s_name=ress[0].s_name;
-                                display.a_name=result2[0].name;        
-                                display.s_code=obj.s_code;
-                                display.t_code=obj.t_code;
-                                display.date=res[0].date;
-                                display.start=res[0].start;
-                                display.end=res[0].end;
-                                display.marks=obj.marks;
-                                // console.log(display);
-                                display_data.push(display);
-                                // console.log(display_data);
-                            })
-                        });
-                    })
-                })
-            }
-            
+    //Method 3
+    Enrolled.find({student:req.user._id})
+        .populate([{
+            path: 'admin',
+            model: 'admins',
+            select: 'name'
+        },
+        {
+            path: 'test',
+            model: 'createdtests',
+            select: 't_code start end date'
+        },
+        {
+            path: 'subject',
+            model: 'subjects',
+            select: 's_name'
         }
+    ])
+    .exec((err,result)=>{
+        if(err){
+           console.log(err);
+        }
+
+        return response.render("students/examsEnrolled",{data:result});
     })
     
-    setTimeout(()=>{
-        console.log(display_data,"----->");
-        return response.render("students/examsEnrolled",{data:display_data});
-        },3000);
+
+    // Enrolled.find({orgCode:req.user.orgCode,s_email:req.user.email},(err,result)=>{
+    //     if(err){
+    //         console.log("Error in exams Enrolled!");
+    //     }else{
+    //         console.log(result);
+    //         if(result.length>0){
+    //             result.forEach((obj)=>{
+            
+    //                 CreatedTest.find({orgCode:req.user.orgCode,s_code:obj.s_code,t_code:obj.t_code},(err,res)=>{
+                        
+    //                     subject.find({orgCode:req.user.orgCode,s_code:obj.s_code},(err,ress)=>{
+                           
+    //                         Admins.find({email:ress[0].email},(err,result2)=>{
+                                
+    //                             var display={};
+    //                             display.s_name=ress[0].s_name;
+    //                             display.a_name=result2[0].name;        
+    //                             display.s_code=obj.s_code;
+    //                             display.t_code=obj.t_code;
+    //                             display.date=res[0].date;
+    //                             display.start=res[0].start;
+    //                             display.end=res[0].end;
+    //                             display.marks=obj.marks;
+    //                             // console.log(display);
+    //                             display_data.push(display);
+    //                             // console.log(display_data);
+    //                         })
+    //                     });
+    //                 })
+    //             })
+    //         }
+            
+    //     }
+    // })
+    
+    // setTimeout(()=>{
+    //     console.log(display_data,"----->");
+    //     return response.render("students/examsEnrolled",{data:result});
+    //     },3000);
 }
 
 module.exports.testEnroll=(req,response)=>{
@@ -97,6 +123,8 @@ module.exports.testEnroll=(req,response)=>{
     //Method2
     //----------------------------------------------------
     const parameter=req.params.code.split('$');
+    // console.log(parameter);
+    // const parameter=req.params.code;
     // const params=req.user.orgCode+'$'+req.params.code;
     
     // console.log(params);
@@ -105,25 +133,21 @@ module.exports.testEnroll=(req,response)=>{
 
     var object={
         orgCode:req.user.orgCode,
-        s_email:req.user.email,
-        s_code:parameter[0],
-        t_code:parameter[1],
-        a_email:"",
+        student:req.user._id,
+        subject:parameter[1],
+        test:parameter[2],
+        admin:parameter[0],
         marks:-1
     };
-        CreatedTest.find({orgCode:req.user.orgCode,s_code:parameter[0],t_code:parameter[1]},(err,result)=>{
-            if(err){
-                console.log("Error in studets.js/testEnroll/110+");
-            }
-            object.a_email=result[0].email;
+        // console.log(object);
             Enrolled.insertMany(object,(err,res)=>{
                 if(err){
                     console.log("Error in inserting in enrolled table");
+                    return response.json(err);
                 }else{
                     // console.log(res);
                 }
             })
-        })
 
     // const arr=[{
     //     ques1:"Question1",
@@ -153,59 +177,99 @@ module.exports.testEnroll=(req,response)=>{
 
 module.exports.upcomingExams=async (req,res)=>{
     //render
+    CreatedTest.find({orgCode:req.user.orgCode,$or: [{ department:req.user.department }, {department:'Open'},{department:'General'}]})
+    .populate([{
+            path: 'admin',
+            model: 'admins',
+            select: 'name'
+        },
+        {
+            path: 'subject',
+            model: 'subjects',
+            select: 's_name'
+        }
+    ])
+    .exec(async (err,result)=>{
 
-    await CreatedTest.find({orgCode:req.user.orgCode,$or: [{ department:req.user.department }, {department:'Open'},{department:'General'}]},async (err,result)=>{
-       if(err){console.log(err);}
         var enrolled=[];
         
         //checking weather candidate is enrolled or not 
-        
         await result.forEach(async (obj)=>{
 
-            // Method3
-            //--------------------------------------------------
-            
-               Enrolled.find({a_email:obj.email,s_code:obj.s_code,t_code:obj.t_code},(err,ress)=>{
-                
-                console.log("res.length ",ress.length);
-                if(ress.length===0){
-                    enrolled.push(false);
-                }else{
-                    enrolled.push(true);
-                }
-            })
-
-            //Method 2
-            //-------------------------------------------------
-            //  var code=req.user.orgCode+"$"+obj.s_code+"$"+obj.t_code;
-            //  console.log(req.user.testEnrolled);
-            // if(req.user.testEnrolled.get(code)){
-            //     enrolled.push(true)
-            // }else{
-            //     enrolled.push(false);
-            // }
-
-            // Method1
-            //-----------------------------------
-            // var collection=req.user.email;
-            
-            // var collection=mongoose.model(collection,testSchema);
-            //    collection.find({s_code:obj.s_code,t_code:obj.t_code},(err,result)=>{
-                
-            //     console.log("res.length ",result.length);
-            //     if(result.length===0){
-            //         enrolled.push(false);
-            //     }else{
-            //         enrolled.push(true);
-            //     }
-            // })
-
+            //         // Method3
+            //         //--------------------------------------------------
+                    
+                       Enrolled.find({test:obj._id},(err,ress)=>{
+                        
+                        console.log(" res.length ",ress.length);
+                        if(ress.length===0){
+                            enrolled.push(false);
+                        }else{
+                            enrolled.push(true);
+                        }
+                    })
         })
         setTimeout(()=>{
-        console.log("enrolled: ",enrolled);
-        return res.render('students/upcomingExams',{data:result,enroll:enrolled});
-        },1000);
+            console.log("enrolled: ",result);
+            return res.render('students/upcomingExams',{data:result,enroll:enrolled});
+        },600);
+        
+        // return res.json(result);
     })
+
+
+    // await CreatedTest.find({orgCode:req.user.orgCode,$or: [{ department:req.user.department }, {department:'Open'},{department:'General'}]},async (err,result)=>{
+    //    if(err){console.log(err);}
+    //     var enrolled=[];
+        
+    //     //checking weather candidate is enrolled or not 
+        
+    //     await result.forEach(async (obj)=>{
+
+    //         // Method3
+    //         //--------------------------------------------------
+            
+    //            Enrolled.find({a_email:obj.email,s_code:obj.s_code,t_code:obj.t_code},(err,ress)=>{
+                
+    //             console.log("res.length ",ress.length);
+    //             if(ress.length===0){
+    //                 enrolled.push(false);
+    //             }else{
+    //                 enrolled.push(true);
+    //             }
+    //         })
+
+    //         //Method 2
+    //         //-------------------------------------------------
+    //         //  var code=req.user.orgCode+"$"+obj.s_code+"$"+obj.t_code;
+    //         //  console.log(req.user.testEnrolled);
+    //         // if(req.user.testEnrolled.get(code)){
+    //         //     enrolled.push(true)
+    //         // }else{
+    //         //     enrolled.push(false);
+    //         // }
+
+    //         // Method1
+    //         //-----------------------------------
+    //         // var collection=req.user.email;
+            
+    //         // var collection=mongoose.model(collection,testSchema);
+    //         //    collection.find({s_code:obj.s_code,t_code:obj.t_code},(err,result)=>{
+                
+    //         //     console.log("res.length ",result.length);
+    //         //     if(result.length===0){
+    //         //         enrolled.push(false);
+    //         //     }else{
+    //         //         enrolled.push(true);
+    //         //     }
+    //         // })
+
+    //     })
+    //     setTimeout(()=>{
+    //     console.log("enrolled: ",enrolled);
+    //     return res.render('students/upcomingExams',{data:result,enroll:enrolled});
+    //     },1000);
+    // })
 }
 module.exports.updateProfile=(request, response)=>{
     console.log(request.body);

@@ -6,9 +6,9 @@ const subjectSchema=new Schema({
         type:String,
         required:true
     },
-    email:{
-        type:String,
-        required:true
+    admin:{
+        type: Schema.Types.ObjectId,
+        ref: 'admins' 
     },
     s_code:{
         type:String,
@@ -20,7 +20,7 @@ const subjectSchema=new Schema({
     }
 });
 
-subjectSchema.index({orgCode : 1,email : 1, s_code :1},{unique: true})
+// subjectSchema.index({orgCode : 1, s_code :1},{unique: true})
 const Subject=mongoose.model("subjects",subjectSchema);
 
 module.exports=Subject;

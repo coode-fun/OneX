@@ -37,7 +37,7 @@
             <div class="text">Create Test Schedule</div><br>
             </div>
             <div class="col-12 col-md-9">
-                <form action="/tests/createTest/<%=s_code%>" method="POST">
+                <form action="/tests/createTest/<%=subject_id%>" method="POST">
                     <div class="form-group row">
                         <label for="subject" class="col-md-2" class="col-form-label"><h6>Department :</h6></label>
                         <div class="col-md-10"  id="department">
@@ -143,11 +143,11 @@
                             <td><%=data[i].start%></td>
                             <td><%=data[i].end%></td>
                             
-                        <td><button class="btn btn-danger btn-block"><a href="/tests/deleteTest/<%=s_code%>/<%=data[i].t_code%>">Delete</a></button></td>
+                        <td><button class="btn btn-danger btn-block"><a href="/tests/deleteTest/<%=data[i]._id%>">Delete</a></button></td>
                         <td><button class="btn btn-secondary btn-block">Edit</button></td>
                         <td>
                             
-                            <button class="btn btn-primary btn-block"><a href="/questions/addQuestions/<%=s_code%>$<%=data[i].t_code%>">Add</a></button>
+                            <button class="btn btn-primary btn-block"><a href="/questions/addQuestions/<%=data[i]._id%>">Add</a></button>
                         </td>
                         <td><button class="btn btn-success btn-block"><a href="#">check</a></button></td>     </tr>
                     <%}}%>

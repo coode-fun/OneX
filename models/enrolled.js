@@ -7,21 +7,21 @@ const enrolledSchema=new Schema({
         type:String,
         required:true
     },
-    s_email:{
-        type:String,
-        required:true
+    student:{
+        type: Schema.Types.ObjectId,
+        ref: 'students' 
     },
-    s_code:{
-        type:String,
-        required:true
+    subject:{
+        type: Schema.Types.ObjectId,
+        ref: 'subjects' 
     },
-    t_code:{
-        type:String,
-        required:true
+    test:{
+        type: Schema.Types.ObjectId,
+        ref: 'createdtests' 
     },
-    a_email:{
-        type:String,
-        required:true
+    admin:{
+        type: Schema.Types.ObjectId,
+        ref: 'admins' 
     },
     marks:{
         type:Number,
@@ -29,7 +29,8 @@ const enrolledSchema=new Schema({
     }
 });
 
-enrolledSchema.index({orgCode:1,s_email:1,s_code:1,t_code:1,a_email:1},{ unique: true});
+
+// enrolledSchema.index({orgCode:1,student:1,subject:1,test:1,admin:1},{ unique: true});
 const EnrolledStudents=mongoose.model("enrolledStudents",enrolledSchema);
 
 module.exports=EnrolledStudents;

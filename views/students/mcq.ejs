@@ -1,173 +1,153 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Quiz</title>
-        <meta name = "viewport" content="width=device-width,  initial-scale=1">
-        <!-- <link rel="stylesheet" href="../OS/mcq.css"> -->
-        
-        <link rel="stylesheet" href="../../css/css/mcq.css">
-        
-        <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-     <!-- build:css css/main.css -->
-     <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
-     <link rel="stylesheet" href="../../css/font-awesome/font-awesome.min.css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
-   
-    <!-- endbuild -->
-    </head>
-    <body>
-        <div class="container">
-            <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
-                <div class="container">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="Navbar">
-                        <ul class="navbar-nav mr-auto">
-                                <li class="nav-item"><a class="nav-link" href="/students/sprofile"><span class="fa fa-user fa-lg"> Profile</span></a></li>
-                                
-                        </ul>
-                        <span class="navbar-text">
-                            <a href="/students/logout">
-                                <span class="fa fa-sign-in"></span> Logout
-                            </a>
-                        </span>
-                    </div>
-                </div>
-            </nav>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
+    
+    <title>test</title>
+  </head>
+  <body class="main-clas">
 
-            <div class="row row-content">
-                <div class="home-box custom-box">
-                    <h1>Instructions: </h1>
-                    <h3 >1. Total number of questinos:<span class="total-question"></span></h3>
-                    <h3>2. In the first section there will be all multiple choice questinos with four options</h3>
-                    <h3>3. If you get >= 40.00 % then only you will be able to go to the next section.</h3>
-                    <h3>4. Make sure to allow the camera.</h3>
-                   
-                    <button type="button" class="btn btn-lg" onclick="startQuiz()">Start Quiz</button>    
-                </div>
-            
-                <div class="quiz-box custom-box hide">
-                    <div id="demo" style="align-self: center;">8:10:45</div> <br>
-                        <script> 
-                            var deadline = new Date("May 12, 2021 22:37:25").getTime(); 
-                            var x = setInterval(function() { 
-                            var now = new Date().getTime(); 
-                            var t = deadline - now; 
-                            var days = Math.floor(t / (1000 * 60 * 60 * 24)); 
-                            var hours = Math.floor((t%(1000 * 60 * 60 * 24))/(1000 * 60 * 60)); 
-                            var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60)); 
-                            var seconds = Math.floor((t % (1000 * 60)) / 1000); 
-                            document.getElementById("demo").innerHTML = days + "d "  
-                            + hours + "h " + minutes + "m " + seconds + "s "; 
-                                if (t < 0) { 
-                                    clearInterval(x); 
-                                    document.getElementById("demo").innerHTML = "EXPIRED"; 
-                                } 
-                            }, 1000); 
-                        </script>    
-                        <!-- video  -->
-                    <!-- <div id="square">
-                        <video autoplay="true" id="videoElement">
-                        
-                        </video>
-                    </div> -->
-                    
-                    <!-- video elemet -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <ul class="navbar-nav " style = "margin-left: auto;">
+        <li class="nav-item">
+          <button class="btn btn-outline-danger" type="submit"><a class="nav-link" href="#">Save and End Test</a></button>
+        </li>
+        </ul>
+    </div>
+  </div>
+</nav>
 
-                    <!-- <script>
-                        var video = document.querySelector("#videoElement");
-
-                        if (navigator.mediaDevices.getUserMedia) {
-                        navigator.mediaDevices.getUserMedia({ video: true })
-                            .then(function (stream) {
-                            video.srcObject = stream;
-                            })
-                            .catch(function (err0r) {
-                            console.log("Something went wrong!");
-                            });
-                        }
-                    </script>   -->
-
-                    <br>
-                    <div class="question-number">
-                        
-                    </div>
-                    <div class="question-text">
-                        
-                    </div>
-                    <div class="option-container">
-                        
-                    </div>
-                    
-                    <div class="next-question-button">
-                        <div class="col-12">
-                        
-                        <button class="btn btn-lg hide" id="prev">Previous</button>
-                        
-                        <button class="btn btn-lg hide" id="next">Next</button>
-                        <button class="btn btn-lg hide" id="submit">Submit</button>
-                        
-                        </div>
-                    </div>
-                    <div class="answers-indicator">
-                        
-                    </div>
-                </div>
-           
-                <div class="result-box custom-box hide">
-                    <h1>Quiz Result</h1>
-                    <table>
-                        <tr>
-                            <td>Total Questions</td>
-                            <td><span class="total-question"></span></td>
-
-                        </tr>
-                        <tr>
-                            <td>Attempt</td>
-                            <td><span class="total-attempt"></span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Correct
-                            </td>
-                            <td><span class="total-correct"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Wrong</td>
-                            <td><span class="total-wrong"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Percentage</td>
-                            <td><span class="percentage"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Your Total Score</td>
-                            <td><span class="total-score"></span></td>
-                        </tr>
-                    </table>
-                    <!-- <button class="btn btn-success btn-lg hide" id="success"><a href="../OS/os.html">Go to next section</a></button> -->
-                    <button class="btn btn-success btn-lg hide" id="success">Done!!</button>
-
-                </div>
-            </div>    
+<!-- New div for question and tick box -->
+<div class="text-center p-4" ><h2> Time left :<span id="timer"></span></h2></div>
+<div class="container mt-3 " >
+  <div class="row ">
+    <div class="col-6"  style =" border: 2px black solid; border-radius:5% ; background-color:whitesmoke; color: black; font-size: 120%; ">
+      
+      <div class="py-2 mx-3" >Question number 1 of 10</div>
+      
+      <div class="py-2 mx-3"> <%=data.test.questions[0].question%></div>
+      
+        <div class="py-2 mx-3">
+          <input type="radio" name="option" class="answer">
+          <label class="mx-3"><%=data.test.questions[0].options[0]%></label>
         </div>
-        <script>
-            var quiz= '<%- JSON.stringify(data) %>'
-            quiz=JSON.parse(quiz);
-            var s_code= '<%- JSON.stringify(s_code) %>'
-            s_code = JSON.parse(s_code);
-            var t_code= '<%- JSON.stringify(t_code) %>'
-            t_code = JSON.parse(t_code);
-        </script>
-        <script src="../../js/mcq.js">
-            
-        </script>
-        <!-- <script src="../OS/mcq.js"></script> -->
+        <div class="py-2 mx-3">
+          <input type="radio" name="option" class="answer">
+          <label class="mx-3"><%=data.test.questions[0].options[1]%></label>
+        </div>
+        <div class="py-2 mx-3">
+          <input type="radio" name="option" class="answer">
+          <label class="mx-3"><%=data.test.questions[0].options[2]%></label>
+        </div>
+        <div class="py-2 mx-3">
+          <input type="radio" name="option" class="answer">
+          <label class="mx-3"><%=data.test.questions[0].options[3]%></label>
+        </div>
         
-    </body>
+    </div>
+
+    <!-- second column of first row -->
+    <div class="col-6 ">
+      <div >
+
+        <div class="container">
+          <div class="row p-6 d-flex justify-content-center" style =" background-color:aquamarine; font-size: 130%; color: black;">
+            Question Status
+          </div>
+            <div class="row" >
+              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; " >
+                1
+              </div>
+              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
+                1
+              </div>
+              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
+                1
+              </div>
+              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
+                1
+              </div>
+              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
+                1
+              </div>
+              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
+                1
+              </div>
+
+            </div>
+        </div>
+      </div>
+      </div>
+      
+      <!-- second row -->
+      <div class="row ">
+          <div class="col-2   p-3" >
+              <button class="btn btn-outline-primary" type="submit">Previous</button>
+          </div>
+          <div class="col-2    p-3" >
+              <button class="btn btn-outline-warning" type="submit">Next</button>
+          </div>
+          <div class="col-2    p-3" >
+              <button class="btn btn-outline-success" type="submit">Save and Next</button>
+          </div>
+        
+      </div>
+        
+    </div>
+  </div>
+</div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var time = '<%- JSON.stringify(time) %>';
+        console.log(time);
+        const timer = document.getElementById('timer');
+    
+        // Set the date we're counting down to
+        var countDownDate = new Date(JSON.parse(time)).getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+        
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))+ days *24-5;
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))-30;
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        // timer.innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+        timer.innerHTML = hours + "h "+ minutes + "m " + seconds + "s ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "EXPIRED";
+        }
+        }, 1000);
+    </script>
+
+    </script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
+  </body>
 </html>
