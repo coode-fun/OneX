@@ -5,6 +5,7 @@ const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategies');
 const mongoStore=require('connect-mongo')(session);
+const cors =require('cors');
 
 var app=express();
 // var url="mongodb+srv://OneX_2021:OneX_2021@onex.ulmfc.mongodb.net/onex?retryWrites=true&w=majority&ssl=true";
@@ -21,6 +22,9 @@ mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true },(err)=>
 })
 
 //static files
+
+app.use(cors());
+app.use(express.json()); 
 app.use(express.static('asserts'));
 //body-parser
 app.use(express.urlencoded({ extended: true }));

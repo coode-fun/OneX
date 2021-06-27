@@ -1,6 +1,24 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
+const answerSchema=new Schema({
+    questionOption:{
+        type:Map,
+        of: Number,
+        default: () => ({})
+    },
+    isAttempted:{
+        type:Map,
+        of:Boolean,
+        default: () => ({})
+    },
+    explanation:{
+        type :Map,
+        of :String,
+        default: () => ({})
+    }
+});
+
 const enrolledSchema=new Schema({
     
     orgCode:{
@@ -9,7 +27,7 @@ const enrolledSchema=new Schema({
     },
     student:{
         type: Schema.Types.ObjectId,
-        ref: 'students' 
+        ref: 'students'
     },
     subject:{
         type: Schema.Types.ObjectId,
@@ -24,6 +42,14 @@ const enrolledSchema=new Schema({
         ref: 'admins' 
     },
     marks:{
+        type:Number,
+        default:-1
+    },
+    answer:{
+        type:answerSchema,
+        default: () => ({})
+    },
+    counter:{
         type:Number,
         default:0
     }

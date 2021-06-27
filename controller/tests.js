@@ -157,14 +157,12 @@ module.exports.quiz=(req,res)=>{
         select: 'questions end date'
     }])
     .exec((err,result)=>{
-        console.log(result[0].test.questions,"88888");
-        console.log(result[0].test.end,"88888");
-        console.log(result[0].test.date,"88888");
+        // console.log(result[0].test.questions,"88888");
+        // console.log(result[0].test.end,"88888");
+        // console.log(result[0].test.date,"88888");
         var timer = result[0].test.date + 'T' + result[0].test.end +'Z';
         return res.render('students/mcq.ejs',{data:result[0],time : timer});
     })
-    
-
 
     // var code=req.params.param.split('$');
     // console.log(code[0],code[1]);
@@ -180,4 +178,26 @@ module.exports.quiz=(req,res)=>{
     //     }
     // })
     
+}
+
+module.exports.saveAnswer=(request, response)=>{
+    console.log(request.body);
+    Enrolled.find({_id:request.body.enrolledTestId},(err,result)=>{
+        
+        console.log(result);
+
+        result[0].counter = request.body.counter;
+        result[0].answer.questionOption.set(request.body.questionId, request.body.optionSelected);
+        result[0].answer.isAttempted.set(request.body.questionId, true);
+        result[0].answer.explanation.set(request.body.questionId, "Currently No explanation");
+
+        console.log(result);
+        console.log(result[0].answer);
+        result[0].save();
+    
+    })
+    .then((result)=>{
+        response.json({message :"success"});
+    })
+
 }

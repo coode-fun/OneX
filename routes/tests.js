@@ -20,6 +20,9 @@ router.get('/deleteTest/:t_code',testController.deleteTest);
 router.get('/startTest/:param',testController.startTest);
 router.get('/quiz/:param',testController.quiz);
 
+// Save answer of each question
+router.post('/saveAnswer',testController.saveAnswer);
+
 
 //add question page render
 // router.get('/addQuestions',testController.addQuestions);

@@ -26,36 +26,52 @@
 <!-- New div for question and tick box -->
 <div class="text-center p-4" ><h2> Time left :<span id="timer"></span></h2></div>
 <div class="container mt-3 " >
+  
   <div class="row ">
-    <div class="col-6"  style =" border: 2px black solid; border-radius:5% ; background-color:whitesmoke; color: black; font-size: 120%; ">
+    <div class="col-6 questionOptionClass"  style =" border: 2px black solid; border-radius:5% ; background-color:whitesmoke; color: black; font-size: 120%; ">
       
-      <div class="py-2 mx-3" >Question number 1 of 10</div>
+      <div class="py-2 mx-3 questionNo" >Question number 1 of 10</div>
       
-      <div class="py-2 mx-3"> <%=data.test.questions[0].question%></div>
-      
+      <div class="py-2 mx-3 question"> </div>
+     
         <div class="py-2 mx-3">
-          <input type="radio" name="option" class="answer">
-          <label class="mx-3"><%=data.test.questions[0].options[0]%></label>
+          <input type="radio" name="option" class="answer" value ="0">
+          <label class="mx-3 option1"></label>
         </div>
         <div class="py-2 mx-3">
-          <input type="radio" name="option" class="answer">
-          <label class="mx-3"><%=data.test.questions[0].options[1]%></label>
+          <input type="radio" name="option" class="answer" value ="1">
+          <label class="mx-3 option2"></label>
         </div>
         <div class="py-2 mx-3">
-          <input type="radio" name="option" class="answer">
-          <label class="mx-3"><%=data.test.questions[0].options[2]%></label>
+          <input type="radio" name="option" class="answer" value ="2">
+          <label class="mx-3 option3"></label>
         </div>
         <div class="py-2 mx-3">
-          <input type="radio" name="option" class="answer">
-          <label class="mx-3"><%=data.test.questions[0].options[3]%></label>
+          <input type="radio" name="option" class="answer" value ="3">
+          <label class="mx-3 option4"></label>
+        </div>
+
+        <!-- second row -->
+      <div class="row ">
+        <div class="col-4   p-3" >
+            <button class="btn btn-outline-primary previousButton" type="submit" name="action" value="previous">Previous</button>
         </div>
         
+        <div class="col-4    p-3" >
+            <button class="btn btn-outline-warning nextButton" type="submit" name="action" value="next">Next</button>
+        </div>
+
+        <div class="col-4    p-3" >
+            <button class="btn btn-outline-success saveAndNextButton " type="submit" name="action" value="saveAndNext">Save and Next</button>
+        </div>
+      </div>
+
     </div>
 
     <!-- second column of first row -->
     <div class="col-6 ">
       <div >
-
+                                                             
         <div class="container">
           <div class="row p-6 d-flex justify-content-center" style =" background-color:aquamarine; font-size: 130%; color: black;">
             Question Status
@@ -85,65 +101,54 @@
       </div>
       </div>
       
-      <!-- second row -->
-      <div class="row ">
-          <div class="col-2   p-3" >
-              <button class="btn btn-outline-primary" type="submit">Previous</button>
-          </div>
-          <div class="col-2    p-3" >
-              <button class="btn btn-outline-warning" type="submit">Next</button>
-          </div>
-          <div class="col-2    p-3" >
-              <button class="btn btn-outline-success" type="submit">Save and Next</button>
-          </div>
-        
-      </div>
-        
     </div>
+  
   </div>
 </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
-
+    
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script type="text/javascript">
-        var time = '<%- JSON.stringify(time) %>';
-        console.log(time);
-        const timer = document.getElementById('timer');
-    
-        // Set the date we're counting down to
-        var countDownDate = new Date(JSON.parse(time)).getTime();
-
-        // Update the count down every 1 second
-        var x = setInterval(function() {
-
-        // Get today's date and time
-        var now = new Date().getTime();
         
+      var time = '<%- JSON.stringify(time) %>';
+      var data = '<%- JSON.stringify(data) %>';
+      console.log(time);
+      const timer = document.getElementById('timer');
+  
+      // Set the date we're counting down to
+      var countDownDate = new Date(JSON.parse(time)).getTime();
 
-        // Find the distance between now and the count down date
-        var distance = countDownDate - now;
+      // Update the count down every 1 second
+      var x = setInterval(function() {
 
-        // Time calculations for days, hours, minutes and seconds
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))+ days *24-5;
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))-30;
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      // Get today's date and time
+      var now = new Date().getTime();
+      
 
-        // Display the result in the element with id="demo"
-        // timer.innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
-        timer.innerHTML = hours + "h "+ minutes + "m " + seconds + "s ";
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
 
-        // If the count down is finished, write some text
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById("timer").innerHTML = "EXPIRED";
-        }
-        }, 1000);
-    </script>
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))+ days *24-5;
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))-30;
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    </script>
+      // Display the result in the element with id="demo"
+      // timer.innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
+      timer.innerHTML = hours + "h "+ minutes + "m " + seconds + "s ";
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("timer").innerHTML = "EXPIRED";
+      }
+      }, 1000);
+  </script>
+  <script type="text/javascript" src="../../js/mcq.js"></script>
+  
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
