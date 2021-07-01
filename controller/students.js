@@ -8,6 +8,76 @@ const mailer=require('../mailers/verificationMail');
 const mongoose=require('mongoose');
 const { obj } = require('../Schema/tests');
 
+module.exports.generateResult=async (request, response)=>{
+
+    var enrolledTestId = request.params.enrolledTestId;
+    Enrolled.find({_id:enrolledTestId})
+    .populate([{
+        path: 'test',
+        model: 'createdtests',
+        select: 'questions'
+    }])
+    .exec(async (err,result)=>{
+        if(err){
+           console.log(err);
+        }
+
+        var questionArray = result[0].test.questions;
+        var answers = result[0].answer.questionOption;
+        var correctQuestion = 0;
+        var totalQuestions = questionArray.length;
+
+        await questionArray.forEach((question)=>{
+            if(answers[question._id]){
+                console.log(question._id, answers[question._id], question.answer);
+                
+                if(answers[question._id] == question.answer){
+                    correctQuestion++;
+                }
+            }
+           
+        })
+
+        result[0].result.totalQuestion = totalQuestions;
+        result[0].result.correct = correctQuestion;
+        result[0].marks = correctQuestion;
+        result[0].result.remark = "Good, you can do much bettr!";
+
+        result[0].save();
+        
+        return response.status(200).json({message : "result successfully updated."})
+    })
+    // return response.send("Yes");
+}
+
+module.exports.showResult=async (request, response)=>{
+
+    var enrolledTestId = request.params.enrolledTestId;
+
+    console.log(enrolledTestId);
+
+    Enrolled.find({_id:enrolledTestId})
+    .populate([
+    {
+        path: 'test',
+        model: 'createdtests',
+        select: 't_code'
+    },
+    {
+        path: 'subject',
+        model: 'subjects',
+        select: 's_name s_code'
+    }
+    ])
+    .exec((err,result)=>{
+        if(err){
+           console.log(err);
+        }
+        var percentage = ((result[0].result.correct * 100) / result[0].result.totalQuestion);
+        return response.render("students/result.ejs",{data:result[0], percentage : percentage});
+    })
+    // return response.render('students/result.ejs');
+}
 module.exports.thankYou=async (request, response)=>{
 
     return response.render('students/thankYou.ejs');
@@ -60,7 +130,7 @@ module.exports.examsEnrolled=(req,response)=>{
         {
             path: 'test',
             model: 'createdtests',
-            select: 't_code start end date'
+            select: 't_code start end date timeout'
         },
         {
             path: 'subject',

@@ -41,9 +41,23 @@ const enrolledSchema=new Schema({
         type: Schema.Types.ObjectId,
         ref: 'admins' 
     },
-    marks:{
-        type:Number,
-        default:-1
+    result:{
+        marks:{
+            type :Number,
+            default :0
+        },
+        totalQuestion :{
+            type : Number,
+            default : 0
+        },
+        correct:{
+            type : Number,
+            default : 0
+        },
+        remark:{
+            type : String,
+            default : "All the best for your future!!"
+        }
     },
     answer:{
         type:answerSchema,

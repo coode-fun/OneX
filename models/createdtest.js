@@ -60,10 +60,13 @@ const createdtestSchema=new Schema({
     length:{
         type:String,
         default:"2"
-    }
-    ,
+    },
     questions:{
         type:[questionSchema]
+    },
+    timeout : {
+        type: Boolean,
+        default : false
     }
 });
 
