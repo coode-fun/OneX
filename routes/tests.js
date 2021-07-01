@@ -23,6 +23,9 @@ router.get('/quiz/:param',testController.quiz);
 // Save answer of each question
 router.post('/saveAnswer',testController.saveAnswer);
 
+// feedback 
+router.post('/feedback',testController.feedback);
+
 
 //add question page render
 // router.get('/addQuestions',testController.addQuestions);

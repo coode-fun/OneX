@@ -8,6 +8,10 @@ const mailer=require('../mailers/verificationMail');
 const mongoose=require('mongoose');
 const { obj } = require('../Schema/tests');
 
+module.exports.thankYou=async (request, response)=>{
+
+    return response.render('students/thankYou.ejs');
+}
 module.exports.examsEnrolled=(req,response)=>{
 
     // var collection=req.user.email;

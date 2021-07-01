@@ -52,6 +52,10 @@ const enrolledSchema=new Schema({
     counter:{
         type:Number,
         default:0
+    },
+    isAttempted : {
+        type :Boolean,
+        default :false
     }
 });
 

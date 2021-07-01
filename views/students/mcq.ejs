@@ -16,7 +16,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class="navbar-nav " style = "margin-left: auto;">
         <li class="nav-item">
-          <button class="btn btn-outline-danger" type="submit"><a class="nav-link" href="#">Save and End Test</a></button>
+          <button class="btn btn-outline-danger" type="submit"><a class="nav-link" href="/students/thankYou">End Test</a></button>
         </li>
         </ul>
     </div>
@@ -35,19 +35,19 @@
       <div class="py-2 mx-3 question"> </div>
      
         <div class="py-2 mx-3">
-          <input type="radio" name="option" class="answer" value ="0">
+          <input type="radio" name="option" class="answer" value ="0" onclick="toggle(this)" data-state="false">
           <label class="mx-3 option1"></label>
         </div>
         <div class="py-2 mx-3">
-          <input type="radio" name="option" class="answer" value ="1">
+          <input type="radio" name="option" class="answer" value ="1" onclick="toggle(this)" data-state="false">
           <label class="mx-3 option2"></label>
         </div>
         <div class="py-2 mx-3">
-          <input type="radio" name="option" class="answer" value ="2">
+          <input type="radio" name="option" class="answer" value ="2" onclick="toggle(this)" data-state="false">
           <label class="mx-3 option3"></label>
         </div>
         <div class="py-2 mx-3">
-          <input type="radio" name="option" class="answer" value ="3">
+          <input type="radio" name="option" class="answer" value ="3" onclick="toggle(this)" data-state="false">
           <label class="mx-3 option4"></label>
         </div>
 
@@ -77,24 +77,16 @@
             Question Status
           </div>
             <div class="row" >
-              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; " >
-                1
-              </div>
-              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
-                1
-              </div>
-              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
-                1
-              </div>
-              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
-                1
-              </div>
-              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
-                1
-              </div>
-              <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; ">
-                1
-              </div>
+
+              <%var questions = data.test.questions;%>
+              <%var totalQuestion = questions.length;%>
+              <%for(var i=0; i <  totalQuestion ; i++){%>
+                <div class="col-1  mx-3 my-2" style =" background-color:whitesmoke; color: black; " >
+                  <span style="font-size:2vw" onclick="move('<%=i%>')" id="Q<%=i%>"><%=i+1%></span>
+                </div>
+              <%}%>
+              
+              
 
             </div>
         </div>

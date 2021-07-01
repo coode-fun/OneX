@@ -182,16 +182,17 @@ module.exports.quiz=(req,res)=>{
 
 module.exports.saveAnswer=(request, response)=>{
     console.log(request.body);
+    
     Enrolled.find({_id:request.body.enrolledTestId},(err,result)=>{
         
-        console.log(result);
+        // console.log(result);
 
         result[0].counter = request.body.counter;
         result[0].answer.questionOption.set(request.body.questionId, request.body.optionSelected);
         result[0].answer.isAttempted.set(request.body.questionId, true);
         result[0].answer.explanation.set(request.body.questionId, "Currently No explanation");
 
-        console.log(result);
+        // console.log(result);
         console.log(result[0].answer);
         result[0].save();
     
@@ -200,4 +201,8 @@ module.exports.saveAnswer=(request, response)=>{
         response.json({message :"success"});
     })
 
+}
+
+module.exports.feedback=(request, response)=>{
+    return response.render('home/feedback.ejs',{message:" You have successfully completed the test!"});
 }
