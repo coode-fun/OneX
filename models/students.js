@@ -41,7 +41,7 @@ const studentSchema=new Schema({
     },
     verified:{
         type:Boolean,
-        default:true
+        default:false
     },
     mobile:{
         type:String,

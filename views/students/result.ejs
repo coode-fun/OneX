@@ -33,6 +33,7 @@
             <div class="card-header">
              <h3>Marksheet</h3> 
             </div>
+            <%if(isAttempted == true ){%>
             <ul class="list-group list-group-flush">
               <li class="list-group-item border-primary"><h6>Subject : <%=data.subject.s_name%></h6></li>
               <li class="list-group-item border-primary"><h6>Subject Code : <%=data.subject.s_code%></h6></li>
@@ -42,6 +43,9 @@
              <li class="list-group-item border-primary"><h6>Number of Correct Answer :<%=data.result.correct%></h6></li>
              <li class="list-group-item border-primary"><h6>Percentage :<%= percentage%></h6></li>
             </ul>
+            <%}else{%>
+                <li class="list-group-item border-primary"><h4>It seems like you have not given the test!</h4></li>
+            <%}%>
           </div>
  
   </div>

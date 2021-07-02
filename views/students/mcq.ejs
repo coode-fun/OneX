@@ -16,7 +16,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <ul class="navbar-nav " style = "margin-left: auto;">
         <li class="nav-item">
-          <button class="btn btn-outline-danger" type="submit"><a class="nav-link" href="/students/thankYou">End Test</a></button>
+          <button class="btn btn-outline-danger" type="submit"><a class="nav-link" href="/students/generateResult/<%=data._id%>">End Test</a></button>
         </li>
         </ul>
     </div>
@@ -106,38 +106,7 @@
         
       var time = '<%- JSON.stringify(time) %>';
       var data = '<%- JSON.stringify(data) %>';
-      console.log(time);
-      const timer = document.getElementById('timer');
-  
-      // Set the date we're counting down to
-      var countDownDate = new Date(JSON.parse(time)).getTime();
-
-      // Update the count down every 1 second
-      var x = setInterval(function() {
-
-      // Get today's date and time
-      var now = new Date().getTime();
-      
-
-      // Find the distance between now and the count down date
-      var distance = countDownDate - now;
-
-      // Time calculations for days, hours, minutes and seconds
-      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))+ days *24-5;
-      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))-30;
-      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      // Display the result in the element with id="demo"
-      // timer.innerHTML = days + "d " + hours + "h "+ minutes + "m " + seconds + "s ";
-      timer.innerHTML = hours + "h "+ minutes + "m " + seconds + "s ";
-
-      // If the count down is finished, write some text
-      if (distance < 0) {
-          clearInterval(x);
-          document.getElementById("timer").innerHTML = "EXPIRED";
-      }
-      }, 1000);
+      // console.log(data);
   </script>
   <script type="text/javascript" src="../../js/mcq.js"></script>
   

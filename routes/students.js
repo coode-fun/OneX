@@ -27,7 +27,7 @@ router.get('/verify/:email',studentController.verify);
 router.get('/testEnroll/:code',studentController.testEnroll);
 
 // thankyou page after giving test
-router.get('/thankYou',studentController.thankYou);
+router.get('/thankYou/:enrolledTestId',studentController.thankYou);
 
 // Test result
 router.get('/showResult/:enrolledTestId',studentController.showResult);

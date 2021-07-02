@@ -28,24 +28,26 @@ module.exports.generateResult=async (request, response)=>{
         var totalQuestions = questionArray.length;
 
         await questionArray.forEach((question)=>{
-            if(answers[question._id]){
-                console.log(question._id, answers[question._id], question.answer);
-                
-                if(answers[question._id] == question.answer){
+            
+            var id = String(question._id);
+            // id = question._id;
+            var ans  = answers.get(id);
+
+            if(ans>=0){
+                if(ans == question.answer){
                     correctQuestion++;
                 }
             }
-           
         })
 
         result[0].result.totalQuestion = totalQuestions;
         result[0].result.correct = correctQuestion;
         result[0].marks = correctQuestion;
         result[0].result.remark = "Good, you can do much bettr!";
-
+       
         result[0].save();
         
-        return response.status(200).json({message : "result successfully updated."})
+        return response.redirect('../thankYou/'+enrolledTestId);
     })
     // return response.send("Yes");
 }
@@ -73,14 +75,27 @@ module.exports.showResult=async (request, response)=>{
         if(err){
            console.log(err);
         }
-        var percentage = ((result[0].result.correct * 100) / result[0].result.totalQuestion);
-        return response.render("students/result.ejs",{data:result[0], percentage : percentage});
+        var percentage = 0;
+        var isAttempted = true;
+        var total = result[0].result.totalQuestion;
+        if(total > 0){
+            percentage =  ((result[0].result.correct * 100) / total);
+        }else{
+            isAttempted =false;
+        }
+        return response.render("students/result.ejs",{data:result[0], percentage : percentage, isAttempted});
     })
     // return response.render('students/result.ejs');
 }
 module.exports.thankYou=async (request, response)=>{
 
-    return response.render('students/thankYou.ejs');
+    var enrolledTestId = request.params.enrolledTestId;
+    Enrolled.find({_id : enrolledTestId},(err, result)=>{
+        result[0].isAttempted = true;
+        result[0].save();
+        
+        return response.render('students/thankYou.ejs');
+    })
 }
 module.exports.examsEnrolled=(req,response)=>{
 
@@ -273,7 +288,7 @@ module.exports.upcomingExams=async (req,res)=>{
             //         // Method3
             //         //--------------------------------------------------
                     
-                       Enrolled.find({test:obj._id},(err,ress)=>{
+                       Enrolled.find({test:obj._id, student : req.user._id},(err,ress)=>{
                         
                         console.log(" res.length ",ress.length);
                         if(ress.length===0){
@@ -459,7 +474,7 @@ module.exports.createStudent=function(req,res){
                     {
                         return res.send(err);
                     }
-                    // mailer.newVerification(result);
+                    mailer.newVerification(result);
                     console.log(result);
                     return res.redirect('/students/verification');
             })
