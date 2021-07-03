@@ -228,13 +228,14 @@ module.exports.testEnroll=(req,response)=>{
         admin:parameter[0]
     };
 
-        // console.log(object);
+        console.log(object);
             Enrolled.create(object,(err,res)=>{
                 if(err){
                     console.log("Error in inserting in enrolled table");
                     return response.json(err);
                 }else{
                     // console.log(res);
+                    return response.redirect('/students/sprofile');
                 }
             })
 
@@ -257,10 +258,10 @@ module.exports.testEnroll=(req,response)=>{
     // });
     // book.save();
     
-    setTimeout(()=>{
-        // console.log(display_data);
-        return response.redirect('/students/sprofile');
-        },600);
+    // setTimeout(()=>{
+    //     // console.log(display_data);
+    //     return response.redirect('/students/sprofile');
+    //     },600);
     
 }
 

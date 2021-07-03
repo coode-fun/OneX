@@ -1,5 +1,6 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
+const uniqueValidator = require('mongoose-unique-validator');
 
 const answerSchema=new Schema({
     questionOption:{
@@ -27,19 +28,23 @@ const enrolledSchema=new Schema({
     },
     student:{
         type: Schema.Types.ObjectId,
-        ref: 'students'
+        ref: 'students',
+        required:true
     },
     subject:{
         type: Schema.Types.ObjectId,
-        ref: 'subjects' 
+        ref: 'subjects' ,
+        required:true
     },
     test:{
         type: Schema.Types.ObjectId,
-        ref: 'createdtests' 
+        ref: 'createdtests' ,
+        required:true
     },
     admin:{
         type: Schema.Types.ObjectId,
-        ref: 'admins' 
+        ref: 'admins' ,
+        required:true
     },
     result:{
         marks:{
@@ -72,7 +77,10 @@ const enrolledSchema=new Schema({
         default :false
     }
 });
-
+enrolledSchema.plugin(uniqueValidator, {
+    type: 'mongoose-unique-validator',
+    message: 'Error, expected {PATH} to be unique.'
+});
 
 // enrolledSchema.index({orgCode:1,student:1,subject:1,test:1,admin:1},{ unique: true});
 const EnrolledStudents=mongoose.model("enrolledStudents",enrolledSchema);
