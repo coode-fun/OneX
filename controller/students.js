@@ -225,9 +225,9 @@ module.exports.testEnroll=(req,response)=>{
         student:req.user._id,
         subject:parameter[1],
         test:parameter[2],
-        admin:parameter[0],
-        marks:-1
+        admin:parameter[0]
     };
+
         // console.log(object);
             Enrolled.insertMany(object,(err,res)=>{
                 if(err){
