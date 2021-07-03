@@ -276,6 +276,7 @@ module.exports.upcomingExams=async (req,res)=>{
             path: 'subject',
             model: 'subjects',
             select: 's_name'
+
         }
     ])
     .exec(async (err,result)=>{
@@ -301,7 +302,7 @@ module.exports.upcomingExams=async (req,res)=>{
         setTimeout(()=>{
             console.log("enrolled: ",result);
             return res.render('students/upcomingExams',{data:result,enroll:enrolled});
-        },600);
+        },1000);
         
         // return res.json(result);
     })
