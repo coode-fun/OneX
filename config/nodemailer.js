@@ -10,18 +10,18 @@ let transpoter=nodemailer.createTransport({
     secure:false,
   auth: {
     user: 'onex.sas.2021@gmail.com',
-    pass: 'Miniproject@123'
+    pass: 'fjrazvalphvmwliy'
   }
 })
 
-let renderTemplate=(data,relativepath)=>{
+let renderTemplate=(data,relativepath)=>{git
     let mailHTML;
 
     ejs.renderFile(
         path.join(__dirname,'../views/mailers',relativepath),
         data,
         function(err,template){
-            if(err){console.log("Error from mailing");return ;}
+            if(err){console.log("Error from mailing" , err);return ;}
             mailHTML=template;
         }
     )
