@@ -231,7 +231,7 @@ module.exports.testEnroll=(req,response)=>{
         console.log(object);
             Enrolled.create(object,(err,res)=>{
                 if(err){
-                    console.log("Error in inserting in enrolled table");
+                    console.log("Error in inserting in enrolled table", err);
                     return response.json(err);
                 }else{
                     // console.log(res);
