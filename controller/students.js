@@ -229,7 +229,7 @@ module.exports.testEnroll=(req,response)=>{
     };
 
         // console.log(object);
-            Enrolled.insertMany(object,(err,res)=>{
+            Enrolled.create(object,(err,res)=>{
                 if(err){
                     console.log("Error in inserting in enrolled table");
                     return response.json(err);
