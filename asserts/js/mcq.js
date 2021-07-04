@@ -57,7 +57,7 @@ function hideNextButton(){
 
 function nextQuestion(){
 
-        questionNo.innerHTML = "<h4> Question number " + (questionNumber + 1) + " of " + totalQuestion + "</h4>";
+        questionNo.innerHTML = "<h4> Question number " + (parseInt(questionNumber) + 1) + " of " + totalQuestion + "</h4>";
         question.innerHTML = questions[questionNumber].question;
         option1.innerHTML = questions[questionNumber].options[0];
         option2.innerHTML = questions[questionNumber].options[1];
@@ -191,7 +191,7 @@ function setTimer(){
                 var now = new Date().getTime();
                 
                 // Find the distance between now and the count down date
-                var distance = countDownDate - now;
+                var distance = countDownDate - now - 5*60*60000-30*60000;
         
                 // Time calculations for days, hours, minutes and seconds
                 var days = Math.floor(distance / (1000 * 60 * 60 * 24));

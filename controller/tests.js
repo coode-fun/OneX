@@ -161,7 +161,8 @@ module.exports.quiz=(req,res)=>{
         // console.log(result[0].test.end,"88888");
         // console.log(result[0].test.date,"88888");
         console.log(result[0]);
-        var timer = result[0].test.date + 'T' + result[0].test.end +'Z';
+        var timer = result[0].test.date + 'T' + result[0].test.end +':00.000Z';
+        console.log(timer);
         return res.render('students/mcq.ejs',{data:result[0],time : timer});
     })
 
