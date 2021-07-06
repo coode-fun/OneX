@@ -39,19 +39,19 @@
 
                                       <div class="form-group">
                                               
-                                        <input type="text" name="orgCode" id="orgCode" class="form-control" value = "<%=user.orgCode%>" placeholder="Organisation Code" required/>
+                                        <input type="text" name="orgCode" id="orgCode" class="form-control" value = "<%=user.orgCode%>" placeholder="Organisation Code" disabled="disabled" required/>
                                       </div>
                                       <div class="form-group">
                                               
-                                        <input type="text" name="enrollemnt" id="enrollment" class="form-control" value = "<%=user.enrollment%>" placeholder="Enrollment no" required/>
+                                        <input type="text" name="enrollment" id="enrollment" class="form-control" value = "<%=user.enrollment%>" placeholder="Enrollment no" required/>
                                       </div>
 
 
                                       <div class="form-group" >
                                              
                                       
-                                        <select class="form-control" name="department" id="department" value = "<%=user.department%>" >
-                                          <option>Department</option>
+                                        <select class="form-control" name="department" id="department" disabled="disabled" >
+                                          <option><%=user.department%></option>
                                           <option>Civil</option>
                                           <option>Computer Science</option>
                                           <option>Electronics and Telecommunication</option>
@@ -60,14 +60,13 @@
                                           <option>Mining</option>
                                           <option>Metallurgy</option>
                                          
-                                          
                                         </select>
                                       
                                     </div>  
-                                    <!-- <div class="form-group">
+                                    <div class="form-group">
                                               
-                                        <input type="text" name="year" id="year" class="form-control" value = "<%=user.year%>" placeholder="1st year, B.tech" required/>
-                                      </div>   -->
+                                        <input type="text" name="year" id="year" class="form-control" value = "<%=user.year%>" placeholder="1st year, B.tech" disabled="disabled" required/>
+                                      </div>  
                                       <div class="form-group">
 					
                                         <input type="text" name="college" id="college" class="form-control" value = "<%=user.college%>" placeholder="College" required/>
@@ -77,27 +76,26 @@
                                         <input type="text" name="course" id="course" class="form-control" value = "<%=user.course%>" placeholder="Course like B.tech" required/>
                                       </div>
 
-                                            <div class="form-group">
+                                      <div class="form-group">
                                              
-                                              <input type="email" name="email" id="email" class="form-control" value = "<%=user.email%>" placeholder="email@example.com" required/>
+                                              <input type="email" name="email" id="email" class="form-control" value = "<%=user.email%>" placeholder="email@example.com" disabled="disabled" required/>
                                             </div>
                                       <div class="form-group">
                                               
                                               <input type="tel" name="mobile" id="mobile" class="form-control" value = "<%=user.mobile%>" placeholder="(+91) xxxxxxxxxx" required/>
                                         </div>
                                       
-                                        <div class="form-group">
-					
-                                            <input type="link" name="linkedin" id="linkedin" class="form-control" value = "<%=user.linkedin%>" placeholder="LinkedIn link" />
-                                          </div>
-                                          <div class="form-group">
-					
+                                        <div class="form-group">					
+                                            <input type="url" name="linkedin" id="linkedin" class="form-control" value = "<%=user.linkedin%>" placeholder="LinkedIn link" />
+                                        </div>
+
+                                        <div class="form-group">					
                                             <input type="link" name="github" id="github" class="form-control" value = "<%=user.github%>" placeholder="Github link" />
-                                          </div>
-                                          <div class="form-group">
-					
+                                        </div>
+
+                                        <div class="form-group">
                                             <input type="link" name="facebook" id="facebook" class="form-control" value = "<%=user.facebook%>" placeholder="Facebook link" />
-                                          </div>
+                                        </div>
                                       
                                         <br>
                                         <button class="btn btn-primary btn-lg" type="submit">Submit</button>        
