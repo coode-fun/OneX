@@ -63,6 +63,14 @@ const studentSchema=new Schema({
         type:String,
         unique:true,
         required:true
+    }, 
+    token : {
+        type : String,
+        default : ""
+    },
+    expired : {
+        type : String,
+        default : ""
     }
 });
 

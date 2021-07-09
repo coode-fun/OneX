@@ -6,7 +6,10 @@ const Enrolled=require('../models/enrolled');
 const testSchema=require('../Schema/tests');
 const mailer=require('../mailers/verificationMail');
 const mongoose=require('mongoose');
-const { obj } = require('../Schema/tests');
+const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
+const { send } = require('process');
+const { json } = require('express');
 
 module.exports.generateResult=async (request, response)=>{
 
@@ -431,10 +434,11 @@ module.exports.verification=(req,res)=>{
 
 //verification of user by email
 module.exports.verify=function(req,res){
-    var email=req.params.email;
-    console.log(email,"-------------------->");
+    var token=req.params.email;
+ 
+    console.log(token,"-------------------->");
 
-    Students.updateOne({email:email}, {$set: { verified:true }}, 
+    Students.updateOne({token : token}, {$set: { verified:true }}, 
         function(err){
             if(err){
                 console.log("Did not verified.");
@@ -456,10 +460,14 @@ module.exports.createStudent=function(req,res){
         return res.render('students/register',{message:"password don't match!"});
     }
         console.log(req.body.email);
-        Students.find({email:req.body.email},(err,result)=>{
+        Students.find({email:req.body.email},async (err,result)=>{
             console.log(result,"<-----------<");
             if(result.length==0)
             {
+                let token = crypto.randomBytes(31).toString('hex');
+                let expired = Date.now() + 3600000 ; //valid for one day
+                // let hashedPassword = await bcrypt.hash(req.body.password, 13);
+
                 var object={
                     name:req.body.name,
                     orgCode:req.body.orgCode,
@@ -468,7 +476,9 @@ module.exports.createStudent=function(req,res){
                     department:req.body.department,
                     password:req.body.password,
                     identity:'s'+req.body.email,
-                    year:req.body.year
+                    year:req.body.year,
+                    token: token,
+                    expired: expired
                 }
                 
                 Students.create(object,(err,result)=>{
@@ -476,7 +486,7 @@ module.exports.createStudent=function(req,res){
                     {
                         return res.send(err);
                     }
-                    mailer.newVerification(result);
+                    mailer.newVerification(req.body.email, token);
                     console.log(result);
                     return res.redirect('/students/verification');
             })
@@ -500,5 +510,84 @@ module.exports.destroySession=(req,res)=>{
     //
     req.logout();
     return res.redirect('/');
+}
 
+// render reset Password
+module.exports.renderResetPassword=(request, response)=>{
+
+        return response.render('students/resetPassword');
+}
+module.exports.resetPasswordRequest = async (req, res) => {
+
+    let email = req.body.email;
+    console.log(email)
+
+    Students.find({email : email}, async (err, verified) => {
+        if(verified.length == 0){
+            // throw new Error('No user with provided email found');  //---------------------------------------------------------------render
+            return res.json("No user of of this email "+ email+" exists !");
+        }
+        
+        let token = crypto.randomBytes(31).toString('hex');
+        let expired = Date.now() + 3600000 ; //valid for one day
+
+        console.log(token);
+        try{
+            mailer.resetPasswordMail(email, token);
+            await Students.updateOne( {email:email}, {$set: { token : token, expired : expired}} );
+            return res.json("Check your inbox and reset your password!!") //---------------------------------------render
+        }catch(err){
+            console.log("error in resetting password!");
+            throw err; //---------------------------------------------------------------render
+        }
+    })
+}
+
+module.exports.renderNewPasswordRequest = async (request, response) => {
+
+    let token = request.query.token;
+    console.log(token);
+    return response.render('students/newPassword',{token:token}); //---------------------------------------render
+}
+
+module.exports.setNewPasswordRequest = async (req, res) => {
+ 
+    let body = req.body;
+    let token = body.token;
+    let password = body.password;
+    let confirmPassword = body.confirmPassword;
+
+    console.log(token, password, confirmPassword);
+
+    if(password !== confirmPassword){
+        console.log('During reset, Password dont match');
+        return res.redirect('back');
+    }
+
+    Students.find({token : token}, async (err, onMatch) => {
+        if(err){
+            throw err
+            //---------------------------------------render
+        }
+
+        if(onMatch.length == 0){
+            throw new Error('verification error, incorrect token');//---------------------------------------render
+        }
+
+        console.log(onMatch);
+
+        // TODO
+        // let hashedPassword = await bcrypt.hash(password, 13);
+
+        if(onMatch[0].expired >= Date.now()){
+            try{
+                await Students.updateOne( {token : token}, {$set : {password : password}} );
+                return res.redirect('/students/login'); //return { result : 'success'}; //---------------------------------------render
+            }catch(err){
+                throw err ;//---------------------------------------render
+            }
+        }else{
+            throw new Error('token expired');//---------------------------------------render
+        }
+    })
 }

@@ -33,4 +33,9 @@ router.get('/thankYou/:enrolledTestId',studentController.thankYou);
 router.get('/showResult/:enrolledTestId',studentController.showResult);
 router.get('/generateResult/:enrolledTestId',studentController.generateResult);
 
+// Forgot Password
+router.get('/resetPassword', studentController.renderResetPassword);
+router.post('/resetPassword', studentController.resetPasswordRequest);
+router.get('/setNewPassword', studentController.renderNewPasswordRequest);
+router.post('/setNewPassword', studentController.setNewPasswordRequest);
 module.exports=router;
