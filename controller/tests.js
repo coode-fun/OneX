@@ -163,7 +163,7 @@ module.exports.quiz=(req,res)=>{
         console.log(result[0]);
         var timer = result[0].test.date + 'T' + result[0].test.end +':00.000Z';
         console.log(timer);
-        return res.render('students/mcq.ejs',{data:result[0],time : timer, enrolledTestId:req.params.param });
+        return res.render('students/mcq.ejs',{data:result[0],time : timer });
     })
 
     // var code=req.params.param.split('$');

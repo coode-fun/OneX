@@ -175,8 +175,9 @@ const timer = document.getElementById('timer');
 var date = JSON.parse(time);
 
 function thankYouPage(){
-        var enrolledTestId = JSON.parse(enrolledTestId );
-        var url = "../../generateResult/" + enrolledTestId + "/" + data._id;
+       
+        var url = "../../students/generateResult/" + data._id;
+        console.log(url);
         window.location.href = url;
 }
 
@@ -209,7 +210,7 @@ function setTimer(){
                 if (distance < 0) {
                         document.getElementById("timer").innerHTML = "EXPIRED";
 
-                        alert("Timeout");
+                        // alert("Timeout");
                         thankYouPage();
                         clearInterval(x);
                 }

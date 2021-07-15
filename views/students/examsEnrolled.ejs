@@ -85,7 +85,7 @@
 
                                         <%if(startTime > now){%>
                                             <td style="color: green"> All the best!</td>
-                                        <%}else if(endTime < now){%>
+                                        <%}else if(endTime < now || data[i].isAttempted == true) {%>
                                             <td><button type="button" class="btn btn-success btn-block " id="start"><a href="/students/showResult/<%=data[i]._id%>">Result</a></button></td>
                                         <%}else if(data[i].isAttempted == false ){%>
                                             <td><button type="button" class="btn btn-danger btn-block " id="start"><a href="/tests/startTest/<%=data[i]._id%>">Start</a></button></td>
