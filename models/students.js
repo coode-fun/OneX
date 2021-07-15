@@ -1,6 +1,30 @@
 const mongoose=require('mongoose');
 const Schema=mongoose.Schema;
 
+const resultSchema=new Schema({
+    subjectCode:{
+        type:String
+    },
+    subjectName:{
+        type:String
+    },
+    testCode:{
+        type:String
+    },
+    result:{
+        totalQuestions:{
+            type: Number,
+        },
+        correctQuestions:{
+            type: Number,
+            default:0
+        },
+        remark:{
+            type: String
+        }
+    }
+})
+
 const studentSchema=new Schema({
     name:{
         type:String,
@@ -63,7 +87,7 @@ const studentSchema=new Schema({
         type:String,
         unique:true,
         required:true
-    }, 
+    },
     token : {
         type : String,
         default : ""
@@ -71,7 +95,8 @@ const studentSchema=new Schema({
     expired : {
         type : String,
         default : ""
-    }
+    },
+    testCompleted: [resultSchema]
 });
 
 const Students=mongoose.model("students",studentSchema);

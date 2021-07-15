@@ -175,7 +175,8 @@ const timer = document.getElementById('timer');
 var date = JSON.parse(time);
 
 function thankYouPage(){
-        var url = "../../students/thankYou/" + data._id;
+        var enrolledTestId = JSON.parse(enrolledTestId );
+        var url = "../../generateResult/" + enrolledTestId + "/" + data._id;
         window.location.href = url;
 }
 
@@ -183,6 +184,7 @@ function setTimer(){
         
         // Set the date we're counting down to
         var countDownDate = new Date(date).getTime();
+        
   
         // Update the count down every 1 second
         var x = setInterval(function() {

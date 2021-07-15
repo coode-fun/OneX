@@ -76,10 +76,19 @@
                                         <td><%=data[i].test.date%></td>
                                         <td><%=data[i].test.start%></td>
                                         <td><%=data[i].test.end%></td>
-                                        <%if(data[i].isAttempted == false && data[i].test.timeout == false){%>
+
+                                        <%let startTime = data[i].test.date + 'T' + data[i].test.start +':00.000Z';%>
+                                        <%let endTime = data[i].test.date + 'T' + data[i].test.end +':00.000Z';%>
+                                        <% startTime = new Date(startTime).getTime();%>
+                                        <% endTime = new Date(endTime).getTime();%>
+                                        <% var now = new Date().getTime() + 5 * 60 * 60* 1000 + 30 *60* 1000; %>
+
+                                        <%if(startTime > now){%>
+                                            <td style="color: green"> All the best!</td>
+                                        <%}else if(endTime < now){%>
+                                            <td><button type="button" class="btn btn-success btn-block " id="start"><a href="/students/showResult/<%=data[i]._id%>">Result</a></button></td>
+                                        <%}else if(data[i].isAttempted == false ){%>
                                             <td><button type="button" class="btn btn-danger btn-block " id="start"><a href="/tests/startTest/<%=data[i]._id%>">Start</a></button></td>
-                                        <%}else{%>
-                                            <td><button type="button" class="btn btn-danger btn-block " id="start"><a href="/students/showResult/<%=data[i]._id%>">Result</a></button></td>
                                         <%}%>
                                         <!-- <td><button class="btn btn-danger btn-block"><a href="/tests/deleteSubject/<%=data[i].s_code%>">Delete</a></button></td>
                                         <td><button class="btn btn-secondary btn-block"><a href="#">Edit</a></button></td> -->

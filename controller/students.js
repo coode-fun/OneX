@@ -18,7 +18,12 @@ module.exports.generateResult=async (request, response)=>{
     .populate([{
         path: 'test',
         model: 'createdtests',
-        select: 'questions'
+        select: 'questions t_code'
+    },
+    {
+        path: 'subject',
+        model: 'subjects',
+        select: 's_name s_code'
     }])
     .exec(async (err,result)=>{
         if(err){
@@ -47,9 +52,22 @@ module.exports.generateResult=async (request, response)=>{
         result[0].result.correct = correctQuestion;
         result[0].marks = correctQuestion;
         result[0].result.remark = "Good, you can do much bettr!";
-       
         result[0].save();
         
+        let obj = {
+            subjectCode : result[0].subject.s_code,
+            subjectName : result[0].subject.s_name,
+            testCode : result[0].test.t_code,
+            result:{
+                totalQuestions :totalQuestions,
+                correctQuestions:correctQuestion,
+                remark: "Very good, keep it up!!"
+            }
+        }
+
+        request.user.testCompleted.push(obj);
+        request.user.save();
+
         return response.redirect('../thankYou/'+enrolledTestId);
     })
     // return response.send("Yes");
@@ -160,7 +178,7 @@ module.exports.examsEnrolled=(req,response)=>{
         if(err){
            console.log(err);
         }
-
+     
         return response.render("students/examsEnrolled",{data:result});
     })
     

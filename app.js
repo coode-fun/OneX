@@ -70,11 +70,14 @@ app.get('/',(req,res)=>{
     }
     res.render("home/home.ejs");
 })
+
 app.use('/students',require('./routes/students'));
 app.use('/users',require('./routes/users'));
 app.use('/admins',require('./routes/admins'));
 app.use('/tests',require('./routes/tests'));
 app.use('/questions',require('./routes/questions'));
+
+
 app.get('*',(req,res)=>{
     return res.render('home/error',{message:"Under construction!!"});
 })
