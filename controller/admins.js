@@ -1,13 +1,15 @@
 const Admin=require('../models/admins');
 const CreatedTest=require('../models/createdtest');
-// const mailer=require('../mailers/verificationMail');
+const mailer=require('../mailers/verificationMail');
+const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 
 module.exports.login=(req,res)=>{
         //renderlogin page
         if(req.isAuthenticated()){
             return res.redirect('/admins/profile');
         }
-        return res.render('admin/login');
+        return res.render('admin/login.ejs');
 }
 
 //when login failed due to wrong email or passport
@@ -113,4 +115,86 @@ module.exports.createdTest=(req,res)=>{
         }
     })
 
+}
+
+
+// render reset Password
+module.exports.renderResetPassword=(request, response)=>{
+
+    return response.render('admin/resetPassword');
+}
+
+module.exports.resetPasswordRequest = async (req, res) => {
+
+let email = req.body.email;
+console.log(email)
+
+Admin.find({email : email}, async (err, verified) => {
+    if(verified.length == 0){
+        // throw new Error('No user with provided email found');  //---------------------------------------------------------------render
+        return res.json("No user of of this email "+ email+" exists !");
+    }
+    
+    let token = crypto.randomBytes(31).toString('hex');
+    let expired = Date.now() + 3600000 ; //valid for one day
+
+    console.log(token);
+    try{
+        mailer.resetAdminPasswordMail(email, token);
+        await Admin.updateOne( {email:email}, {$set: { token : token, expired : expired}} );
+        return res.json("Check your inbox and reset your password!!") //---------------------------------------render
+    }catch(err){
+        console.log("error in resetting password!");
+        throw err; //---------------------------------------------------------------render
+    }
+})
+}
+
+module.exports.renderNewPasswordRequest = async (request, response) => {
+
+let token = request.query.token;
+console.log(token);
+return response.render('admin/newPassword',{token:token}); //---------------------------------------render
+}
+
+module.exports.setNewPasswordRequest = async (req, res) => {
+
+let body = req.body;
+let token = body.token;
+let password = body.password;
+let confirmPassword = body.confirmPassword;
+
+console.log(token, password, confirmPassword);
+
+if(password !== confirmPassword){
+    console.log('During reset, Password dont match');
+    return res.redirect('back');
+}
+
+Admin.find({token : token}, async (err, onMatch) => {
+    if(err){
+        throw err
+        //---------------------------------------render
+    }
+
+    if(onMatch.length == 0){
+        throw new Error('verification error, incorrect token');//---------------------------------------render
+    }
+
+    console.log(onMatch);
+
+    // TODO
+    // let hashedPassword = await bcrypt.hash(password, 13);
+
+    if(onMatch[0].expired >= Date.now()){
+        try{
+            await Admin.updateOne( {token : token}, {$set : {password : password}} );
+            return res.redirect('./login'); //return { result : 'success'}; //---------------------------------------render
+        }catch(err){
+            throw err ;//---------------------------------------render
+        }
+    }else{
+        throw new Error('token expired');//---------------------------------------render
+    }
+})
 }

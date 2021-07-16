@@ -24,4 +24,12 @@ router.get('/logout',adminController.destroySession);
 router.get('/updateProfile',adminController.updateProfile);
 router.post('/updateAdmin',adminController.updateAdmin);
 router.get('/createdTest',adminController.createdTest);
+
+
+// Forgot Password
+router.get('/resetPassword', adminController.renderResetPassword);
+router.post('/resetPassword', adminController.resetPasswordRequest);
+router.get('/setNewPassword', adminController.renderNewPasswordRequest);
+router.post('/setNewPassword', adminController.setNewPasswordRequest);
+
 module.exports=router;

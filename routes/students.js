@@ -38,4 +38,5 @@ router.get('/resetPassword', studentController.renderResetPassword);
 router.post('/resetPassword', studentController.resetPasswordRequest);
 router.get('/setNewPassword', studentController.renderNewPasswordRequest);
 router.post('/setNewPassword', studentController.setNewPasswordRequest);
+
 module.exports=router;

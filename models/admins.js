@@ -49,6 +49,14 @@ const adminSchema=new Schema({
     qualification:{
         type:String,
         default:""
+    },
+    token : {
+        type : String,
+        default : ""
+    },
+    expired : {
+        type : String,
+        default : ""
     }
 });
 

@@ -17,6 +17,7 @@ exports.newVerification=(email, token)=>{
         console.log("Mail sent successfully sent !",info);
     })
 }
+
 exports.resetPasswordMail = (email, token) => {
 
     let config = {
@@ -25,6 +26,25 @@ exports.resetPasswordMail = (email, token) => {
         subject: 'Password reset request',
         html: `<h1>Hi,<h1> <br> <a href="http://onex-system.herokuapp.com/students/setNewPassword?token=${token}">Click to reset password!</a> `// UPDATE THE URL AS OF THE CORRECT ROUTE TO THE ENTER NEW PASSWORD WINDOW, LEAVE ---> '?token=${token}' <--- THIS AS IT IS.
         // html:`<h1>Yup, your request has been received, valid for  24 hours!!<h1> <br> <a href="http://localhost:5000/students/setNewPassword?token=${token}">Click to reset password!</a>`
+        
+    }
+
+    nodeMailer.tranpoter.sendMail( config , (err,info) =>{
+        if(err){
+            console.log("Error in sending mail :",err);
+            return ;
+        }
+        console.log("Mail sent successfully sent !",info);
+    })
+}
+exports.resetAdminPasswordMail = (email, token) => {
+
+    let config = {
+        to: email,
+        from: 'oneX.sas.2021@gmail.com',
+        subject: 'Password reset request',
+        html: `<h1>Hi,<h1> <br> <a href="http://onex-system.herokuapp.com/admins/setNewPassword?token=${token}">Click to reset password!</a> `// UPDATE THE URL AS OF THE CORRECT ROUTE TO THE ENTER NEW PASSWORD WINDOW, LEAVE ---> '?token=${token}' <--- THIS AS IT IS.
+        // html:`<h1>Yup, your request has been received, valid for  24 hours!!<h1> <br> <a href="http://localhost:5000/admins/setNewPassword?token=${token}">Click to reset password!</a>`
         
     }
 
