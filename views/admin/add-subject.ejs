@@ -31,43 +31,33 @@
             </div>
         </div>
     </nav>
+
     <div class="container">
         <div class="row row-content">
             <form action="/tests/addSubject" method="POST">
             <div class="col-12">
             <div class="text">Add Subjects</div><br>
             </div>
-            <div class="col-12 col-md-9">
+            <div class="col-12 ">
                 <form>
                     <div class="form-group row">
-                        <label for="subject_code" class="col-md-2" class="col-form-label"><h6>subject Code:</h6></label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="subject_code" name="s_code" rows="1"
+                        <label for="subject_code" class="col-md-5" class="col-form-label"><h6>Subject Code:</h6></label>
+                        <div class="col-md-7">
+                            <textarea class="form-control"  id="subject_code" name="s_code" rows="1"
                                 placeholder="Subject_code" required></textarea>
                         </div>
                     </div> 
                     <div class="form-group row">
-                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Subject:</h6></label>
-                        <div class="col-md-10">
+                        <label for="subject" class="col-md-5" class="col-form-label"><h6>Subject:</h6></label>
+                        <div class="col-md-7">
                             <textarea class="form-control" id="subject" name="s_name" rows="1"
                                 placeholder="Subject" required></textarea>
                         </div>
                     </div> 
-                    <!-- <div class="form-group row">
-                        <label for="subject_code" class="col-md-2" class="col-form-label"><h6>Writer</h6></label>
-                        <div class="col-md-10">
-                            <textarea class="form-control" id="writer" name="teacher" rows="1"
-                                placeholder="Writer" required></textarea>
-                        </div>
-                    </div>  -->
-                    <!-- <div class="form-group row">
-                        <div class="offset-md-2 col-md-10">
-                            <input type="hidden"  value="xyz">
-                        </div>
-                    </div> -->
-                    <div class="form-group row">
-                        <div class="offset-md-2 col-md-10">
-                            <button type="submit" class="btn btn-primary">
+            
+                    <div class="form-group row ">
+                        <div class="offset-md-5 col-md-10">
+                            <button type="submit" class="btn btn-primary ">
                                 Add Subject
                             </button> 
                         </div>
@@ -76,6 +66,58 @@
             </div>
             </form>
         </div>
+
+<!-- Trigger/Open The Modal -->
+<!-- <button id="myBtn">Open Modal</button> -->
+    <!-- The Modal -->
+    <div id="myModal" class="modals">
+        <!-- Modal content -->
+        <div class="modal-contents">
+          <div class="modal-headers">
+            <span class="close">&times;</span>
+            <h2 class="text">Edit Subject</h2>
+          </div>
+          <div class="modal-bodys">
+
+            <div class="container">
+                <div class="row row-content">
+                    <form action="/tests/editSubject" method="POST">
+                    <div class="col-12 ">
+                        <form>
+                            <div class="form-group row">
+                                <label for="subject_code" class="col-md-5" class="col-form-label"><h6>Subject Code:</h6></label>
+                                <div class="col-md-7">
+                                    <textarea class="form-control" id="edit-subject_code" name="s_code" rows="1"
+                                        placeholder="Subject_code" required></textarea>
+                                </div>
+                            </div> 
+                            <div class="form-group row">
+                                <label for="subject" class="col-md-5" class="col-form-label"><h6>Subject:</h6></label>
+                                <div class="col-md-7">
+                                    <textarea class="form-control" id="edit-subjectName" name="s_name" rows="1"
+                                        placeholder="Subject" required></textarea>
+                                </div>
+                            </div> 
+                            <input type="hidden" name="subjectId" value="" id="edit-subjectId">
+                            <div class="form-group row">
+                                <div class="offset-md-5 col-md-10">
+                                    <button type="submit" class="btn btn-primary">
+                                        Save
+                                    </button> 
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    </form>
+                </div>
+          </div>
+          <!-- <div class="modal-footers">
+            <h3>Modal Footer</h3>
+          </div> -->
+        </div>  
+    </div>
+    
+    </div>
         <section>
         
             <table class="table table-striped">
@@ -100,7 +142,7 @@
                             <td><%=data[i].s_code%></td>
                             <td><button class="btn btn-success btn-block" ><a href="/tests/createTest/<%=data[i]._id%>">Create test</a></button></td>
                             <td><button class="btn btn-danger btn-block"><a href="/tests/deleteSubject/<%=data[i]._id%>">Delete</a></button></td>
-                            <td><button class="btn btn-secondary btn-block"><a href="# ">Edit</a></button></td>
+                            <td><button class="btn btn-secondary btn-block" onclick="myModelFunction('<%=data[i]._id%>')">Edit</button></td>
                         </tr>
                     <%}}%>
                     
@@ -109,5 +151,6 @@
             </table>  
         </section>    
     </div>
+    <script src="../../js/addSubjects.js"></script>
 </body>
 </html>

@@ -7,9 +7,11 @@ const testController=require('../controller/tests');
 router.get('/updateMarks/:code',testController.updateMarks);
 
 //adding subject
-router.get('/addSubject',testController.addSubject);
-router.post('/addSubject',testController.createSubject);
-router.get('/deleteSubject/:s_code',testController.deleteSubject);
+router.get('/addSubject',   testController.addSubject);
+router.post('/addSubject',  testController.createSubject);
+router.get('/deleteSubject/:s_code',    testController.deleteSubject);
+router.get('/getSubject/:subjectId', testController.getSubjectById);
+router.post('/editSubject', testController.editSubjectById);
 
 //adding test
 router.get('/createTest/:s_code',testController.addTest);

@@ -60,6 +60,35 @@ module.exports.createSubject=function(req,res){
     })
 }
 
+module.exports.getSubjectById=(request, response)=>{
+
+    Subject.find({_id: request.params.subjectId},(error, subject)=>{
+        if(error){
+            console.log('error in finding subject!!');
+        }
+        console.log(subject[0]);
+        var data ={
+            s_name : subject[0].s_name,
+            s_code : subject[0].s_code
+        }
+        return response.json(data);
+    })
+}
+module.exports.editSubjectById=(request, response)=>{
+
+    Subject.find({_id: request.body.subjectId},(error, subject)=>{
+        if(error){
+            console.log('error in editing subject subject!!');
+        }
+        console.log(subject[0]);
+        subject[0].s_name = request.body.s_name;
+        subject[0].s_code = request.body.s_code;
+
+        subject[0].save();
+
+        return response.redirect('back');
+    })
+}
 module.exports.addTest=(req,res)=>{
     //render
     CreatedTest.find({admin:req.user._id,subject:req.params.s_code},(err,result)=>{
@@ -217,6 +246,7 @@ module.exports.getTestById=(request, response)=>{
         return response.json(test[0]);
     })
 };
+
 module.exports.editTestById=(request, response)=>{
 
     CreatedTest.find({_id : request.body.testId},(error, test)=>{

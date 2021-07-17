@@ -1,4 +1,3 @@
-
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -10,30 +9,23 @@ var span = document.getElementsByClassName("close")[0];
 
 
 //
-function myModelFunction(test_id){
+function myModelFunction(subjectId){
 
-  const editDepartment = document.querySelector('#edit-department');
-  const editYear = document.querySelector('#edit-year');
-  const ediDate = document.querySelector('#edit-date');
-  const editStart = document.querySelector('#edit-start');
-  const editEnd = document.querySelector('#edit-end');
-  const editTestCode = document.querySelector('#edit-t_code');
-  const editTestId = document.querySelector('#edit-testId');
-  
-  let url = '../getTest/' + test_id;
- 
+  const editSubjectCode = document.querySelector('#edit-subject_code');
+  const editSubjectName = document.querySelector('#edit-subjectName');
+  const editSubjectId = document.querySelector('#edit-subjectId');
+
+  let url = '/tests/getSubject/' + subjectId;
+
+  console.log(url);
+
   fetch(url)
   .then(response => response.json())
   .then((data) => {
     
-    editDepartment.value = data.department;
-    editYear.value = data.year;
-    ediDate.value= data.date;
-    editStart.value = data.start;
-    editEnd.value = data.end;
-    editTestCode.value= data.t_code;
-    editTestId.value = test_id;
-
+    editSubjectCode.value = data.s_code;
+    editSubjectName.value = data.s_name;
+    editSubjectId.value = subjectId;
     modal.style.display = "block";
   });
 }
