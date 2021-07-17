@@ -32,4 +32,6 @@ router.post('/resetPassword', adminController.resetPasswordRequest);
 router.get('/setNewPassword', adminController.renderNewPasswordRequest);
 router.post('/setNewPassword', adminController.setNewPasswordRequest);
 
+
+
 module.exports=router;

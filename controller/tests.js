@@ -24,6 +24,7 @@ module.exports.updateMarks=async (request,response)=>{
     // Student.updateOne()
      return response.sendStatus(200);
 }
+// edit subject
 
 module.exports.addSubject=function(req,res){
     //render
@@ -205,6 +206,37 @@ module.exports.saveAnswer=(request, response)=>{
 
 }
 
+module.exports.getTestById=(request, response)=>{
+
+    CreatedTest.find({_id : request.params.testId},(error, test)=>{
+
+        if(error){
+            console.log("Error in finding test by id");
+            return  response.send(err);
+        }
+        return response.json(test[0]);
+    })
+};
+module.exports.editTestById=(request, response)=>{
+
+    CreatedTest.find({_id : request.body.testId},(error, test)=>{
+
+        if(error){
+            console.log("Error in editing test");
+            return  response.send(err);
+        }
+        test[0].department = request.body.department;
+        test[0].year = request.body.year;
+        test[0].start = request.body.start;
+        test[0].end = request.body.end;
+        test[0].date = request.body.date;
+        test[0].t_code = request.body.t_code;
+
+        test[0].save();
+
+        return response.redirect('back');
+    })
+};
 module.exports.feedback=(request, response)=>{
     return response.render('home/feedback.ejs',{message:" You have successfully completed the test!"});
 }

@@ -84,3 +84,49 @@ module.exports.deleteQuestions=(req,res)=>{
         }
     })
 }
+
+
+module.exports.getQuestion = async (request, response) => {
+
+    var questionCode = request.params.testId.split('$');
+    console.log(questionCode);
+
+    Test.find({_id : questionCode[0]},(error, test)=>{
+
+        if(error){
+            console.log('Error in finding question!!', error);
+            return response.json("Something went wrong.")
+        }
+        
+        var index = parseInt(questionCode[1]);
+        var question = test[0].questions[index];
+
+        console.log(question);
+        return response.json(question);
+    })
+}
+
+
+//edit Question by testId and question number
+module.exports.editQuestion=(request,response)=>{
+
+    let body =  request.body;
+    // console.log(body);
+    let testId = request.params.testId;
+    let index = parseInt(body.questionIndex);
+
+    Test.find({_id:testId},(err,result)=>{
+
+        result[0].questions[index].question = body.question;
+        result[0].questions[index].options.set(0, body.option1);
+        result[0].questions[index].options.set(1, body.option2);
+        result[0].questions[index].options.set(2, body.option3);
+        result[0].questions[index].options.set(3, body.option4);
+        result[0].questions[index].answer = body.answer;
+
+        result[0].save();
+        console.log(result[0].questions[index]);
+
+        return response.redirect('back');
+    });
+}

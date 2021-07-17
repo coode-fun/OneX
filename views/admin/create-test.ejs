@@ -10,6 +10,7 @@
      <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
      
 </head>
+
 <body>
     
     <div class="container">
@@ -108,6 +109,107 @@
                 </form>
             </div>
         </div>
+
+        <!-- module stated here -->
+
+<!-- Trigger/Open The Modal -->
+<!-- <button id="myBtn">Open Modal</button> -->
+    <!-- The Modal -->
+<div id="myModal" class="modals">
+    <!-- Modal content -->
+    <div class="modal-contents">
+      <div class="modal-headers">
+        <span class="close">&times;</span>
+        <h2>Edit Test</h2>
+      </div>
+      <div class="modal-bodys">
+       
+        <div class="row row-content">
+            <div class="col-12 ">
+                <form action="/tests/editTest" method="POST">
+                    <div class="form-group row">
+                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Department:</h6></label>
+                        <div class="col-md-10"  id="department">
+                           <select class="form-control" name = "department" id="edit-department" required>
+                                <option>Department</option>
+                                <option>Civil</option>
+                                <option>Computer Science</option>
+                                <option>Electronics and Telecommunication</option>
+                                <option>Information Technology</option>
+                                <option>Mechanical</option>
+                                <option>Mining</option>
+                                <option>Metallurgy</option>
+                                <option>General</option>
+                                <option>Open</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Year :</h6></label>
+                        <div class="col-md-10" id="year">
+                           <select class="form-control" name="year" id="edit-year" required>
+                                <option>1st year</option>
+                                <option>2nd Year</option>
+                                <option>3rd Year</option>
+                                <option>4th Year</option>
+                                <option>other</option>
+                            </select>
+                        </div>
+                    </div> 
+                    <!-- <div class="form-group row">
+                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Date :</h6></label>
+                        <div class="col-md-10">
+                            <input type="text" name="year" id="year" placeholder="Date" required/>
+                        </div>
+                    </div>  -->
+                    <div class="form-group row">
+                        <label for="subject" class="col-md-2" class="col-form-label"><h6>Date :</h6></label>
+                        <div class="col-md-10">
+                            <input type="date" name="date" id="edit-date"  placeholder="Date" required/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="subject_code" class="col-md-2" class="col-form-label"><h6>Start Time :</h6></label>
+                        <div class="col-md-10">
+                            <input type="time" name="start" id="edit-start"  placeholder="Start_time" required/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="subject_code" class="col-md-2" class="col-form-label"><h6>End Time :</h6></label>
+                        <div class="col-md-10">
+                            <input type="time" name="end" id="edit-end"  placeholder="End_time" required/>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="subject_code" class="col-md-2" class="col-form-label"><h6>Test ID :</h6></label>
+                        <div class="col-md-10">
+                            <input type="text" name ="t_code" id="edit-t_code"  placeholder="Test_code" required/>
+                        </div>
+                    </div> 
+                    <input type="hidden" name="testId" value="" id= "edit-testId">
+                    <div class="form-group row">
+                        <div class="offset-md-2 col-md-10">
+                            <button type="submit" class="btn btn-primary">
+                                Save Schedule
+                            </button> 
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+                
+      </div>
+    </div>
+</div>
+      <!-- <div class="modal-footers">
+        <h3>Modal Footer</h3>
+      </div> -->
+    </div>  
+</div>
+ <!-- module ended here -->
+
+
         <br>
         <div class="card">
         <div class="bdr">
@@ -126,7 +228,7 @@
                         <th>Delete</th>
                         <th>Edit</th>
                         <th>Add Questions</th>
-                        <th>Students Enrolled</th>
+                        <!-- <th>Students Enrolled</th> -->
                     </tr>
                 </thead>
             
@@ -144,12 +246,12 @@
                             <td><%=data[i].end%></td>
                             
                         <td><button class="btn btn-danger btn-block"><a href="/tests/deleteTest/<%=data[i]._id%>">Delete</a></button></td>
-                        <td><button class="btn btn-secondary btn-block">Edit</button></td>
+                        <td><button class="btn btn-secondary btn-block" onclick="myModelFunction('<%=data[i]._id%>')">Edit</button></td>
                         <td>
                             
                             <button class="btn btn-primary btn-block"><a href="/questions/addQuestions/<%=data[i]._id%>">Add</a></button>
                         </td>
-                        <td><button class="btn btn-success btn-block"><a href="#">check</a></button></td>     </tr>
+                        <!-- <td><button class="btn btn-success btn-block"><a href="# ">check</a></button></td>     </tr> -->
                     <%}}%>
                     <!-- <tr>
                         <td>4</td>
@@ -175,6 +277,6 @@
         </div>  
         </div>
     </div>
-    
+    <script src="../../js/createTest.js"></script>
 </body>
 </html>

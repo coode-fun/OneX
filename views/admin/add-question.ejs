@@ -89,6 +89,83 @@
             </form>
         </div>
     </div>
+<!-- Trigger/Open The Modal -->
+<!-- <button id="myBtn">Open Modal</button> -->
+    <!-- The Modal -->
+<div id="myModal" class="modals">
+    <!-- Modal content -->
+    <div class="modal-contents">
+      <div class="modal-headers">
+        <span class="close">&times;</span>
+        <h2>Edit Question</h2>
+      </div>
+      <div class="modal-bodys">
+        <div class="row row-content">
+            <!-- <div class="col-12">
+               <div class="text">Add Questions</div><br>
+            </div> -->
+             <div class="col-12 ">
+                 <form action="/questions/editQuestion/<%=test_id%>" method="POST">
+                     <div class="form-group row">
+                         <label for="question" class="col-md-2" class="col-form-label"><h6>Question:</h6></label>
+                         <div class="col-md-10">
+                             <textarea class="form-control" id="edit-question" name="question" rows="1"
+                                placeholder="Question"></textarea>
+                         </div>
+                     </div> 
+                     <div class="form-group row">
+                         <label for="option1" class="col-md-2" class="col-form-label"><h6>Option1:</h6></label>
+                         <div class="col-md-10">
+                             <textarea class="form-control" id="edit-option1" name="option1" rows="1"
+                                 placeholder="Option 1"></textarea>
+                         </div>
+                     </div> 
+                     <div class="form-group row">
+                        <label for="option2" class="col-md-2" class="col-form-label"><h6>Option2:</h6></label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="edit-option2" name="option2" rows="1"
+                                placeholder="Option 2"></textarea>
+                        </div>
+                     </div> 
+                     <div class="form-group row">
+                        <label for="option3" class="col-md-2" class="col-form-label"><h6>Option3:</h6></label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="edit-option3" name="option3" rows="1"
+                                placeholder="Option 3"></textarea>
+                        </div>
+                     </div> 
+                     <div class="form-group row">
+                        <label for="option4" class="col-md-2" class="col-form-label"><h6>Option4:</h6></label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="edit-option4" name="option4" rows="1"
+                                placeholder="Option 4"></textarea>
+                        </div>
+                     </div>
+                     <div class="form-group row">
+                        <label for="answer" class="col-md-2" class="col-form-label"><h6>Correct option:</h6></label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" id="edit-answer" name="answer" rows="1"
+                                placeholder="Answer"></textarea>
+                        </div>
+                     </div>
+                     <input type="hidden" name="questionIndex" id='edit-questionIndex' value="">
+                     <div class="form-group row">
+                         <div class="offset-md-2 col-md-10">
+                             <button type="submit" class="btn btn-primary">
+                                 Save
+                             </button> 
+                         </div>
+                     </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      <!-- <div class="modal-footers">
+        <h3>Modal Footer</h3>
+      </div> -->
+    </div>  
+</div>
+
     <br>
     <div class="card">
     <div class="bdr">
@@ -97,6 +174,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
+                <th>S.No</th>
                 <th>Question</th>
                 <th>Option1</th>
                 <th>Option2</th>
@@ -114,6 +192,7 @@
                 </tr>
             <%}else{for(let i=0;i<data.length;i++){%>
                 <tr>
+                    <td><%=i+1%></td>
                     <td><%=data[i].question%></td>
                     <td><%=data[i].options[0]%></td>
                     <td><%=data[i].options[1]%></td>
@@ -122,9 +201,11 @@
                     <td><%=data[i].answer%></td>
                     
                 <td><button class="btn btn-danger btn-block"><a id="anchor1" href="/questions/deleteQuestions/<%=test_id%>$<%=i%>">Delete</a></button></td>
-                <td><button class="btn btn-secondary btn-block">Edit</button></td>
+                <td><button class="btn btn-secondary btn-block" onclick="myModelFunction('<%=test_id%>','<%=i%>')">Edit</button></td>
+
                
-                <td><button class="btn btn-success btn-block"><a  id="anchor3" href="#">check</a></button></td>     </tr>
+
+                <!-- <td><button class="btn btn-success btn-block"><a  id="anchor3" href="#">check</a></button></td>     </tr> -->
             <%}}%>
             <tbody>
                 
@@ -136,6 +217,6 @@
     </div> 
     </div>
 </div>
-
+<script src="../../js/addQuestions.js"></script>
 </body>
 </html>

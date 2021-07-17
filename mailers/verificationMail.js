@@ -53,6 +53,7 @@ exports.resetAdminPasswordMail = (email, token) => {
             console.log("Error in sending mail :",err);
             return ;
         }
+
         console.log("Mail sent successfully sent !",info);
     })
 }

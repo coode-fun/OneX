@@ -16,6 +16,9 @@ router.get('/createTest/:s_code',testController.addTest);
 router.post('/createTest/:s_code',testController.createTest);
 router.get('/deleteTest/:t_code',testController.deleteTest);
 
+// getTestById
+router.get('/getTest/:testId', testController.getTestById);
+router.post('/editTest', testController.editTestById);
 //take test
 router.get('/startTest/:param',testController.startTest);
 router.get('/quiz/:param',testController.quiz);
