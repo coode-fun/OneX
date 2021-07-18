@@ -11,6 +11,7 @@ const bcrypt = require('bcryptjs');
 const { send } = require('process');
 const { json } = require('express');
 
+
 module.exports.generateResult=async (request, response)=>{
 
     var enrolledTestId = request.params.enrolledTestId;
@@ -61,7 +62,8 @@ module.exports.generateResult=async (request, response)=>{
             result:{
                 totalQuestions :totalQuestions,
                 correctQuestions:correctQuestion,
-                remark: "Very good, keep it up!!"
+                remark: "Very good, keep it up!!",
+                pdf:null
             }
         }
 

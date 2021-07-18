@@ -74,6 +74,7 @@ module.exports.getSubjectById=(request, response)=>{
         return response.json(data);
     })
 }
+
 module.exports.editSubjectById=(request, response)=>{
 
     Subject.find({_id: request.body.subjectId},(error, subject)=>{

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tests created</title>
-    <link rel="stylesheet" href="../../asserts/css/css/admin-created-test.css">
+    <link rel="stylesheet" href="../../css/css/admin-created-test.css">
     <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/font-awesome/font-awesome.min.css"> 
     <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
@@ -20,13 +20,13 @@
             </button>
             <div class="collapse navbar-collapse" id="Navbar">
                 <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><a class="nav-link" href="../admin/admin_profile.html"><span class="fa fa-user fa-lg"></span> Profile</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/admins/profile"><span class="fa fa-user fa-lg"></span> Profile</a></li>
                         <li class="nav-item"><a class="nav-link" href="../admin/notification.html"><span class="fa fa-bell fa-lg"> Notification</span></a></li>
                         <li class="nav-item active"><a class="nav-link" href="#"><span class="fa fa-book fa-lg"> Tests</span></a></li>
                         
                 </ul>
                 <span class="navbar-text">
-                    <a href="../home/admin-user.html">
+                    <a href="/admins/logout">
                         <span class="fa fa-sign-in"></span> Logout
                     </a>
                 </span>
@@ -48,37 +48,49 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                            <th>Subject Name</th>
                             <th>Subject Code</th>
                             <th>Test Code</th>
                             <th>Department</th>
                             <th>Year</th>
-                           
+                            <th>Date</th>
                             <th>Start Time</th>
                             <th>End Time</th>
                             <!-- <th>Duration</th> -->
                             <th>Enrolled</th>
-                            <th> ........</th>
                             </tr>
                         </thead>
                     
                         <tbody>
                             <%if(data.length===0){%>
                                 <tr>
-                                    <td colspan="8" >No Test created</td>
+                                    <td colspan="9" style="align-content: center;">No Test created</td>
                                 </tr>
                             <%}else{for(let i=0;i<data.length;i++){%>
                                 <tr>
-                                    <td><%=data[i].s_code%></td>
+                                    <td><%=data[i].subject.s_name%></td>
+                                    <td><%=data[i].subject.s_code%></td>
                                     <td><%=data[i].t_code%></td>
                                     <td><%=data[i].department%></td>
                                     <td><%=data[i].year%></td>
+                                    <td><%=data[i].date%></td>
                                     <td><%=data[i].start%></td>
                                     <td><%=data[i].end%></td>
-                                    <td><button class="btn btn-secondary"><a id="enroll" href="#">Enrolled</a></button></td>
+
+                                    <% let startTime = data[i].date + 'T' + data[i].start +':00.000Z';%>
+                                    <% let endTime = data[i].date + 'T' + data[i].end +':00.000Z';%>
+                                    <% startTime = new Date(startTime).getTime();%>
+                                    <% endTime = new Date(endTime).getTime();%>
+                                    <% var now = new Date().getTime() + 5 * 60 * 60* 1000 + 30 *60* 1000; %>
+                                    
+                                    <%if(endTime >= now ){%>
+                                    <td><button class="btn btn-secondary"><a id="enroll" href="/admins/studentsEnrolled/<%=data[i]._id%>">Enrolled</a></button></td>
+                                    <%}else{%>
                                     <td>
-                                        <button class="btn btn-danger hide" id="start"><a href="#">Start</a></button>
-                                        <button class="btn btn-success hide" id="result"><a href="#">Result</a></button>
+                                        <!-- <button class="btn btn-danger hide" id="start"><a href="#">Start</a></button> -->
+                                        <button class="btn btn-success" id="result"><a href="/admins/generateTestRank/<%=data[i]._id%>">Result</a></button>
                                     </td>
+                                    <%}%>
                                 </tr>
                             <%}}%>
                             <!-- <tr>

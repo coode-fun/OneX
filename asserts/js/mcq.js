@@ -11,6 +11,7 @@ const status = document.querySelector('.status');
 
 data = JSON.parse(data);
 
+
 var questionNumber = data.counter;
 var questions = data.test.questions;
 var totalQuestion =questions.length;

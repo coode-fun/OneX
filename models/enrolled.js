@@ -62,6 +62,10 @@ const enrolledSchema=new Schema({
         remark:{
             type : String,
             default : "All the best for your future!!"
+        },
+        pdf:{
+            type: String,
+            default:null
         }
     },
     answer:{

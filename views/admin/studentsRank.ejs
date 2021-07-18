@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students Rank</title>
+    <link rel="stylesheet" href="../../css/css/studentsRank.css">
+    <link rel="stylesheet" href="../../css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome/font-awesome.min.css"> 
+    <link ref="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css.map">
+     
+</head>
+<body>
+    <nav class="navbar navbar-dark navbar-expand-sm fixed-top">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="Navbar">
+                <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"><a class="nav-link" href="/admins/profile"><span class="fa fa-user fa-lg"></span> Profile</a></li>
+                        <!-- <li class="nav-item"><a class="nav-link" href="../admin/notification.html"><span class="fa fa-bell fa-lg"></span> Notification</a></li> -->
+                        <!-- <li class="nav-item active"><a class="nav-link" href="#"><span class=""></span>Mid term exam</a></li> -->
+                        <li class="nav-item active"><a class="nav-link" href="#"><span class=""></span>TestCode:<%=t_code%></a></li>
+                        <li class="nav-item active"><a class="nav-link" href="#"><span class=""></span>Subject: <%=s_name%></a></li>
+                        
+                </ul>
+                <span class="navbar-text">
+                    <a href="/admins/logout">
+                        <span class="fa fa-sign-in"></span> Logout
+                    </a>
+                </span>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+            <div class="row row-content">
+                <div class="col-12">
+                    <div class="text">Students Rank!</div><br>
+                    <div class="card">
+                    <div class="bdr">
+                    <section>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Name</th>
+                                    <th>Enrollment no</th>
+                                    <th>Department</th>
+                                    <!-- <th>Email ID</th> -->
+                                    <th>Year</th>
+                                    <th>Percentage</th>
+                                   <!-- <th>Answers</th>
+                                    <th>Update result</th> -->
+                                </tr>
+                            </thead>
+                                <tbody>
+                                    <%if(data.length===0){%>
+                                        <tr>
+                                            <td colspan="9" style="align-content: center;">No Students Enrolled</td>
+                                        </tr>
+                                    <%}else{for(let i=0;i<data.length;i++){%>
+                                        <tr>
+                                            <td><%=i+1%></td>
+                                            <td><%=data[i].name%></td>
+                                            <td><%=data[i].enrollment%></td>
+                                            <td><%=data[i].department%></td>
+                                            <td><%=data[i].year%></td>
+                                            <td><%=data[i].percentage%></td>
+                                        </tr>
+                                    <%}}%>                                   
+                                </tbody>
+                        
+                        </table>  
+                    
+                    </section> 
+                    </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        <!-- <script src="../front/enrolled_students.js"></script> -->
+</body>
+</html>

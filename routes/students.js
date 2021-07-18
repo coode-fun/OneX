@@ -2,6 +2,7 @@ const express=require('express');
 const router=express.Router();
 const passport=require('passport');
 
+// const pdfController = require('../controller/pdf');
 const studentController=require('../controller/students');
 
 router.get('/login',studentController.login);
@@ -38,5 +39,8 @@ router.get('/resetPassword', studentController.renderResetPassword);
 router.post('/resetPassword', studentController.resetPasswordRequest);
 router.get('/setNewPassword', studentController.renderNewPasswordRequest);
 router.post('/setNewPassword', studentController.setNewPasswordRequest);
+
+//Generate PDF
+// router.get('/generatePDF', pdfController.generatePDF);
 
 module.exports=router;

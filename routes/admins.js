@@ -25,6 +25,9 @@ router.get('/updateProfile',adminController.updateProfile);
 router.post('/updateAdmin',adminController.updateAdmin);
 router.get('/createdTest',adminController.createdTest);
 
+//studentsEnrolled
+router.get('/studentsEnrolled/:testId', adminController.studentsEnrolled);
+router.get('/generateTestRank/:testId', adminController.generateTestRank);
 
 // Forgot Password
 router.get('/resetPassword', adminController.renderResetPassword);

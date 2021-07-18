@@ -21,6 +21,10 @@ const resultSchema=new Schema({
         },
         remark:{
             type: String
+        },
+        pdf:{
+            type:String,
+            default :null
         }
     }
 })
@@ -69,7 +73,7 @@ const studentSchema=new Schema({
     },
     mobile:{
         type:String,
-        default:"+919876543210"
+        default:"+91xxxxxxxxxx"
     },
     linkedin:{
         type:String,

@@ -3,6 +3,7 @@ const CreatedTest=require('../models/createdtest');
 const mailer=require('../mailers/verificationMail');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
+const EnrolledStudents = require('../models/enrolled');
 
 module.exports.login=(req,res)=>{
         //renderlogin page
@@ -104,17 +105,23 @@ module.exports.destroySession=(req,res)=>{
     return res.redirect('/');
 }
 
-module.exports.createdTest=(req,res)=>{
+module.exports.createdTest=(request,response)=>{
 
-    CreatedTest.find({email:req.user.email},(err,result)=>{
-        if(err){
-            return res.render('home/error',{message:"something went wrong"})
-        }else{
-            console.log(result);
-            return res.render('admin/created-test',{data:result});
+    CreatedTest.find({admin : request.user._id})
+    .populate([
+        {
+            path: 'subject',
+            model: 'subjects',
+            select: 's_name s_code'
         }
+    ])
+    .exec((err, result)=>{
+        if(err){
+            console.log("Error in finding test for admin!!");
+            return response.send(err);
+        }
+        return response.render('admin/created-test.ejs', {data: result});
     })
-
 }
 
 
@@ -197,4 +204,90 @@ Admin.find({token : token}, async (err, onMatch) => {
         throw new Error('token expired');//---------------------------------------render
     }
 })
+}
+
+// Students enrolled
+module.exports.studentsEnrolled = (request, response)=>{
+
+    EnrolledStudents.find({test : request.params.testId})
+    .populate([
+        {
+            path: 'subject',
+            model: 'subjects',
+            select: 's_name s_code'
+        },
+        {
+            path: 'student',
+            model: 'students',
+            select: 'name enrollment department year'
+        },
+        {
+            path: 'test',
+            model: 'createdtests',
+            select: 't_code'
+        }
+    ])
+    .exec((error, result)=>{
+        if(error){
+            console.log('error in finding enrolled studets');
+            return response.send(err);
+        }
+        console.log(result);
+        return response.render('admin/studentsEnrolled.ejs',{data:result});
+    })
+}
+
+// Generate Rank
+module.exports.generateTestRank = async (request, response)=>{
+    
+    EnrolledStudents.find({test : request.params.testId, isAttempted : 1})
+    .populate([
+        {
+            path: 'subject',
+            model: 'subjects',
+            select: 's_name s_code'
+        },
+        {
+            path: 'student',
+            model: 'students',
+            select: 'name enrollment department year'
+        },
+        {
+            path: 'test',
+            model: 'createdtests',
+            select: 't_code'
+        }
+    ])
+    .exec(async (error, result)=>{
+        if(error){
+            console.log('error in generating students rank.');
+            return response.send(err);
+        }
+
+        var studentsRecord = [];
+        await result.forEach((obj)=>{
+            var obj ={
+                percentage : (obj.result.correct * 100) / obj.result.totalQuestion,
+                name : obj.student.name,
+                enrollment : obj.student.enrollment,
+                department : obj.student.department,
+                year : obj.student.year
+            }
+            studentsRecord.push(obj);
+        })
+        obj ={
+            percentage : 56,
+            name : "obj.student.name",
+            enrollment : "obj.student.enrollment",
+            department : "obj.student.department"
+        }
+        studentsRecord.push(obj);
+        console.log(result);
+
+        console.log(studentsRecord);
+        studentsRecord.sort((a,b)=>(  b.percentage - a.percentage));
+        console.log(studentsRecord);
+
+        return response.render('admin/studentsRank.ejs',{data:studentsRecord, t_code : result[0].test.t_code,s_name: result[0].subject.s_name });
+    })
 }
