@@ -264,6 +264,9 @@ module.exports.generateTestRank = async (request, response)=>{
             return response.send(err);
         }
 
+        if(result.length == 0){
+            response.send('No student registered');
+        }
         var studentsRecord = [];
         await result.forEach((obj)=>{
             var obj ={
@@ -275,14 +278,15 @@ module.exports.generateTestRank = async (request, response)=>{
             }
             studentsRecord.push(obj);
         })
-        obj ={
-            percentage : 56,
-            name : "obj.student.name",
-            enrollment : "obj.student.enrollment",
-            department : "obj.student.department"
-        }
-        studentsRecord.push(obj);
-        console.log(result);
+
+        // obj ={
+        //     percentage : 56,
+        //     name : "obj.student.name",
+        //     enrollment : "obj.student.enrollment",
+        //     department : "obj.student.department"
+        // }
+        // studentsRecord.push(obj);
+        // console.log(result);
 
         console.log(studentsRecord);
         studentsRecord.sort((a,b)=>(  b.percentage - a.percentage));

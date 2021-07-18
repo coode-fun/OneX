@@ -5,7 +5,7 @@ const vfsFonts = require('../pdfmake/vfs_fonts');
 
 pdfMake.vfs = vfsFonts.pdfMake.vfs;
 
-exports.generatePDF = async ( req, res )=>{
+exports.generatePDF = async ( request, res )=>{
     try{       
 // console.log(req.body.studentId);
         // Students.find({_id:req.body.studentId},(err, student)=>{
@@ -17,11 +17,14 @@ exports.generatePDF = async ( req, res )=>{
 
             // console.log(student);
             let codes = request.params.subjectTestCode.split('$');
-
+            console.log(request.user);
             request.user.testCompleted.forEach( async (testMatched, index) => {
-                if(testMatched.testCode == codes[1] && testMatched.testCode == codes[0]){
+                console.log(codes[1], testMatched, index );
+                console.log(codes[0]);
+                if(testMatched.testCode == codes[1] && testMatched.subjectCode == codes[0]){
                     testIndex = index;
                     resultPdf = testMatched.result.pdf;
+                    
                 }
             })
             
@@ -41,7 +44,7 @@ exports.generatePDF = async ( req, res )=>{
                             style: 'subheader'
                         },
                         {
-                            text:`Student : ${request.user.name}\nTestId: ${request.user.testCompleted[testIndex].testCode}\nTeacher: ${student[0].teacherName}\nDate: ${student[0].testCompleted[testIndex].result.date}\nTotal number of Question: ${student[0].testCompleted[testIndex].result.totalQuestions}\nCorrect answers: ${student[0].testCompleted[testIndex].result.correctQuestions}\nWrong answers: ${totalAnswers - correctAnswer}\nTotal marks: ${student[0].testCompleted[testIndex].result.correctQuestions}\nPercentage: ${percentage}`,
+                            text:`Student : ${request.user.name}\nTestId: ${request.user.testCompleted[testIndex].testCode}\nTotal number of Question: ${request.user.testCompleted[testIndex].result.totalQuestions}\nCorrect answers: ${request.user.testCompleted[testIndex].result.correctQuestions}\nWrong answers: ${totalAnswers - correctAnswer}\nTotal marks: ${request.user.testCompleted[testIndex].result.correctQuestions}\nPercentage: ${percentage}`,
                             style: ['quote', 'small']
                         }
                     ],
@@ -65,7 +68,7 @@ exports.generatePDF = async ( req, res )=>{
 
                 const pdfDoc = pdfMake.createPdf(documentDefinition);
                 pdfDoc.getBase64( async (data)=>{
-                    console.log(data);
+                    // console.log(data);
                     request.user.testCompleted[testIndex].result.pdf = data;
                     await request.user.save();
 
