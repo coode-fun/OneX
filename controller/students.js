@@ -522,13 +522,13 @@ module.exports.createSession=(req,res)=>{
         return res.send("Email is not verified");
     }
     //create session using passport
-    console.log("success-------->",req.user);
+    // console.log("success-------->",req.user);
     return res.redirect('/students/sprofile');
 }
 
-module.exports.destroySession=(req,res)=>{
+module.exports.destroySession=async (req,res)=>{
     //
-    req.logout();
+    await req.logout();
     return res.redirect('/');
 }
 

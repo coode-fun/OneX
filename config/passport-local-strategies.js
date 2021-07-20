@@ -3,7 +3,7 @@ const passport=require('passport');
 const LocalStrategy=require('passport-local').Strategy;
 const Student=require('../models/students');
 const Admin=require('../models/admins');
-
+const orgController = require('../models/orgControllers');
 
 passport.use('student',new LocalStrategy({
     usernameField:'email',
@@ -48,6 +48,7 @@ passport.use('student',new LocalStrategy({
                     console.log('Error in finding user ====>passport');
                     return done(err);
                 }
+
                 // console.log('------------------>');
                 // console.log(user);
                 // console.log('------------------->')
@@ -61,6 +62,36 @@ passport.use('student',new LocalStrategy({
             })
         }
 ));
+
+// Controller
+passport.use('orgcontroller',new LocalStrategy({
+    usernameField:'email',
+    passReqToCallback:true//for adding 'req' arg to function
+    },
+    function(req,email,password,done){
+        //find a user and establish the identity
+        // if(req.path[1]==='s')
+        email='c'+email;
+
+        orgController.findOne({identity:email},(err,user)=>{
+            
+            if(err){
+                console.log('Error in finding user ====>passport');
+                return done(err);
+            }
+            
+            // console.log('------------------>');
+            // console.log(user);
+            // console.log('------------------->')
+            if(!user||user.password != password){
+                console.log("Invalid Useranme/Password");
+                return done(null,false);
+            }
+            //user successfully authenticated
+            return done(null,user);
+        })
+    }
+    ));
 
 // serializing the to decide which key is to be kept in the cookies
 passport.serializeUser((user,done)=>{
@@ -79,9 +110,17 @@ passport.deserializeUser((id,done)=>{
             }
             return done(null,student);
         })
-    }else{
+    }else if(id[0]==='a'){
         Admin.findOne({identity:id},(err,user)=>{
 
+            if(err){
+                console.log('Error in finding user ====>passport');
+                return done(err);
+            }
+            return done(null,user);
+        })
+    }else{
+        orgController.findOne({identity:id},(err,user)=>{
             if(err){
                 console.log('Error in finding user ====>passport');
                 return done(err);
@@ -97,18 +136,19 @@ passport.checkAuthentication=function(req,res,next){
         return next();
     }
     
-    let flag=req.path;
-    console.log(flag);
-    //if the user is not signed in
-    if(flag[1]==='s'){
-        return res.redirect('/students/login');
-    }else{
-        return res.redirect('/admins/login');
-    }
+    // let flag=req.path;
+    // console.log(flag);
+    // //if the user is not signed in
+    // if(flag[1]==='s'){
+    //     return res.redirect('/students/login');
+    // }else{
+    //     return res.redirect('/admins/login');
+    // }
+    return res.redirect('/');
 }
 
 passport.setAuthenticatedUser=function(req,res,next){
-    console.log(req.isAuthenticated());
+    console.log(req.isAuthenticated(), "from setAuthentication");
     if(req.isAuthenticated()){
         //res.user contains the current signed in user from the session cookies andd we are just sending to the locals for the views
         // console.log(req.user);

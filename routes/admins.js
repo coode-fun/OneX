@@ -4,13 +4,22 @@ const passport=require('passport');
 
 const adminController=require('../controller/admins');
 
-router.get('/login',adminController.login);
+var adminMiddleware = (request, response, next)=>{
+    if(request.isAuthenticated()){
+        if(request.user.identity[0] == 'a'){
+           return  next();
+        }
+    }
+    return response.redirect('/');
+}
+
+router.get('/login', adminController.login);
 // router.post('/login',studentController.loggedin);
 // router.get('/log-in',studentController.loginfailed);
 // router.get('/register',studentController.register);
 // router.post('/register',studentController.createStudent);
 // router.get('/verification',studentController.verification);
-router.get('/profile',passport.checkAuthentication,adminController.profile);
+router.get('/profile', adminMiddleware ,adminController.profile);
 
 // //use passport as a middle to authenticate
 router.post('/login',passport.authenticate(
@@ -21,18 +30,18 @@ router.post('/login',passport.authenticate(
 router.get('/logout',adminController.destroySession);                                        
 // router.get('/verify/:email',studentController.verify);
 
-router.get('/updateProfile',adminController.updateProfile);
-router.post('/updateAdmin',adminController.updateAdmin);
-router.get('/createdTest',adminController.createdTest);
+router.get('/updateProfile',adminMiddleware, adminController.updateProfile);
+router.post('/updateAdmin',adminMiddleware, adminController.updateAdmin);
+router.get('/createdTest',adminMiddleware, adminController.createdTest);
 
 //studentsEnrolled
-router.get('/studentsEnrolled/:testId', adminController.studentsEnrolled);
-router.get('/generateTestRank/:testId', adminController.generateTestRank);
+router.get('/studentsEnrolled/:testId', adminMiddleware, adminController.studentsEnrolled);
+router.get('/generateTestRank/:testId', adminMiddleware, adminController.generateTestRank);
 
 // Forgot Password
-router.get('/resetPassword', adminController.renderResetPassword);
+router.get('/resetPassword',  adminController.renderResetPassword);
 router.post('/resetPassword', adminController.resetPasswordRequest);
-router.get('/setNewPassword', adminController.renderNewPasswordRequest);
+router.get('/setNewPassword',  adminController.renderNewPasswordRequest);
 router.post('/setNewPassword', adminController.setNewPasswordRequest);
 
 

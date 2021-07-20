@@ -3,30 +3,47 @@ const router=express.Router();
 const passport=require('passport');
 
 const testController=require('../controller/tests');
+
+var adminMiddleware = (request, response, next)=>{
+    if(request.isAuthenticated()){
+        if(request.user.identity[0] == 'a'){
+            return next();
+        }
+    }
+    return response.redirect('/');
+}
+var studentMiddleware = (request, response, next)=>{
+    if(request.isAuthenticated()){
+        if(request.user.identity[0] == 's'){
+           return next();
+        }
+    }
+    return response.redirect('/');
+}
 //update marks
-router.get('/updateMarks/:code',testController.updateMarks);
+router.get('/updateMarks/:code', testController.updateMarks);
 
 //adding subject
-router.get('/addSubject',   testController.addSubject);
-router.post('/addSubject',  testController.createSubject);
-router.get('/deleteSubject/:s_code',    testController.deleteSubject);
-router.get('/getSubject/:subjectId', testController.getSubjectById);
-router.post('/editSubject', testController.editSubjectById);
+router.get('/addSubject', adminMiddleware,  testController.addSubject);
+router.post('/addSubject', adminMiddleware,  testController.createSubject);
+router.get('/deleteSubject/:s_code', adminMiddleware,    testController.deleteSubject);
+router.get('/getSubject/:subjectId',adminMiddleware,  testController.getSubjectById);
+router.post('/editSubject',adminMiddleware,  testController.editSubjectById);
 
 //adding test
-router.get('/createTest/:s_code',testController.addTest);
-router.post('/createTest/:s_code',testController.createTest);
-router.get('/deleteTest/:t_code',testController.deleteTest);
+router.get('/createTest/:s_code', adminMiddleware, testController.addTest);
+router.post('/createTest/:s_code', adminMiddleware, testController.createTest);
+router.get('/deleteTest/:t_code',adminMiddleware,  testController.deleteTest);
 
 // getTestById
-router.get('/getTest/:testId', testController.getTestById);
-router.post('/editTest', testController.editTestById);
+router.get('/getTest/:testId',adminMiddleware,  testController.getTestById);
+router.post('/editTest', adminMiddleware, testController.editTestById);
 //take test
-router.get('/startTest/:param',testController.startTest);
-router.get('/quiz/:param',testController.quiz);
+router.get('/startTest/:param', studentMiddleware, testController.startTest);
+router.get('/quiz/:param', studentMiddleware, testController.quiz);
 
 // Save answer of each question
-router.post('/saveAnswer',testController.saveAnswer);
+router.post('/saveAnswer', studentMiddleware, testController.saveAnswer);
 
 // feedback 
 router.post('/feedback',testController.feedback);

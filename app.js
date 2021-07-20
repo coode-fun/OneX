@@ -42,6 +42,7 @@ app.use(session({
     cookie:{
         maxAge:(1000*60*100)
     },
+    cookie: { secure: false },
     store:new mongoStore({
         mongooseConnection:mongoose.connection,
         autoRemove:'disabled'
@@ -59,13 +60,14 @@ app.get('/',(req,res)=>{
     console.log(req.isAuthenticated(),"inside home");
     if(req.isAuthenticated()){
         let flag=req.user.identity; 
-        console.log(flag);
          //if the user is not signed in
         if(flag[0]==='s'){
             return res.redirect('/students/sprofile');
         }
-        else{
+        else  if(flag[0]==='a'){
             return res.redirect('/admins/profile');
+        }else{
+            return res.redirect('/orgControllers/addAdmin');
         }
     }
     res.render("home/home.ejs");
@@ -73,10 +75,10 @@ app.get('/',(req,res)=>{
 
 app.use('/students',require('./routes/students'));
 app.use('/users',require('./routes/users'));
-app.use('/admins',require('./routes/admins'));
+app.use('/admins', require('./routes/admins'));
 app.use('/tests',require('./routes/tests'));
 app.use('/questions',require('./routes/questions'));
-
+app.use('/orgControllers',require('./routes/orgController'));
 
 app.get('*',(req,res)=>{
     return res.render('home/error',{message:"Under construction!!"});
