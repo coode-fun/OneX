@@ -8,11 +8,14 @@ const mongoStore=require('connect-mongo')(session);
 const cors =require('cors');
 
 var app=express();
-// var url="mongodb+srv://OneX_2021:OneX_2021@onex.ulmfc.mongodb.net/onex?retryWrites=true&w=majority&ssl=true";
-var url="mongodb+srv://OneX_2021:OneX_2021@onex.ulmfc.mongodb.net/onex?retryWrites=true&w=majority";
-// var url="mongodb://OneX_2021:OneX_2021@onex-shard-00-00.ulmfc.mongodb.net:27017,onex-shard-00-01.ulmfc.mongodb.net:27017,onex-shard-00-02.ulmfc.mongodb.net:27017/onex?ssl=true&replicaSet=atlas-getwn6-shard-0&authSource=admin&retryWrites=true&w=majority";
-//  const url="mongodb://localhost:27017/OneX";
-mongoose.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true },(err)=>{
+var url="mongodb+srv://Onex001:Onex001@cluster0.omhflae.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+mongoose.connect(url,
+    { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true
+    },
+    
+    (err)=>{
  
     if(err){
             console.log("Connection failed!!", err);
