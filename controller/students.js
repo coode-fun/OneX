@@ -306,14 +306,24 @@ module.exports.upcomingExams=async (req,res)=>{
     .exec(async (err,result)=>{
 
         var enrolled=[];
-        
+        let resultLen = result.length;
+        for(let i = 0; i < resultLen; i++){
+            let obj = result[i];
+            let enrolledCount = await Enrolled.count({test:obj._id, student : req.user._id});
+            if(enrolledCount){
+                enrolled.push(true);
+            }else{
+                enrolled.push(false);
+            }
+        }
+        /*
         //checking weather candidate is enrolled or not 
-        await result.forEach(async (obj)=>{
+        result.forEach((obj)=>{
 
             //         // Method3
             //         //--------------------------------------------------
                     
-                       Enrolled.find({test:obj._id, student : req.user._id},(err,ress)=>{
+                        Enrolled.count({test:obj._id, student : req.user._id},(err,ress)=>{
                         
                         console.log(" res.length ",ress.length);
                         if(ress.length===0){
@@ -323,12 +333,9 @@ module.exports.upcomingExams=async (req,res)=>{
                         }
                     })
         })
-        setTimeout(()=>{
-            console.log("enrolled: ",result);
-            return res.render('students/upcomingExams',{data:result,enroll:enrolled});
-        },1000);
-        
-        // return res.json(result);
+        */
+
+        return res.render('students/upcomingExams',{data:result,enroll:enrolled});
     })
 
 
