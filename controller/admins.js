@@ -265,7 +265,7 @@ module.exports.generateTestRank = async (request, response)=>{
         }
 
         if(result.length == 0){
-            response.send('No student registered');
+            return response.send('No student registered!!');
         }
         var studentsRecord = [];
         await result.forEach((obj)=>{
@@ -279,19 +279,7 @@ module.exports.generateTestRank = async (request, response)=>{
             studentsRecord.push(obj);
         })
 
-        // obj ={
-        //     percentage : 56,
-        //     name : "obj.student.name",
-        //     enrollment : "obj.student.enrollment",
-        //     department : "obj.student.department"
-        // }
-        // studentsRecord.push(obj);
-        // console.log(result);
-
-        console.log(studentsRecord);
         studentsRecord.sort((a,b)=>(  b.percentage - a.percentage));
-        console.log(studentsRecord);
-
         return response.render('admin/studentsRank.ejs',{data:studentsRecord, t_code : result[0].test.t_code,s_name: result[0].subject.s_name });
     })
 }
